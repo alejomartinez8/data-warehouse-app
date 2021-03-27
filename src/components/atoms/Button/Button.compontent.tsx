@@ -1,27 +1,19 @@
 import { StyledButton } from "./Button.styled";
-
+import { ColorType } from "themes/baseTheme";
 export interface IButtonProps {
-  backgroundColor?: string;
-  onClick?: () => void;
+  outline?: boolean;
   children: React.ReactNode;
-  variant?: "primary" | "secondary";
+  color?: ColorType;
 }
 
 export const Button = ({
   children,
-  backgroundColor,
-  onClick,
-  variant = "primary",
+  outline = false,
+  color = "primary",
   ...props
 }: IButtonProps) => {
   return (
-    <StyledButton
-      type="button"
-      backgroundColor={backgroundColor}
-      onClick={onClick}
-      variant={variant}
-      {...props}
-    >
+    <StyledButton color={color} outline={outline} {...props}>
       {children}
     </StyledButton>
   );
