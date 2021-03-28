@@ -1,5 +1,4 @@
-import styled, { css } from "styled-components";
-import { IButtonProps } from "./Button.compontent";
+import styled, { css } from 'styled-components';
 
 interface IStyledButton {
   outline?: boolean;
@@ -9,7 +8,7 @@ interface IStyledButton {
 
 const sizeMixin = (size: string) => {
   switch (size) {
-    case "large":
+    case 'large':
       return css`
         font-size: 15px;
         border-radius: 3px;
@@ -17,13 +16,13 @@ const sizeMixin = (size: string) => {
         font-weight: 400;
       `;
 
-    case "small":
+    case 'small':
       return css`
         font-size: 11px;
         padding: 7px 13px;
       `;
 
-    case "extraSmall":
+    case 'extraSmall':
       return css`
         font-size: 10px;
         padding: 5px 9px;
@@ -73,5 +72,5 @@ export const StyledButton = styled.button<IStyledButton>(
         border-radius: 100px;
       `}
     `;
-  }
+  },
 );
