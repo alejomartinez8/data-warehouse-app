@@ -35,6 +35,14 @@ const roundMixin = (round: boolean) => {
   if (round) return 'border-radius: 100px';
 };
 
+const blockMixin = (block: boolean) => {
+  if (block)
+    return css`
+      display: block;
+      width: 100%;
+    `;
+};
+
 export const StyledButton = styled.button<IStyledButton>(
   ({ theme, color, outline, size, round, block }) => {
     return css`
@@ -64,6 +72,7 @@ export const StyledButton = styled.button<IStyledButton>(
 
       ${sizeMixin(size)};
       ${roundMixin(round)};
+      ${blockMixin(block)};
     `;
   },
 );

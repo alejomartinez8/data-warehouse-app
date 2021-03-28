@@ -18,7 +18,7 @@ const Template = ({ children, ...props }: IButtonProps) => <Button {...props}>{c
 
 //👇 Each story then reuses that template
 export const Default = Template.bind({});
-Default.args = { children: 'Button' };
+Default.args = { children: 'Button', color: 'primary' };
 
 export const Normal = () => (
   <StyledContainer>
