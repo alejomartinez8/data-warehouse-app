@@ -13,7 +13,8 @@
     "lint:ci:check": "eslint -c .eslintrc.js --ext .ts,.tsx ./src --quiet",
     "lint:fix": "eslint -c .eslintrc.js --ext .ts,.tsx ./src --fix",
     "format": "pretty-quick --staged",
-    "husky": "npm run format && npm run lint"
+    "husky": "npm run format && npm run lint",
+    "prepare": "husky install"
   },
   "husky": {
     "hooks": {
