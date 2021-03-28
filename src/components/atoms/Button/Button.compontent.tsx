@@ -1,6 +1,7 @@
 import { HTMLAttributes } from "react";
 import { StyledButton } from "./Button.styled";
 import { ColorType } from "themes/baseTheme";
+
 export interface IButtonProps extends HTMLAttributes<HTMLButtonElement> {
   outline?: boolean;
   round?: boolean;
