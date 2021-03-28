@@ -1,11 +1,10 @@
 const colors = {
-  default: '#282a3c',
-  primary: '#177dff',
-  secondary: '#716aca',
-  success: '#35cd3a',
-  info: '#05b4d8',
-  warning: '#ffa534',
-  danger: '#f3545d',
+  default: '#ffffff',
+  primary: '#1ab394',
+  success: '#1c84c6',
+  info: '#23c6c8',
+  warning: '#f8ac59',
+  danger: '#ED5565',
   white: '#ffffff',
 };
 

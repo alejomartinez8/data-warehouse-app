@@ -9,7 +9,8 @@ const GlobalStyles = createGlobalStyle`
   }
 
   html{
-    font-size: 16px;
+    font-size: 13px;
+    font-family: 'open sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   }
 `;
 

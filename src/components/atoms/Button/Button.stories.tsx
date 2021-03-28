@@ -9,7 +9,7 @@ export default {
 
 const StyledContainer = styled.div`
   * {
-    margin: 0 0.1rem;
+    margin: 0.1rem;
   }
 `;
 
@@ -24,7 +24,6 @@ export const Normal = () => (
   <StyledContainer>
     <Button>Default</Button>
     <Button color="primary">Primary</Button>
-    <Button color="secondary">Secondary</Button>
     <Button color="success">Success</Button>
     <Button color="info">Info</Button>
     <Button color="warning">Warning</Button>
@@ -39,9 +38,6 @@ export const ButtonOutline = () => (
     <Button outline>Default</Button>
     <Button outline color="primary">
       Primary
-    </Button>
-    <Button outline color="secondary">
-      Secondary
     </Button>
     <Button outline color="success">
       Success
@@ -68,7 +64,7 @@ export const ButtonSize = () => (
       Small
     </Button>
     <Button color="primary" size="extraSmall">
-      Small
+      Extra Small
     </Button>
   </StyledContainer>
 );
@@ -78,6 +74,14 @@ export const ButtonType = () => (
     <Button color="primary">Normal</Button>
     <Button color="primary" round>
       Round
+    </Button>
+  </StyledContainer>
+);
+
+export const ButtonBlcok = () => (
+  <StyledContainer>
+    <Button color="primary" block>
+      Button Block
     </Button>
   </StyledContainer>
 );

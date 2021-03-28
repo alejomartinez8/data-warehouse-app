@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components';
 interface IStyledButton {
   outline?: boolean;
   round?: boolean;
+  block?: boolean;
   size?: string;
 }
 
@@ -30,47 +31,39 @@ const sizeMixin = (size: string) => {
   }
 };
 
-export const StyledButton = styled.button<IStyledButton>(
-  ({ theme, color, outline, size, round }) => {
-    return css`
-      background-color: ${outline ? theme.colors.white : theme.colors[color]};
-      color: ${outline ? theme.colors[color] : theme.colors.white};
-      border: 1px solid ${theme.colors[color]};
+const roundMixin = (round: boolean) => {
+  if (round) return 'border-radius: 100px';
+};
 
-      display: inline-block;
-      cursor: pointer;
-      padding: 0.6rem 1rem;
-      font-size: 12px;
+export const StyledButton = styled.button<IStyledButton>(
+  ({ theme, color, outline, size, round, block }) => {
+    return css`
       opacity: 1;
       border-radius: 3px;
-      font-weight: 400;
-      text-align: center;
-      white-space: nowrap;
-      vertical-align: middle;
-      user-select: none;
-      line-height: 1.5;
-      border-radius: 0.25rem;
       transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
-        border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, opacity 0.15s ease-in-out;
+
+      background-color: ${outline ? theme.colors.white : theme.colors[color]};
+      color: ${color === 'default'
+        ? 'inherit'
+        : outline
+        ? theme.colors[color]
+        : theme.colors.white};
+      border: 1px solid ${color === 'default' ? '#e7eaec' : theme.colors[color]};
 
       &:hover,
       &:focus {
         opacity: 0.9;
-        transition: all 0.3s;
         box-shadow: 0 5px 15px rgb(0 0 0 / 5%), 0 4px 10px rgb(90 97 105 / 25%);
+        color: ${color === 'default' ? 'border: 1px solid #d2d2d2' : theme.colors.white};
         ${outline &&
         css`
           background-color: ${theme.colors[color]};
-          color: ${theme.colors.white};
         `}
       }
 
-      ${sizeMixin(size)}
-
-      ${round &&
-      css`
-        border-radius: 100px;
-      `}
+      ${sizeMixin(size)};
+      ${roundMixin(round)};
     `;
   },
 );
