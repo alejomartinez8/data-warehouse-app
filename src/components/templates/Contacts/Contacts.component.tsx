@@ -5,11 +5,11 @@ export default function Home() {
   return (
     <div>
       <Head>
-        <title>Data Warehouse</title>
+        <title>Data Warehouse - Contacts</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Layout>Content</Layout>
+      <Layout>Contacts</Layout>
     </div>
   );
 }
