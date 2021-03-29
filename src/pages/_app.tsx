@@ -1,7 +1,9 @@
 import { ThemeProvider, createGlobalStyle } from 'styled-components';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/globals.css';
 import type { AppProps } from 'next/app';
 import baseTheme from 'themes/baseTheme';
+import '@fortawesome/fontawesome-free/css/all.css';
 
 const GlobalStyles = createGlobalStyle`
   body{
