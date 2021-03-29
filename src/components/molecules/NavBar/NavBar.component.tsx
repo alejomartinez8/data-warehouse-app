@@ -7,13 +7,13 @@ import {
   StyledList,
   StyledNavItem,
   StyledNavLogout,
-} from './Navbar.styled';
+} from './NavBar.styled';
 
 interface INavbarProps {
   name: string;
 }
 
-export const Navbar = ({ name }: INavbarProps) => {
+export const NavBar = ({ name }: INavbarProps) => {
   return (
     <StyledNav className="nav navbar-expand-lg">
       <StyledNavBrand className="navbar-brand">{name}</StyledNavBrand>
@@ -42,4 +42,4 @@ export const Navbar = ({ name }: INavbarProps) => {
   );
 };
 
-export default Navbar;
+export default NavBar;
