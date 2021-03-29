@@ -1,15 +1,5 @@
-import Head from 'next/head';
-import { Layout } from 'components/organisms';
+import { Contacts } from 'components/templates';
 
 export default function Home() {
-  return (
-    <div>
-      <Head>
-        <title>Data Warehouse</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <Layout>Content</Layout>
-    </div>
-  );
+  return <Contacts />;
 }
