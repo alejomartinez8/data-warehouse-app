@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavBar } from 'components/molecules';
-import { StyledWrapper } from './Layout.styled';
+import { StyledWrapper, StyledContent } from './Layout.styled';
 
 interface ILayout {
   children: React.ReactNode;
@@ -13,7 +13,9 @@ export const Layout = ({ children }: ILayout) => {
         <NavBar name="Data Warehouse" />
       </header>
 
-      <main>{children}</main>
+      <main>
+        <StyledContent>{children}</StyledContent>
+      </main>
 
       <footer></footer>
     </StyledWrapper>

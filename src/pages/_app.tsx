@@ -6,12 +6,11 @@ import '@fortawesome/fontawesome-free/css/all.css';
 
 const GlobalStyles = createGlobalStyle`
   body{
-    margin: 0;
-  }
-
-  html{
     font-size: 13px;
     font-family: 'open sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: ${baseTheme.colors.secondary};
+    background-color: #2F4050;
+    overflow: hidden;
   }
 `;
 
