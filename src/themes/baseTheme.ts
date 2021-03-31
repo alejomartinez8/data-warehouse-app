@@ -7,6 +7,7 @@ const colors = {
   warning: '#f8ac59',
   danger: '#ED5565',
   white: '#ffffff',
+  grey: '#f3f3f4',
 };
 
 export declare type ColorType = keyof typeof colors;

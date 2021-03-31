@@ -15,20 +15,20 @@ interface INavbarProps {
 
 export const NavBar = ({ name }: INavbarProps) => {
   return (
-    <StyledNav className="nav navbar-expand-lg">
+    <StyledNav className="nav navbar-expand-lg border-bottom">
       <StyledNavBrand className="navbar-brand">{name}</StyledNavBrand>
       <ul className="nav navbar-nav mr-auto">
         <StyledList>
-          <StyledNavItem href="/contacts">Contactos</StyledNavItem>
+          <StyledNavItem href="/contacts">Contacts</StyledNavItem>
         </StyledList>
         <StyledList>
-          <StyledNavItem href="/companies">Compañías</StyledNavItem>
+          <StyledNavItem href="/companies">Companies</StyledNavItem>
         </StyledList>
         <StyledList>
-          <StyledNavItem href="/companies">Compañías</StyledNavItem>
+          <StyledNavItem href="/users">Users</StyledNavItem>
         </StyledList>
         <StyledList>
-          <StyledNavItem href="/companies">Región Ciudad</StyledNavItem>
+          <StyledNavItem href="/companies">Region/City</StyledNavItem>
         </StyledList>
       </ul>
       <ul className="nav">
