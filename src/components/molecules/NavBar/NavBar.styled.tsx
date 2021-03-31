@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 
 export const StyledNav = styled.nav(
   ({ theme }) => css`
-    background: ${theme.colors.grey};
+    background: ${theme.colors.white};
     margin-bottom: 0;
     padding: 0;
     width: 100%;

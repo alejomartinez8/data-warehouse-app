@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import { Layout } from 'components/organisms';
 import { CardBox } from 'components/atoms';
+import { ContactList } from 'components/molecules';
 
 export const Contacts = () => {
   const contacts = [
@@ -70,52 +71,7 @@ export const Contacts = () => {
 
       <Layout>
         <CardBox title="Contacts">
-          <div className="table-responsive">
-            <table className="table table-striped">
-              <thead>
-                <tr>
-                  <th>
-                    <input type="checkbox" />
-                  </th>
-                  <th>Contact</th>
-                  <th>Country/Region</th>
-                  <th>Company</th>
-                  <th>Position</th>
-                  <th>Favorite Channel</th>
-                  <th>Interest</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {contacts.map((contact) => (
-                  <tr key={contact.id}>
-                    <td>
-                      <input type="checkbox" />
-                    </td>
-                    <td>
-                      <div>{contact.name}</div>
-                      <div>{contact.email}</div>
-                    </td>
-                    <td>
-                      <div>{contact.country}</div>
-                      <div>{contact.region}</div>
-                    </td>
-                    <td>{contact.company}</td>
-                    <td>{contact.position}</td>
-                    <td>
-                      {contact.channels.map((channel) => (
-                        <span className="badge badge-info m-1" key={channel}>
-                          {channel}
-                        </span>
-                      ))}
-                    </td>
-                    <td>{contact.interest}</td>
-                    <td></td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+          <ContactList contacts={contacts} />
         </CardBox>
       </Layout>
     </>
