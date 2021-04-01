@@ -2,20 +2,31 @@ import styled, { css } from 'styled-components';
 
 export const StyledNav = styled.nav(
   ({ theme }) => css`
-    background: ${theme.colors.white};
+    background-color: ${theme.colors.white};
     margin-bottom: 0;
     padding: 0;
     width: 100%;
     border: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
 
-    & {
-      ul,
-      li {
-        margin: 0;
-      }
+    @media (min-width: 992px) {
+      flex-flow: row nowrap;
+      justify-content: flex-start;
     }
   `,
 );
+
+export const StyledNavMenu = styled.div`
+  flex-grow: 1;
+  align-items: center;
+
+  @media (min-width: 992px) {
+    display: flex;
+    flex-basis: auto;
+  }
+`;
 
 export const StyledNavBrand = styled.a(
   ({ theme }) => css`
@@ -25,6 +36,10 @@ export const StyledNavBrand = styled.a(
     font-size: 18px;
     line-height: 20px;
     cursor: pointer;
+    display: inline-block;
+    margin-right: 1rem;
+    white-space: nowrap;
+    text-decoration: none;
 
     &:hover {
       color: ${theme.colors.white};
@@ -32,9 +47,16 @@ export const StyledNavBrand = styled.a(
   `,
 );
 
-export const StyledList = styled.li`
-  margin-bottom: 0px;
+export const StyledList = styled.ul`
+  margin-right: auto;
+  display: flex;
+  padding-left: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+  list-style: none;
 `;
+
+export const StyledItem = styled.li``;
 
 export const StyledNavItem = styled.a(
   ({ theme }) => css`
@@ -50,6 +72,15 @@ export const StyledNavItem = styled.a(
     }
   `,
 );
+
+export const StyledListLogut = styled.ul`
+  margin: 0;
+  padding: 0;
+  text-align: right;
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+`;
 
 export const StyledNavLogout = styled.a(
   ({ theme }) => css`
