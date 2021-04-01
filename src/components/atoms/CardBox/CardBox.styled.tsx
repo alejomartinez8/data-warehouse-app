@@ -10,18 +10,14 @@ export const StyledContainer = styled.div`
 export const StyledTitle = styled.div(
   ({ theme }) => css`
     background-color: ${theme.colors.white};
-    background-color: #ffffff;
-    border-color: #e7eaec;
-    border-image: none;
+    border-color: ${theme.colors.border};
     border-style: solid solid none;
     border-width: 1px;
-    color: inherit;
-    margin-bottom: 0;
-    padding: 15px 90px 8px 15px;
+    padding: 0.5rem 1rem;
     min-height: 48px;
     position: relative;
-    clear: both;
     border-radius: 2px 2px 0 0;
+    display: flex;
   `,
 );
 
@@ -38,11 +34,11 @@ export const StyledHeading = styled.h5`
 export const StyledContent = styled.div(
   ({ theme }) => css`
     background-color: ${theme.colors.white};
-    color: inherit;
-    padding: 15px 20px 20px 20px;
-    border-color: #e7eaec;
+    padding: 20px;
+    border-color: ${theme.colors.border};
     border-image: none;
     border-style: solid;
     border-width: 1px;
+    clear: both;
   `,
 );

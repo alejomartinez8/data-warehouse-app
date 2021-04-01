@@ -1,11 +1,13 @@
-import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { Icon } from 'components/atoms';
+
 import {
   StyledNav,
   StyledNavBrand,
   StyledList,
+  StyledItem,
+  StyledNavMenu,
   StyledNavItem,
+  StyledListLogut,
   StyledNavLogout,
 } from './NavBar.styled';
 
@@ -15,29 +17,31 @@ interface INavbarProps {
 
 export const NavBar = ({ name }: INavbarProps) => {
   return (
-    <StyledNav className="nav navbar-expand-lg border-bottom">
-      <StyledNavBrand className="navbar-brand">{name}</StyledNavBrand>
-      <ul className="nav navbar-nav mr-auto">
+    <StyledNav>
+      <StyledNavMenu>
+        <StyledNavBrand>{name}</StyledNavBrand>
         <StyledList>
-          <StyledNavItem href="/contacts">Contacts</StyledNavItem>
+          <StyledItem>
+            <StyledNavItem href="/contacts">Contacts</StyledNavItem>
+          </StyledItem>
+          <StyledItem>
+            <StyledNavItem href="/companies">Companies</StyledNavItem>
+          </StyledItem>
+          <StyledItem>
+            <StyledNavItem href="/users">Users</StyledNavItem>
+          </StyledItem>
+          <StyledItem>
+            <StyledNavItem href="/companies">Region/City</StyledNavItem>
+          </StyledItem>
         </StyledList>
-        <StyledList>
-          <StyledNavItem href="/companies">Companies</StyledNavItem>
-        </StyledList>
-        <StyledList>
-          <StyledNavItem href="/users">Users</StyledNavItem>
-        </StyledList>
-        <StyledList>
-          <StyledNavItem href="/companies">Region/City</StyledNavItem>
-        </StyledList>
-      </ul>
-      <ul className="nav">
-        <li>
-          <StyledNavLogout href="/login">
-            <FontAwesomeIcon icon={faSignOutAlt}></FontAwesomeIcon> Logout
-          </StyledNavLogout>
-        </li>
-      </ul>
+        <StyledListLogut>
+          <StyledList>
+            <StyledNavLogout href="/login">
+              <Icon icon="sign-out-alt" /> Logout
+            </StyledNavLogout>
+          </StyledList>
+        </StyledListLogut>
+      </StyledNavMenu>
     </StyledNav>
   );
 };

@@ -1,7 +1,8 @@
 import Head from 'next/head';
 import { Layout } from 'components/organisms';
-import { CardBox } from 'components/atoms';
+import { CardBox, InputSearch, Button } from 'components/atoms';
 import { ContactList } from 'components/molecules';
+import { StyledTitleContainer } from './Contacts.styled';
 
 export const Contacts = () => {
   const contacts = [
@@ -68,10 +69,25 @@ export const Contacts = () => {
         <title>Data Warehouse - Contacts</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
       <Layout>
-        <CardBox title="Contacts">
-          <ContactList contacts={contacts} />
+        <CardBox>
+          <CardBox.Title>
+            <StyledTitleContainer>
+              <InputSearch />
+              <div className="col d-flex justify-content-end">
+                <Button color="primary" outline>
+                  <i className="fas fa-upload"></i>
+                </Button>
+                <Button color="primary" outline>
+                  Export Contacts
+                </Button>
+                <Button color="primary">Add Contact</Button>
+              </div>
+            </StyledTitleContainer>
+          </CardBox.Title>
+          <CardBox.Content>
+            <ContactList contacts={contacts} />
+          </CardBox.Content>
         </CardBox>
       </Layout>
     </>

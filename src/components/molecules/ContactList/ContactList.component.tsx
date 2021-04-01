@@ -1,4 +1,10 @@
-import { StyledTR } from './ContactList.styled';
+import {
+  StyledTableContet,
+  StyledTable,
+  StyledTHead,
+  StyledTBody,
+  StyledTR,
+} from './ContactList.styled';
 
 interface ITable {
   contacts: any;
@@ -6,9 +12,9 @@ interface ITable {
 
 export const ContactList = ({ contacts }: ITable) => {
   return (
-    <div className="table-responsive">
-      <table className="table">
-        <thead>
+    <StyledTableContet>
+      <StyledTable>
+        <StyledTHead>
           <tr>
             <th>
               <input type="checkbox" />
@@ -21,8 +27,8 @@ export const ContactList = ({ contacts }: ITable) => {
             <th>Interest</th>
             <th>Actions</th>
           </tr>
-        </thead>
-        <tbody>
+        </StyledTHead>
+        <StyledTBody>
           {contacts.map((contact) => (
             <StyledTR key={contact.id}>
               <td>
@@ -49,8 +55,8 @@ export const ContactList = ({ contacts }: ITable) => {
               <td></td>
             </StyledTR>
           ))}
-        </tbody>
-      </table>
-    </div>
+        </StyledTBody>
+      </StyledTable>
+    </StyledTableContet>
   );
 };

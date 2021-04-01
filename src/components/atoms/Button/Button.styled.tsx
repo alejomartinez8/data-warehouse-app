@@ -46,8 +46,13 @@ const blockMixin = (block: boolean) => {
 export const StyledButton = styled.button<IStyledButton>(
   ({ theme, color, outline, size, round, block }) => {
     return css`
+      cursor: pointer;
+      font-weight: 400;
+      text-align: center;
+      line-height: 1.5;
       opacity: 1;
       border-radius: 3px;
+      padding: 0.375rem 0.75rem;
       transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
         border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, opacity 0.15s ease-in-out;
 
@@ -62,7 +67,6 @@ export const StyledButton = styled.button<IStyledButton>(
       &:hover,
       &:focus {
         opacity: 0.9;
-        box-shadow: 0 5px 15px rgb(0 0 0 / 5%), 0 4px 10px rgb(90 97 105 / 25%);
         color: ${color === 'default' ? 'border: 1px solid #d2d2d2' : theme.colors.white};
         ${outline &&
         css`

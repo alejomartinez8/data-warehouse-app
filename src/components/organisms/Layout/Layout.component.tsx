@@ -1,6 +1,12 @@
 import React from 'react';
 import { NavBar } from 'components/molecules';
-import { StyledWrapper, StyledContent } from './Layout.styled';
+import { Footer } from 'components/atoms';
+import {
+  StyledWrapper,
+  StyledPageWrapper,
+  StyledContent,
+  StyledNavContainer,
+} from './Layout.styled';
 
 interface ILayout {
   children?: React.ReactNode;
@@ -9,9 +15,13 @@ interface ILayout {
 export const Layout = ({ children }: ILayout) => {
   return (
     <StyledWrapper>
-      <NavBar name="Data Warehouse" />
-      <StyledContent>{children}</StyledContent>
-      <footer></footer>
+      <StyledPageWrapper>
+        <StyledNavContainer>
+          <NavBar name="Data Warehouse" />
+        </StyledNavContainer>
+        <StyledContent>{children}</StyledContent>
+        <Footer />
+      </StyledPageWrapper>
     </StyledWrapper>
   );
 };

@@ -1,20 +1,23 @@
-import { ReactNode } from 'react';
-import { StyledContainer, StyledTitle, StyledHeading, StyledContent } from './CardBox.styled';
+import { HTMLAttributes, ReactNode } from 'react';
+import { StyledContainer, StyledTitle, StyledContent } from './CardBox.styled';
 
-interface ICardBox {
-  title?: string;
+interface ICardBox extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
 }
 
-export const CardBox = ({ title, children, ...props }: ICardBox) => {
-  return (
-    <StyledContainer {...props}>
-      {title && (
-        <StyledTitle>
-          <StyledHeading>{title}</StyledHeading>
-        </StyledTitle>
-      )}
-      <StyledContent>{children}</StyledContent>
-    </StyledContainer>
-  );
+const CardBoxTitle = ({ children, ...props }: ICardBox) => {
+  return <StyledTitle {...props}>{children}</StyledTitle>;
 };
+
+const CardBoxContent = ({ children, ...props }: ICardBox) => {
+  return <StyledContent {...props}>{children}</StyledContent>;
+};
+
+const CardBox = ({ children, ...props }: ICardBox) => {
+  return <StyledContainer {...props}>{children}</StyledContainer>;
+};
+
+CardBox.Title = CardBoxTitle;
+CardBox.Content = CardBoxContent;
+
+export { CardBox };
