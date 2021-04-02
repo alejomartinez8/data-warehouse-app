@@ -17,7 +17,7 @@ export const Layout = ({ children }: ILayout) => {
     <StyledWrapper>
       <StyledPageWrapper>
         <StyledNavContainer>
-          <NavBar name="Data Warehouse" />
+          <NavBar />
         </StyledNavContainer>
         <StyledContent>{children}</StyledContent>
         <Footer />
