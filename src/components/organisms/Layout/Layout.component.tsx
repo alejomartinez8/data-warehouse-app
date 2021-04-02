@@ -8,22 +8,16 @@ import {
   StyledNavContainer,
 } from './Layout.styled';
 
-interface ILayout {
-  children?: React.ReactNode;
-}
-
-export const Layout = ({ children }: ILayout) => {
-  return (
-    <StyledWrapper>
-      <StyledPageWrapper>
-        <StyledNavContainer>
-          <NavBar />
-        </StyledNavContainer>
-        <StyledContent>{children}</StyledContent>
-        <Footer />
-      </StyledPageWrapper>
-    </StyledWrapper>
-  );
-};
+export const Layout = ({ children }) => (
+  <StyledWrapper>
+    <StyledPageWrapper>
+      <StyledNavContainer>
+        <NavBar />
+      </StyledNavContainer>
+      <StyledContent>{children}</StyledContent>
+      <Footer />
+    </StyledPageWrapper>
+  </StyledWrapper>
+);
 
 export default Layout;

@@ -1,3 +1,4 @@
+/* eslint-disable react/display-name */
 import React, { forwardRef, HTMLAttributes } from 'react';
 import { ColorType } from 'themes/baseTheme';
 import { StyledButton } from './Button.styled';
@@ -14,19 +15,19 @@ export interface IButtonProps extends HTMLAttributes<HTMLButtonElement> {
   // [x: string]: any;
 }
 
-export const Button = forwardRef(function Button(
-  {
-    outline = false,
-    round = false,
-    block = false,
-    color = 'default',
-    size = 'normal',
-    children,
-    ...props
-  }: IButtonProps,
-  ref,
-) {
-  return (
+export const Button = forwardRef(
+  (
+    {
+      outline = false,
+      round = false,
+      block = false,
+      color = 'default',
+      size = 'normal',
+      children,
+      ...props
+    }: IButtonProps,
+    ref,
+  ) => (
     <StyledButton
       ref={ref}
       className="btn"
@@ -39,5 +40,5 @@ export const Button = forwardRef(function Button(
     >
       {children}
     </StyledButton>
-  );
-});
+  ),
+);
