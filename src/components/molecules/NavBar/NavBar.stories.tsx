@@ -3,7 +3,7 @@ import baseTheme from '../../../themes/baseTheme';
 import { NavBar } from './NavBar.component';
 
 export default {
-  title: 'Atoms/NavBar',
+  title: 'Molecules/NavBar',
   component: NavBar,
 };
 

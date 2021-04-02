@@ -17,6 +17,7 @@ export const StyledInput = styled.input(
     outline: 0;
     display: block;
     padding: 0.5rem 1rem;
+    width: 100%;
     transition: border-color 0.15s ease-in-out 0s;
 
     &:focus {
