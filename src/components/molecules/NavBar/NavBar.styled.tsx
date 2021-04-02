@@ -32,7 +32,7 @@ export const StyledNavBrand = styled.a(
   ({ theme }) => css`
     background: ${theme.colors.primary};
     color: ${theme.colors.white};
-    padding: 15px 25px;
+    padding: 0 0.5rem;
     font-size: 18px;
     line-height: 20px;
     cursor: pointer;
@@ -46,6 +46,10 @@ export const StyledNavBrand = styled.a(
     }
   `,
 );
+
+export const StyledLogo = styled.img`
+  height: 51px;
+`;
 
 export const StyledList = styled.ul`
   margin-right: auto;

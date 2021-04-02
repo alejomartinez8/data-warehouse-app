@@ -3,6 +3,7 @@ import { Icon } from 'components/atoms';
 import {
   StyledNav,
   StyledNavBrand,
+  StyledLogo,
   StyledList,
   StyledItem,
   StyledNavMenu,
@@ -19,7 +20,9 @@ export const NavBar = ({ name }: INavbarProps) => {
   return (
     <StyledNav>
       <StyledNavMenu>
-        <StyledNavBrand>{name}</StyledNavBrand>
+        <StyledNavBrand>
+          <StyledLogo src="/images/Logo Data Warehouse.png" alt="logo" />
+        </StyledNavBrand>
         <StyledList>
           <StyledItem>
             <StyledNavItem href="/contacts">Contacts</StyledNavItem>
