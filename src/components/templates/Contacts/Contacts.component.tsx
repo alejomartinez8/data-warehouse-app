@@ -1,7 +1,7 @@
 import Head from 'next/head';
+import { CardBox, Button, Icon } from 'components/atoms';
+import { ContactList, InputSearch } from 'components/molecules';
 import { Layout } from 'components/organisms';
-import { CardBox, InputSearch, Button, Icon } from 'components/atoms';
-import { ContactList } from 'components/molecules';
 import { StyledTitleContainer, StyledButtonContainer } from './Contacts.styled';
 
 export const Contacts = () => {

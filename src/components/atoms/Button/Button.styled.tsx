@@ -70,9 +70,9 @@ export const StyledButton = styled.button<IStyledButton>(
         `}
       }
 
-      ${sizeMixin(size)};
-      ${roundMixin(round)};
-      ${blockMixin(block)};
+      ${size && sizeMixin(size)};
+      ${round && roundMixin(round)};
+      ${block && blockMixin(block)};
     `;
   },
 );

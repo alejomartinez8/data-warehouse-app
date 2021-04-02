@@ -6,6 +6,6 @@ interface IStyledIcon {
 
 export const StyledIcon = styled.i<IStyledIcon>(
   ({ theme, color }) => css`
-    color: ${color ? color : theme.colors.default};
+    color: ${color || theme.colors.default};
   `,
 );

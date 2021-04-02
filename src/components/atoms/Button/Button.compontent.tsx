@@ -1,6 +1,6 @@
 import React, { forwardRef, HTMLAttributes } from 'react';
-import { StyledButton } from './Button.styled';
 import { ColorType } from 'themes/baseTheme';
+import { StyledButton } from './Button.styled';
 
 export interface IButtonProps extends HTMLAttributes<HTMLButtonElement> {
   outline?: boolean;

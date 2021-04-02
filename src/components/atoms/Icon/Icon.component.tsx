@@ -33,5 +33,5 @@ export const Icon = ({ icon, color }: IIcon) => {
     }
   }
 
-  return <StyledIcon color={color} className={getIcon()}></StyledIcon>;
+  return <StyledIcon color={color} className={getIcon()} />;
 };

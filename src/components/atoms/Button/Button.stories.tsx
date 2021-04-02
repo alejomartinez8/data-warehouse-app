@@ -1,6 +1,6 @@
 import React from 'react';
-import { Button, IButtonProps } from './Button.compontent';
 import styled from 'styled-components';
+import { Button, IButtonProps } from './Button.compontent';
 
 export default {
   title: 'Atoms/Button',
@@ -13,10 +13,10 @@ const StyledContainer = styled.div`
   }
 `;
 
-//👇 We create a “template” of how args map to rendering
+// 👇 We create a “template” of how args map to rendering
 const Template = ({ children, ...props }: IButtonProps) => <Button {...props}>{children}</Button>;
 
-//👇 Each story then reuses that template
+// 👇 Each story then reuses that template
 export const Default = Template.bind({});
 Default.args = { children: 'Button', color: 'primary' };
 

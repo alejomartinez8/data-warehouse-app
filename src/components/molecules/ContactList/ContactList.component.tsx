@@ -52,7 +52,7 @@ export const ContactList = ({ contacts }: ITable) => {
                 ))}
               </td>
               <td>{contact.interest}</td>
-              <td></td>
+              <td />
             </StyledTR>
           ))}
         </StyledTBody>
