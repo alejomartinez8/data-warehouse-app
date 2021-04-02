@@ -1,5 +1,5 @@
 const colors = {
-  default: '#ffffff',
+  default: '#495057',
   primary: '#1ab394',
   secondary: '#676a6c',
   success: '#1c84c6',
@@ -7,6 +7,8 @@ const colors = {
   warning: '#f8ac59',
   danger: '#ED5565',
   white: '#ffffff',
+  grey: '#f3f3f4',
+  border: '#e5e6e7',
 };
 
 export declare type ColorType = keyof typeof colors;

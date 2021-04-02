@@ -1,23 +1,27 @@
 import React from 'react';
 import { NavBar } from 'components/molecules';
-import { StyledWrapper, StyledContent } from './Layout.styled';
+import { Footer } from 'components/atoms';
+import {
+  StyledWrapper,
+  StyledPageWrapper,
+  StyledContent,
+  StyledNavContainer,
+} from './Layout.styled';
 
 interface ILayout {
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 export const Layout = ({ children }: ILayout) => {
   return (
     <StyledWrapper>
-      <header>
-        <NavBar name="Data Warehouse" />
-      </header>
-
-      <main>
+      <StyledPageWrapper>
+        <StyledNavContainer>
+          <NavBar name="Data Warehouse" />
+        </StyledNavContainer>
         <StyledContent>{children}</StyledContent>
-      </main>
-
-      <footer></footer>
+        <Footer />
+      </StyledPageWrapper>
     </StyledWrapper>
   );
 };
