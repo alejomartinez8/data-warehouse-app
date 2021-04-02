@@ -1,9 +1,9 @@
 /* eslint-disable react/display-name */
-import React, { forwardRef, HTMLAttributes } from 'react';
+import React, { forwardRef, ButtonHTMLAttributes } from 'react';
 import { ColorType } from 'themes/baseTheme';
 import { StyledButton } from './Button.styled';
 
-export interface IButtonProps extends HTMLAttributes<HTMLButtonElement> {
+export interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   outline?: boolean;
   round?: boolean;
   block?: boolean;
