@@ -31,6 +31,7 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
+    'arrow-body-style': ['error', 'as-needed'],
     //
     'react/jsx-fragments': 'off',
     'react/jsx-filename-extension': [1, { extensions: ['.ts', '.tsx'] }],
