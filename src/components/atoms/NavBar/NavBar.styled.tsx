@@ -10,6 +10,7 @@ export const StyledNav = styled.nav(
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    align-items: center;
 
     @media (min-width: 992px) {
       flex-flow: row nowrap;
@@ -18,21 +19,11 @@ export const StyledNav = styled.nav(
   `,
 );
 
-export const StyledNavMenu = styled.div`
-  flex-grow: 1;
-  align-items: center;
-
-  @media (min-width: 992px) {
-    display: flex;
-    flex-basis: auto;
-  }
-`;
-
 export const StyledNavBrand = styled.a(
   ({ theme }) => css`
     background: ${theme.colors.primary};
     color: ${theme.colors.white};
-    padding: 15px 25px;
+    padding: 0 0.5rem;
     font-size: 18px;
     line-height: 20px;
     cursor: pointer;
@@ -47,16 +38,23 @@ export const StyledNavBrand = styled.a(
   `,
 );
 
+export const StyledLogo = styled.img`
+  height: 51px;
+`;
+
 export const StyledList = styled.ul`
   margin-right: auto;
-  display: flex;
   padding-left: 0;
   margin-top: 0;
   margin-bottom: 0;
   list-style: none;
+  display: flex;
+  align-items: center;
 `;
 
-export const StyledItem = styled.li``;
+export const StyledItem = styled.li`
+  margin: 0;
+`;
 
 export const StyledNavItem = styled.a(
   ({ theme }) => css`
@@ -64,6 +62,7 @@ export const StyledNavItem = styled.a(
     color: ${theme.colors.secondary};
     font-weight: 600;
     display: block;
+    text-decoration: none;
 
     &:focus,
     &:hover {
@@ -80,26 +79,5 @@ export const StyledListLogut = styled.ul`
   display: flex;
   flex-wrap: wrap;
   list-style: none;
+  align-items: center;
 `;
-
-export const StyledNavLogout = styled.a(
-  ({ theme }) => css`
-    padding: 15px 20px;
-    color: ${theme.colors.secondary};
-    font-size: 14px;
-    min-height: 50px;
-    font-weight: 600;
-    display: block;
-
-    &:focus,
-    &:hover {
-      color: ${theme.colors.primary};
-      text-decoration: none;
-    }
-
-    & > svg {
-      margin-right: 6px;
-      width: 14px;
-    }
-  `,
-);

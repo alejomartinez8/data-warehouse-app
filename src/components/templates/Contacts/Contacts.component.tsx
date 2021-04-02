@@ -1,8 +1,8 @@
 import Head from 'next/head';
 import { Layout } from 'components/organisms';
-import { CardBox, InputSearch, Button } from 'components/atoms';
+import { CardBox, InputSearch, Button, Icon } from 'components/atoms';
 import { ContactList } from 'components/molecules';
-import { StyledTitleContainer } from './Contacts.styled';
+import { StyledTitleContainer, StyledButtonContainer } from './Contacts.styled';
 
 export const Contacts = () => {
   const contacts = [
@@ -74,15 +74,15 @@ export const Contacts = () => {
           <CardBox.Title>
             <StyledTitleContainer>
               <InputSearch />
-              <div className="col d-flex justify-content-end">
+              <StyledButtonContainer>
                 <Button color="primary" outline>
-                  <i className="fas fa-upload"></i>
+                  <Icon icon="upload" color="primary" />
                 </Button>
                 <Button color="primary" outline>
                   Export Contacts
                 </Button>
                 <Button color="primary">Add Contact</Button>
-              </div>
+              </StyledButtonContainer>
             </StyledTitleContainer>
           </CardBox.Title>
           <CardBox.Content>

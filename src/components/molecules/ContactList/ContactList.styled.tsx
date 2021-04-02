@@ -31,20 +31,14 @@ export const StyledTHead = styled.thead(
   `,
 );
 
-export const StyledTBody = styled.tbody(
-  ({ theme }) => css`
-    tr:nth-of-type(odd) {
-      background-color: ${theme.colors.grey};
-      opacity: 0.8;
-    }
-  `,
-);
+export const StyledTBody = styled.tbody``;
 
 export const StyledTR = styled.tr(
   ({ theme }) => css`
     &:hover {
       cursor: pointer;
       background-color: ${theme.colors.grey};
+      color: ${theme.colors.primary};
     }
   `,
 );
