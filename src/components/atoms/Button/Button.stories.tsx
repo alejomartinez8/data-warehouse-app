@@ -33,6 +33,29 @@ export const Normal = () => (
 
 Normal.storyName = 'Normal Buttons';
 
+export const Disabled = () => (
+  <StyledContainer>
+    <Button disabled>Default</Button>
+    <Button color="primary" disabled>
+      Primary
+    </Button>
+    <Button color="success" disabled>
+      Success
+    </Button>
+    <Button color="info" disabled>
+      Info
+    </Button>
+    <Button color="warning" disabled>
+      Warning
+    </Button>
+    <Button color="danger" disabled>
+      Danger
+    </Button>
+  </StyledContainer>
+);
+
+Disabled.storyName = 'Disabled Buttons';
+
 export const ButtonOutline = () => (
   <StyledContainer>
     <Button outline>Default</Button>
@@ -78,10 +101,22 @@ export const ButtonType = () => (
   </StyledContainer>
 );
 
-export const ButtonBlcok = () => (
+export const ButtonBlock = () => (
   <StyledContainer>
     <Button color="primary" block>
       Button Block
+    </Button>
+  </StyledContainer>
+);
+
+export const ButtonDropdown = () => (
+  <StyledContainer>
+    <Button dropdown>Action</Button>
+    <Button color="primary" dropdown outline>
+      Action
+    </Button>
+    <Button color="warning" dropdown>
+      Action
     </Button>
   </StyledContainer>
 );

@@ -78,10 +78,12 @@ export const Contacts = () => {
                 <Button color="primary" outline>
                   <Icon icon="upload" color="primary" />
                 </Button>
-                <Button color="primary" outline>
+                <Button color="primary" outline dropdown>
                   Export Contacts
                 </Button>
-                <Button color="primary">Add Contact</Button>
+                <Button color="primary" disabled>
+                  Add Contact
+                </Button>
               </StyledButtonContainer>
             </StyledTitleContainer>
           </CardBox.Title>
