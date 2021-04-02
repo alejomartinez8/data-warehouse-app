@@ -1,4 +1,18 @@
 {
   "presets": ["next/babel"],
-  "plugins": [["styled-components", { "ssr": true }]]
+  "plugins": [
+    ["styled-components", { "ssr": true }],
+    [
+      "module-resolver",
+      {
+        "alias": {
+          "components": "./src/components",
+          "constants": "./src/constants",
+          "@lib": "./src/lib",
+          "theme": "./src/themes",
+          "utils": "./src/utils"
+        }
+      }
+    ]
+  ]
 }

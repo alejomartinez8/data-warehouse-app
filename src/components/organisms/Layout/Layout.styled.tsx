@@ -23,7 +23,7 @@ export const StyledPageWrapper = styled.div(
 export const StyledNavContainer = styled.div(
   ({ theme }) => css`
     background-color: ${theme.colors.white};
-    border-bottom: 1px solid ${theme.colors.grey};
+    border-bottom: 1px solid ${theme.colors.border};
   `,
 );
 

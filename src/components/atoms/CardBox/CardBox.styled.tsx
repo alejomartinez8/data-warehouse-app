@@ -18,6 +18,7 @@ export const StyledTitle = styled.div(
     position: relative;
     border-radius: 2px 2px 0 0;
     display: flex;
+    align-items: center;
   `,
 );
 

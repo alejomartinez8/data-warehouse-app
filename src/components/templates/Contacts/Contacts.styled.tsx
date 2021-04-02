@@ -7,3 +7,10 @@ export const StyledTitleContainer = styled.div`
   flex-wrap: wrap;
   width: 100%;
 `;
+
+export const StyledButtonContainer = styled.div`
+  display: flex;
+  > button {
+    margin: 0 0.25rem;
+  }
+`;

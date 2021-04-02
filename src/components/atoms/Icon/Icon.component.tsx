@@ -1,7 +1,15 @@
 import { StyledIcon } from './Icon.styled';
 
-interface IIcon {
-  icon?: 'sign-out-alt' | 'caret-down' | 'search' | 'upload';
+export enum IconName {
+  'sign-out-alt',
+  'caret-down',
+  'search',
+  'upload',
+}
+
+declare type IconType = keyof typeof IconName;
+export interface IIcon {
+  icon?: IconType;
   color?: string;
 }
 
