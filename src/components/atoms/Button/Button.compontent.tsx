@@ -9,10 +9,7 @@ export interface IButtonProps extends HTMLAttributes<HTMLButtonElement> {
   block?: boolean;
   color?: ColorType;
   size?: 'large' | 'normal' | 'small' | 'extraSmall';
-  children: React.ReactNode;
   ref?: any;
-  type?: any;
-  // [x: string]: any;
 }
 
 export const Button = forwardRef(

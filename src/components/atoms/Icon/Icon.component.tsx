@@ -13,25 +13,25 @@ export interface IIcon {
   color?: string;
 }
 
-export const Icon = ({ icon, color }: IIcon) => {
-  function getIcon() {
-    switch (icon) {
-      case 'sign-out-alt':
-        return 'fas fa-sign-out-alt';
+function getIcon(icon) {
+  switch (icon) {
+    case 'sign-out-alt':
+      return 'fas fa-sign-out-alt';
 
-      case 'caret-down':
-        return 'fas fa-caret-down';
+    case 'caret-down':
+      return 'fas fa-caret-down';
 
-      case 'search':
-        return 'fas fa-search';
+    case 'search':
+      return 'fas fa-search';
 
-      case 'upload':
-        return 'fas fa-upload';
+    case 'upload':
+      return 'fas fa-upload';
 
-      default:
-        return '';
-    }
+    default:
+      return '';
   }
+}
 
-  return <StyledIcon color={color} className={getIcon()} />;
-};
+export const Icon = ({ icon, color }: IIcon) => (
+  <StyledIcon color={color} className={getIcon(icon)} />
+);
