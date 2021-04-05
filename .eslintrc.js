@@ -32,11 +32,12 @@ module.exports = {
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     'arrow-body-style': ['error', 'as-needed'],
+    'react/prop-types': 'off',
+    'react/require-default-props': 'off',
     //
     'react/jsx-fragments': 'off',
     'react/jsx-filename-extension': [1, { extensions: ['.ts', '.tsx'] }],
     'import/extensions': 'off',
-    'react/prop-types': 'off',
     'jsx-a11y/anchor-is-valid': 'off',
     'react/jsx-props-no-spreading': ['error', { custom: 'ignore' }],
     'prettier/prettier': 'error',

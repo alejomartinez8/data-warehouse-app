@@ -37,7 +37,7 @@ export const StyledTR = styled.tr(
   ({ theme }) => css`
     &:hover {
       cursor: pointer;
-      background-color: ${theme.colors.grey};
+      background-color: ${theme.colors.gray};
       color: ${theme.colors.primary};
     }
   `,

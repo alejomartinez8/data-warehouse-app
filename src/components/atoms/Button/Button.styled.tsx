@@ -55,7 +55,10 @@ export const StyledButton = styled.button<IStyledButton>(
           `;
 
         default:
-          return '';
+          return css`
+            font-size: 1rem;
+            font-weight: 400;
+          `;
       }
     };
 
@@ -78,8 +81,6 @@ export const StyledButton = styled.button<IStyledButton>(
 
     return css`
       display: inline-block;
-      font-size: 1rem;
-      font-weight: 400;
       text-align: center;
       line-height: 1.5;
       opacity: 1;

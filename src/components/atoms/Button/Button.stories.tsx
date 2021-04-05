@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import { DropdownMenu } from 'components/atoms';
 import { Button } from './Button.compontent';
 
 export default {
@@ -11,6 +12,7 @@ const StyledContainer = styled.div`
   * {
     margin: 0.1rem;
   }
+  position: relative;
 `;
 
 // 👇 We create a “template” of how args map to rendering
@@ -109,14 +111,23 @@ export const ButtonBlock = () => (
   </StyledContainer>
 );
 
-export const ButtonDropdown = () => (
-  <StyledContainer>
-    <Button dropdown>Action</Button>
-    <Button color="primary" dropdown outline>
-      Action
-    </Button>
-    <Button color="warning" dropdown>
-      Action
-    </Button>
-  </StyledContainer>
-);
+export const ButtonDropdown = () => {
+  const [collapsed, setCollapsed] = useState(true);
+
+  const handleOnClick = () => {
+    setCollapsed(!collapsed);
+  };
+  return (
+    <StyledContainer>
+      <Button dropdown onClick={handleOnClick} color="primary" outline>
+        Action
+      </Button>
+      <DropdownMenu collapsed={collapsed}>
+        <DropdownMenu.Item>Item 1</DropdownMenu.Item>
+        <DropdownMenu.Item>Item 2</DropdownMenu.Item>
+        <DropdownMenu.Divider />
+        <DropdownMenu.Item>Item 3</DropdownMenu.Item>
+      </DropdownMenu>
+    </StyledContainer>
+  );
+};

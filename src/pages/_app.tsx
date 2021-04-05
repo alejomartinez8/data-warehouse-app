@@ -4,7 +4,7 @@ import type { AppProps } from 'next/app';
 import baseTheme from 'themes/baseTheme';
 
 const GlobalStyles = createGlobalStyle`
-  body{
+  html, body{
     font-family: 'open sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-size: 14px;
     font-weight: 400;

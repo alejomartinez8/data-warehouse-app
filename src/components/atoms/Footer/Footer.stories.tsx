@@ -8,7 +8,7 @@ export default {
 };
 
 const StyledContainer = styled.div`
-  background-color: ${baseTheme.colors.grey};
+  background-color: ${baseTheme.colors.gray};
   margin: 0;
   height: 100vh;
 `;
