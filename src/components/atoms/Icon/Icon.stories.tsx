@@ -9,5 +9,5 @@ const Template = ({ icon, color }: IIcon) => <Icon icon={icon} color={color} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  icon: 'search',
+  icon: 'fa fa-search',
 };

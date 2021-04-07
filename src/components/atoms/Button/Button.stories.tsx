@@ -111,6 +111,26 @@ export const ButtonBlock = () => (
   </StyledContainer>
 );
 
+export const ButtonIcon = () => (
+  <StyledContainer>
+    <Button icon="fa fa-check" color="primary">
+      Submit
+    </Button>
+    <Button icon="fa fa-upload" color="success">
+      Upload
+    </Button>
+    <Button icon="fa fa-paste" color="info">
+      Edit
+    </Button>
+    <Button icon="fa fa-exclamation-triangle" color="warning">
+      Warning
+    </Button>
+    <Button icon="fab fa-facebook-f" color="success" outline>
+      Login with Facebook
+    </Button>
+  </StyledContainer>
+);
+
 export const ButtonDropdown = () => {
   const [collapsed, setCollapsed] = useState(true);
 
@@ -118,7 +138,7 @@ export const ButtonDropdown = () => {
     setCollapsed(!collapsed);
   };
   return (
-    <StyledContainer>
+    <StyledContainer style={{ marginBottom: '100px' }}>
       <Button dropdown onClick={handleOnClick} color="primary" outline>
         Action
       </Button>

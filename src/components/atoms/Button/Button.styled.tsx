@@ -18,12 +18,16 @@ export const StyledButton = styled.button<IStyledButton>(
       cursor: pointer;
       &:hover,
       &:focus {
-        opacity: 0.9;
-        color: ${theme.colors.white};
-        ${outline &&
-        css`
-          background-color: ${theme.colors[color]};
-        `}
+        &,
+        > i {
+          opacity: 0.9;
+          color: ${theme.colors.white};
+          ${outline &&
+          css`
+            background-color: ${theme.colors[color]};
+          `}
+          transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, opacity 0.15s ease-in-out;
+        }
       }
     `;
 
@@ -79,6 +83,14 @@ export const StyledButton = styled.button<IStyledButton>(
         : null}
     `;
 
+    const iconMixin = css`
+      > i {
+        ${sizeMixin()};
+        color: ${outline ? theme.colors[color] : theme.colors.white};
+        margin-right: 0.3em;
+      }
+    `;
+
     return css`
       display: inline-block;
       text-align: center;
@@ -98,6 +110,7 @@ export const StyledButton = styled.button<IStyledButton>(
       ${dropdownMixin}
       ${roundMixin};
       ${blockMixin};
+      ${iconMixin};
     `;
   },
 );
