@@ -1,13 +1,9 @@
-import { Icon, IIcon } from './Icon.component';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { Icon } from './Icon.component';
 
 export default {
   title: 'Atoms/Icon',
   component: Icon,
 };
 
-const Template = ({ icon, color }: IIcon) => <Icon icon={icon} color={color} />;
-
-export const Default = Template.bind({});
-Default.args = {
-  icon: 'fa fa-search',
-};
+export const Default = () => <Icon icon={faSearch} />;

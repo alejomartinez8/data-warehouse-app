@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import { faUpload } from '@fortawesome/free-solid-svg-icons';
 import { CardBox, Button, Icon } from 'components/atoms';
 import { ContactList, InputSearch } from 'components/molecules';
 import { Layout } from 'components/organisms';
@@ -76,7 +77,7 @@ export const Contacts = () => {
               <InputSearch />
               <StyledButtonContainer>
                 <Button color="primary" outline>
-                  <Icon icon="upload" color="primary" />
+                  <Icon icon={faUpload} color="primary" />
                 </Button>
                 <Button color="primary" outline dropdown>
                   Export Contacts

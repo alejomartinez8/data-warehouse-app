@@ -1,8 +1,3 @@
-import { StyledIcon } from './Icon.styled';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-export interface IIcon {
-  icon?: string;
-  color?: string;
-}
-
-export const Icon = ({ icon, color }: IIcon) => <StyledIcon color={color} className={icon} />;
+export const Icon = ({ icon, ...props }) => <FontAwesomeIcon icon={icon} {...props} />;

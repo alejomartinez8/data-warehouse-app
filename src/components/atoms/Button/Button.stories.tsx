@@ -1,7 +1,14 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { DropdownMenu } from 'components/atoms';
+import {
+  faCheck,
+  faExclamationTriangle,
+  faPaste,
+  faUpload,
+} from '@fortawesome/free-solid-svg-icons';
 import { Button } from './Button.compontent';
+import { faFacebook } from '@fortawesome/free-brands-svg-icons';
 
 export default {
   title: 'Atoms/Button',
@@ -113,19 +120,19 @@ export const ButtonBlock = () => (
 
 export const ButtonIcon = () => (
   <StyledContainer>
-    <Button icon="fa fa-check" color="primary">
+    <Button icon={faCheck} color="primary">
       Submit
     </Button>
-    <Button icon="fa fa-upload" color="success">
+    <Button icon={faUpload} color="success">
       Upload
     </Button>
-    <Button icon="fa fa-paste" color="info">
+    <Button icon={faPaste} color="info">
       Edit
     </Button>
-    <Button icon="fa fa-exclamation-triangle" color="warning">
+    <Button icon={faExclamationTriangle} color="warning">
       Warning
     </Button>
-    <Button icon="fab fa-facebook-f" color="success" outline>
+    <Button icon={faFacebook} color="success" outline>
       Login with Facebook
     </Button>
   </StyledContainer>

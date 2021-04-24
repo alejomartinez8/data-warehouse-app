@@ -2,6 +2,7 @@ import Head from 'next/head';
 import { ThemeProvider, createGlobalStyle } from 'styled-components';
 import type { AppProps } from 'next/app';
 import baseTheme from 'themes/baseTheme';
+import '@fortawesome/fontawesome-svg-core/styles.css';
 
 const GlobalStyles = createGlobalStyle`
   html, body{

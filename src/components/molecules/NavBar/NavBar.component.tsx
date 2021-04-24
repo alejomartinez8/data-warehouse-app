@@ -1,3 +1,4 @@
+import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { Icon } from 'components/atoms';
 
 import {
@@ -32,7 +33,7 @@ export const NavBar = () => (
     <StyledListLogut>
       <StyledItem>
         <StyledNavItem href="/login">
-          <Icon icon="sign-out-alt" /> Logout
+          <Icon icon={faSignOutAlt} /> Logout
         </StyledNavItem>
       </StyledItem>
     </StyledListLogut>

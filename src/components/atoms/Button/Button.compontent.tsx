@@ -9,7 +9,7 @@ export interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   round?: boolean;
   block?: boolean;
   color?: ColorType;
-  icon?: string;
+  icon?: any;
   size?: 'large' | 'normal' | 'small' | 'extraSmall';
   disabled?: boolean;
   dropdown?: boolean;
@@ -24,27 +24,30 @@ export const Button = forwardRef(
       block = false,
       disabled = false,
       dropdown = false,
-      icon = '',
+      icon,
       color = 'default',
       size = 'normal',
       children,
       ...props
     }: IButtonProps,
     ref,
-  ) => (
-    <StyledButton
-      ref={ref}
-      color={color}
-      outline={outline}
-      size={size}
-      round={round}
-      block={block}
-      disabled={disabled}
-      dropdown={dropdown}
-      {...props}
-    >
-      {icon !== '' ? <Icon icon={icon} /> : null}
-      {children}
-    </StyledButton>
-  ),
+  ) => {
+    console.log(icon);
+    return (
+      <StyledButton
+        ref={ref}
+        color={color}
+        outline={outline}
+        size={size}
+        round={round}
+        block={block}
+        disabled={disabled}
+        dropdown={dropdown}
+        {...props}
+      >
+        {icon ? <Icon icon={icon} /> : null}
+        {children}
+      </StyledButton>
+    );
+  },
 );
