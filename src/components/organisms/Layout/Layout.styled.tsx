@@ -10,7 +10,7 @@ export const StyledPageWrapper = styled.div(
   ({ theme }) => css`
     transition: all 0.4s;
     flex-shrink: 1;
-    background-color: ${theme.colors.grey};
+    background-color: ${theme.colors.gray};
     width: 100%;
     position: relative;
 

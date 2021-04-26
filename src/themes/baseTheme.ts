@@ -7,7 +7,7 @@ const colors = {
   warning: '#f8ac59',
   danger: '#ED5565',
   white: '#ffffff',
-  grey: '#f3f3f4',
+  gray: '#f3f3f4',
   border: '#e5e6e7',
 };
 
