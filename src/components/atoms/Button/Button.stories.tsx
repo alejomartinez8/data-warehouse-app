@@ -7,8 +7,8 @@ import {
   faPaste,
   faUpload,
 } from '@fortawesome/free-solid-svg-icons';
-import { Button } from './Button.compontent';
 import { faFacebook } from '@fortawesome/free-brands-svg-icons';
+import { Button } from './Button.compontent';
 
 export default {
   title: 'Atoms/Button',
