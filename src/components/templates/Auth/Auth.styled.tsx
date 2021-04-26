@@ -47,6 +47,7 @@ export const StyledForm = styled.form`
   padding: 0 50px;
   height: 100%;
   text-align: center;
+  animation: show 0.6s;
 `;
 
 export const StyledSocialContainer = styled.div`

@@ -1,5 +1,5 @@
-import { Contacts } from 'components/templates';
+import { Auth } from 'components/templates';
 
 export default function Home() {
-  return <Contacts />;
+  return <Auth />;
 }
