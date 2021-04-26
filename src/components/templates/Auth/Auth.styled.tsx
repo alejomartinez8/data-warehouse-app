@@ -124,3 +124,11 @@ export const StyledOverlayRight = styled(StyledOverlayPanel)<IFormContainer>(
       transform: ${signIn ? 'translateX(0)' : 'translateX(20%)'};
     `,
 );
+
+export const StyledButton = styled(Button)`
+  border: none;
+  background: none;
+  text-decoration: underline;
+  padding: 0;
+  color: white;
+`;

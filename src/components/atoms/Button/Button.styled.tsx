@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import styled, { css } from 'styled-components';
 
 interface IStyledButton {
@@ -20,10 +21,10 @@ export const StyledButton = styled.button<IStyledButton>(
       &:focus {
         &,
         > i {
-          opacity: 0.9;
-          color: ${theme.colors.white};
+          opacity: 0.8;
           ${outline &&
           css`
+            color: ${theme.colors.white};
             background-color: ${theme.colors[color]};
           `}
           transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, opacity 0.15s ease-in-out;
@@ -101,8 +102,18 @@ export const StyledButton = styled.button<IStyledButton>(
       transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
         border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, opacity 0.15s ease-in-out;
 
-      background-color: ${outline ? theme.colors.white : theme.colors[color]};
-      color: ${outline ? theme.colors[color] : theme.colors.white};
+      background-color: ${outline
+        ? theme.colors.white
+        : color === 'default'
+        ? theme.colors.white
+        : theme.colors[color]};
+
+      color: ${outline
+        ? theme.colors[color]
+        : color === 'default'
+        ? 'inherint'
+        : theme.colors.white};
+
       border: 1px solid ${color === 'default' ? '#e7eaec' : theme.colors[color]};
 
       ${sizeMixin()};

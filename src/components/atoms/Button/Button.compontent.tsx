@@ -31,23 +31,20 @@ export const Button = forwardRef(
       ...props
     }: IButtonProps,
     ref,
-  ) => {
-    console.log(icon);
-    return (
-      <StyledButton
-        ref={ref}
-        color={color}
-        outline={outline}
-        size={size}
-        round={round}
-        block={block}
-        disabled={disabled}
-        dropdown={dropdown}
-        {...props}
-      >
-        {icon ? <Icon icon={icon} /> : null}
-        {children}
-      </StyledButton>
-    );
-  },
+  ) => (
+    <StyledButton
+      ref={ref}
+      color={color}
+      outline={outline}
+      size={size}
+      round={round}
+      block={block}
+      disabled={disabled}
+      dropdown={dropdown}
+      {...props}
+    >
+      {icon ? <Icon icon={icon} /> : null}
+      {children}
+    </StyledButton>
+  ),
 );

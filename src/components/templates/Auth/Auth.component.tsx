@@ -13,6 +13,7 @@ import {
   StyledOverlay,
   StyledOverlayLeft,
   StyledOverlayRight,
+  StyledButton,
 } from './Auth.styled';
 
 export const Auth = () => {
@@ -55,17 +56,17 @@ export const Auth = () => {
           <StyledOverlay signIn={signIn}>
             <StyledOverlayLeft signIn={signIn}>
               <h1>Welcome Back!</h1>
-              <p>I have already account</p>
-              <Button onClick={() => setSignIn(true)} outline>
-                Sign In
-              </Button>
+              <p>
+                I have already account,{' '}
+                <StyledButton onClick={() => setSignIn(true)}>Sign In</StyledButton>
+              </p>
             </StyledOverlayLeft>
             <StyledOverlayRight signIn={signIn}>
               <h1>Data Warehouse</h1>
-              <p>I don't have account yet!</p>
-              <Button onClick={() => setSignIn(false)} outline>
-                Create Account
-              </Button>
+              <p>
+                I don't have account yet,{' '}
+                <StyledButton onClick={() => setSignIn(false)}>Create Account</StyledButton>
+              </p>
             </StyledOverlayRight>
           </StyledOverlay>
         </StyledOverlayContainer>

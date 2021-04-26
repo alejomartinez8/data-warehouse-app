@@ -13,7 +13,7 @@ export const InputSearch = () => {
   return (
     <StyledContainer>
       <StyledInput type="text" />
-      <Button color="white" type="button" onClick={handleOnClickFilter}>
+      <Button color="default" type="button" onClick={handleOnClickFilter}>
         <Icon icon={faCaretDown} />
       </Button>
       <Button color="primary" type="submit">
