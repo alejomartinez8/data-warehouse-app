@@ -63,10 +63,10 @@ export const Auth = () => {
             </StyledOverlayLeft>
             <StyledOverlayRight signIn={signIn}>
               <h1>Data Warehouse</h1>
-              <p>
+              {/* <p>
                 I don't have account yet,{' '}
                 <StyledButton onClick={() => setSignIn(false)}>Create Account</StyledButton>
-              </p>
+              </p> */}
             </StyledOverlayRight>
           </StyledOverlay>
         </StyledOverlayContainer>

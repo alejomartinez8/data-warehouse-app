@@ -19,10 +19,11 @@ export const StyledTitle = styled.div(
     border-radius: 2px 2px 0 0;
     display: flex;
     align-items: center;
+    padding: 20px;
   `,
 );
 
-export const StyledHeading = styled.h5`
+export const StyledHeading = styled.h2`
   display: inline-block;
   font-size: 14px;
   margin: 0 0 7px;
