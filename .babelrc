@@ -1,24 +1,4 @@
 {
-  "presets": [
-    "next/babel",
-    [
-      "@babel/preset-env",
-      {
-        "modules": "commonjs",
-        "useBuiltIns": false
-      }
-    ]
-  ],
-  "plugins": [
-    ["styled-components", { "ssr": true }],
-    [
-      "module-resolver",
-      {
-        "root": ["./"],
-        "alias": {
-          "components": "./src/components"
-        }
-      }
-    ]
-  ]
+  "presets": ["next/babel"],
+  "plugins": [["styled-components", { "ssr": true }]]
 }

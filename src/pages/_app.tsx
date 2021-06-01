@@ -10,14 +10,12 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 const GlobalStyles = createGlobalStyle`
-  html, body{
+   body{
     font-family: 'open sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-size: 14px;
     font-weight: 400;
     line-height: 1.5;
     color: ${baseTheme.colors.secondary};
-    background-color: #2F4050;
-    overflow-x: hidden;
     margin: 0;
     text-align: left;
   }
