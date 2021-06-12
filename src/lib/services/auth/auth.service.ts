@@ -1,21 +1,21 @@
-import { AuthInstance } from '../axiosInstances';
+import { ApiInstance } from '../axiosInstances';
 
 export const login = async (user: { email: string; password: string }): Promise<any> =>
-  AuthInstance.post('/login', user)
+  ApiInstance.post('/auth/login', user)
     .then((response) => response.data)
     .catch((err) => {
       throw err;
     });
 
 export const logout = async (): Promise<any> =>
-  AuthInstance.post('/logout')
+  ApiInstance.post('/auth/logout')
     .then((response) => response.data)
     .catch((err) => {
       throw err;
     });
 
 export const getProfile = async (): Promise<any> =>
-  AuthInstance.get('/profile')
+  ApiInstance.get('/auth/profile')
     .then((response) => response.data)
     .catch((err) => {
       throw err;

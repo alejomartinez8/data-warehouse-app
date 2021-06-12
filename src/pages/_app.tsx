@@ -1,14 +1,11 @@
+import { NextPage } from 'next';
 import Head from 'next/head';
 import { ThemeProvider, createGlobalStyle } from 'styled-components';
 import type { AppProps } from 'next/app';
 import baseTheme from 'themes/baseTheme';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import { AuthProvider } from 'lib/hooks/useAuth';
-// import { makeServer } from 'utils/mirage';
-
-// if (process.env.NODE_ENV !== 'production') {
-//   makeServer({ environment: process.env.NODE_ENV });
-// }
+import { AuthGuard } from 'components/atoms/AuthGuard/AuthGuard.component';
 
 const GlobalStyles = createGlobalStyle`
    body{
@@ -26,7 +23,13 @@ const GlobalStyles = createGlobalStyle`
     }
 `;
 
-function MyApp({ Component, pageProps }: AppProps) {
+export type NextApplicationPage<P = any, IP = P> = NextPage<P, IP> & {
+  requireAuth?: boolean;
+};
+
+function MyApp(props: AppProps) {
+  const { Component, pageProps }: { Component: NextApplicationPage; pageProps: any } = props;
+
   return (
     <AuthProvider>
       <ThemeProvider theme={baseTheme}>
@@ -39,7 +42,13 @@ function MyApp({ Component, pageProps }: AppProps) {
           />
         </Head>
         <GlobalStyles />
-        <Component {...pageProps} />
+        {Component.requireAuth ? (
+          <AuthGuard>
+            <Component {...pageProps} />
+          </AuthGuard>
+        ) : (
+          <Component {...pageProps} />
+        )}
       </ThemeProvider>
     </AuthProvider>
   );

@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect, useContext } from 'react';
-import { parseCookies, destroyCookie } from 'nookies';
+import { destroyCookie } from 'nookies';
 import { getProfile } from '../services/auth/auth.service';
 
 interface IProfile {
@@ -15,34 +15,46 @@ interface IState {
 }
 
 interface IAuthContext {
-  profile: IProfile;
+  user: IProfile;
   state: IState;
-  setProfile: (profile: IProfile) => void;
+  setUser: (user: IProfile) => void;
   setState: (state: IState) => void;
   logout: () => void;
 }
 
 const authContextDefault: IAuthContext = {
-  profile: null,
+  user: null,
   state: { isAuth: false, error: null },
-  setProfile: null,
+  setUser: null,
   setState: null,
   logout: null,
 };
 
 const AuthContext = createContext<IAuthContext>(authContextDefault);
 
-export const AuthProvider = ({ children }) => {
-  const [profile, setProfile] = useState<IProfile>(authContextDefault.profile);
-  const [state, setState] = useState<IState>(authContextDefault.state);
+export const useAuth = (): IAuthContext => {
+  const context = useContext(AuthContext);
 
-  const cookies = parseCookies();
-  console.log(cookies);
+  if (!context) {
+    throw new Error('useAuth must be used within AuthProvider');
+  }
+
+  return context;
+};
+
+export const useIsAuth = () => {
+  const context = useAuth();
+  return context.state.isAuth;
+};
+
+export const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState<IProfile>(authContextDefault.user);
+  const [state, setState] = useState<IState>(authContextDefault.state);
 
   useEffect(() => {
     getProfile()
       .then((response) => {
-        setProfile(response);
+        setUser(response);
         setState({ isAuth: true, error: null });
       })
       .catch((err) => {
@@ -56,10 +68,8 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ profile, state, setProfile, setState, logout }}>
+    <AuthContext.Provider value={{ user, state, setUser, setState, logout }}>
       {children}
     </AuthContext.Provider>
   );
 };
-
-export const useAuth = (): IAuthContext => useContext(AuthContext);

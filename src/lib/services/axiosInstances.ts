@@ -1,12 +1,10 @@
 import axios from 'axios';
 
-const createAuthInstance = () =>
+const createApiInstance = () =>
   axios.create({
-    baseURL: `${process.env.NEXT_PUBLIC_URL_API}/auth`,
+    baseURL: `${process.env.NEXT_PUBLIC_URL_API}`,
     method: 'POST',
     withCredentials: true,
   });
 
-const AuthInstance = createAuthInstance();
-
-export { AuthInstance };
+export const ApiInstance = createApiInstance();
