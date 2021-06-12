@@ -3,16 +3,19 @@ import { ThemeProvider, createGlobalStyle } from 'styled-components';
 import type { AppProps } from 'next/app';
 import baseTheme from 'themes/baseTheme';
 import '@fortawesome/fontawesome-svg-core/styles.css';
+// import { makeServer } from 'utils/mirage';
+
+// if (process.env.NODE_ENV !== 'production') {
+//   makeServer({ environment: process.env.NODE_ENV });
+// }
 
 const GlobalStyles = createGlobalStyle`
-  html, body{
+   body{
     font-family: 'open sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-size: 14px;
     font-weight: 400;
     line-height: 1.5;
     color: ${baseTheme.colors.secondary};
-    background-color: #2F4050;
-    overflow-x: hidden;
     margin: 0;
     text-align: left;
   }

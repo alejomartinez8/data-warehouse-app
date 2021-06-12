@@ -1,5 +1,5 @@
 import { HTMLAttributes, ReactNode } from 'react';
-import { StyledContainer, StyledTitle, StyledContent } from './CardBox.styled';
+import { StyledContainer, StyledTitle, StyledContent, StyledHeading } from './CardBox.styled';
 
 interface ICardBox extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
@@ -7,6 +7,10 @@ interface ICardBox extends HTMLAttributes<HTMLDivElement> {
 
 const CardBoxTitle = ({ children, ...props }: ICardBox) => (
   <StyledTitle {...props}>{children}</StyledTitle>
+);
+
+const CardBoxHeading = ({ children, ...props }: ICardBox) => (
+  <StyledHeading {...props}>{children}</StyledHeading>
 );
 
 const CardBoxContent = ({ children, ...props }: ICardBox) => (
@@ -18,6 +22,7 @@ const CardBox = ({ children, ...props }: ICardBox) => (
 );
 
 CardBox.Title = CardBoxTitle;
+CardBox.Heading = CardBoxHeading;
 CardBox.Content = CardBoxContent;
 
 export { CardBox };
