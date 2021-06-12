@@ -1,7 +1,10 @@
-import React, { FormEvent, useState } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import { faFacebookF, faGoogle } from '@fortawesome/free-brands-svg-icons';
+
 import { Button } from 'components/atoms';
 import { login } from 'lib/services/auth/auth.service';
+import { useAuth } from 'lib/hooks/useAuth';
 import {
   StyledBody,
   StyledContainer,
@@ -19,10 +22,9 @@ import {
 
 export const Auth = () => {
   const [signIn, setSignIn] = useState(true);
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-  });
+  const [formData, setFormData] = useState({ email: '', password: '' });
+  const { state, setState, setProfile } = useAuth();
+  const router = useRouter();
 
   const { email, password } = formData;
 
@@ -33,11 +35,20 @@ export const Auth = () => {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     try {
-      await login(formData);
+      const profile = await login(formData);
+      setProfile(profile);
+      setState({ isAuth: true });
     } catch (error) {
-      console.log(error);
+      setState({ isAuth: false, error: error.response });
+      setProfile(null);
     }
   };
+
+  useEffect(() => {
+    if (state.isAuth) {
+      router.push('/contacts');
+    }
+  }, [router, state.isAuth]);
 
   return (
     <StyledBody>

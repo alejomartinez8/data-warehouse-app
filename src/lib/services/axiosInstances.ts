@@ -2,8 +2,9 @@ import axios from 'axios';
 
 const createAuthInstance = () =>
   axios.create({
-    baseURL: `http://localhost:4000/auth`,
+    baseURL: `${process.env.NEXT_PUBLIC_URL_API}/auth`,
     method: 'POST',
+    withCredentials: true,
   });
 
 const AuthInstance = createAuthInstance();
