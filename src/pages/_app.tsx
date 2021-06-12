@@ -3,11 +3,11 @@ import { ThemeProvider, createGlobalStyle } from 'styled-components';
 import type { AppProps } from 'next/app';
 import baseTheme from 'themes/baseTheme';
 import '@fortawesome/fontawesome-svg-core/styles.css';
-import { makeServer } from 'utils/mirage';
+// import { makeServer } from 'utils/mirage';
 
-if (process.env.NODE_ENV !== 'production') {
-  makeServer({ environment: process.env.NODE_ENV });
-}
+// if (process.env.NODE_ENV !== 'production') {
+//   makeServer({ environment: process.env.NODE_ENV });
+// }
 
 const GlobalStyles = createGlobalStyle`
    body{
