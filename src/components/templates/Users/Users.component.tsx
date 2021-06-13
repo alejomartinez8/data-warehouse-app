@@ -1,9 +1,7 @@
 import Head from 'next/head';
-import { useState, useEffect } from 'react';
 import { CardBox } from 'components/atoms';
-import { UserList, InputSearch, User } from 'components/molecules';
+import { UserList } from 'components/molecules';
 import { Layout } from 'components/organisms';
-import { StyledTitleContainer } from './Users.styled';
 
 export const Users = ({ users }) => (
   <>

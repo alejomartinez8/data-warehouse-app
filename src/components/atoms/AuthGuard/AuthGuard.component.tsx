@@ -6,8 +6,6 @@ export const AuthGuard = ({ children }) => {
   const { state } = useAuth();
   const router = useRouter();
 
-  console.log('AuthGuard', new Date());
-
   useEffect(() => {
     if (state.isAuth) {
       router.push('/login');
