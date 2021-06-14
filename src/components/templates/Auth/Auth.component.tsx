@@ -1,5 +1,6 @@
 import React, { FormEvent, useState } from 'react';
 import { useRouter } from 'next/router';
+import cookie from 'js-cookie';
 import { faFacebookF, faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { Button } from 'components/atoms';
 import { login } from 'lib/services/auth/auth.service';
@@ -32,7 +33,8 @@ export const Auth = () => {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     try {
-      await login(formData);
+      const { token } = await login(formData);
+      cookie.set('user', token, { expires: 1 });
       router.push('/users');
     } catch (error) {
       console.log({ error });
