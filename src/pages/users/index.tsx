@@ -8,12 +8,11 @@ export default function Page({ users }) {
 
 Page.requrireAuth = true;
 
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
+export const getServerSideProps: GetServerSideProps = async (ctx) =>
   // const users = await getUsers(ctx);
 
-  return {
+  ({
     props: {
       users: [],
     },
-  };
-};
+  });
