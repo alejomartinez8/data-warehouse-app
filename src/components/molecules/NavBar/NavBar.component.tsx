@@ -1,8 +1,7 @@
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { Icon } from 'components/atoms';
-import { postLogout } from 'lib/services';
 import { useRouter } from 'next/router';
-
+import { destroyCookie } from 'nookies';
 import {
   StyledNav,
   StyledNavBrand,
@@ -17,7 +16,7 @@ export const NavBar = () => {
   const router = useRouter();
 
   const handleLogout = () => {
-    postLogout();
+    destroyCookie(null, 'user');
     router.push('/login');
   };
 
