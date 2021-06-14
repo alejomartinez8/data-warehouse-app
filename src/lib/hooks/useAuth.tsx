@@ -1,6 +1,5 @@
 import { createContext, useState, useEffect, useContext } from 'react';
-import { destroyCookie } from 'nookies';
-import { getProfile } from '../services/auth/auth.service';
+import { getProfile, postLogout } from '../services/auth/auth.service';
 
 interface IProfile {
   email: string;
@@ -63,7 +62,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const logout = (): void => {
-    destroyCookie(null, 'user');
+    postLogout();
     setState({ isAuth: false, error: null });
   };
 

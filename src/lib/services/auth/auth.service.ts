@@ -7,7 +7,7 @@ export const login = async (user: { email: string; password: string }): Promise<
       throw err;
     });
 
-export const logout = async (): Promise<any> =>
+export const postLogout = async (): Promise<any> =>
   ApiInstance.post('/auth/logout')
     .then((response) => response.data)
     .catch((err) => {
