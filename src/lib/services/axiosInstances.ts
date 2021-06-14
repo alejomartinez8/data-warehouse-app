@@ -1,8 +1,10 @@
 import axios from 'axios';
 
+console.log(process.env.API_URL);
+
 const createApiInstance = () =>
   axios.create({
-    baseURL: `${process.env.NEXT_PUBLIC_URL_API}`,
+    baseURL: `${process.env.API_URL}`,
     method: 'POST',
     withCredentials: true,
   });

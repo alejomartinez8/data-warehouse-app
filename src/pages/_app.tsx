@@ -1,4 +1,5 @@
 import { NextPage } from 'next';
+import App from 'next/app';
 import Head from 'next/head';
 import { ThemeProvider, createGlobalStyle } from 'styled-components';
 import type { AppProps } from 'next/app';
@@ -53,5 +54,10 @@ function MyApp(props: AppProps) {
     </AuthProvider>
   );
 }
+
+MyApp.getInitialProps = async (appContext) => {
+  const appProps = await App.getInitialProps(appContext);
+  return { ...appProps };
+};
 
 export default MyApp;
