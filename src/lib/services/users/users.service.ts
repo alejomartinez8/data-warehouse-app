@@ -3,7 +3,7 @@ import { GetServerSidePropsContext } from 'next';
 import { unauthorizedHandle } from 'utils/handleError/handleError.util';
 import { ApiInstance } from '../axiosInstances';
 
-export const getUsers = async (ctx: GetServerSidePropsContext): Promise<any> => {
+export const getUsers = async (ctx?: GetServerSidePropsContext): Promise<any> => {
   const cookie = ctx.req?.headers.cookie;
 
   const config: AxiosRequestConfig = cookie ? { headers: { cookie } } : undefined;

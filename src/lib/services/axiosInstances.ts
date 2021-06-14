@@ -1,8 +1,10 @@
 import axios from 'axios';
 
+const isProd = process.env.NODE_ENV === 'production';
+
 const createApiInstance = () =>
   axios.create({
-    baseURL: 'https://data-warehouse-am-api.herokuapp.com',
+    baseURL: isProd ? 'https://data-warehouse-am-api.herokuapp.com' : 'http://localhost:4000',
     method: 'POST',
     withCredentials: true,
   });

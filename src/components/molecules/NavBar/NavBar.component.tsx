@@ -28,15 +28,15 @@ export const NavBar = () => {
         <StyledItem>
           <StyledNavItem href="/contacts">Contacts</StyledNavItem>
         </StyledItem>
-        <StyledItem>
+        {/* <StyledItem>
           <StyledNavItem href="/companies">Companies</StyledNavItem>
-        </StyledItem>
+        </StyledItem> */}
         <StyledItem>
           <StyledNavItem href="/users">Users</StyledNavItem>
         </StyledItem>
-        <StyledItem>
+        {/* <StyledItem>
           <StyledNavItem href="/companies">Region/City</StyledNavItem>
-        </StyledItem>
+        </StyledItem> */}
       </StyledList>
       <StyledListLogut>
         <StyledItem>
