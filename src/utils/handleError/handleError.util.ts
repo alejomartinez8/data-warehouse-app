@@ -13,7 +13,6 @@ export function unauthorizedHandle(error: AxiosError, ctx?: GetServerSidePropsCo
   }
 
   if (response.status === 401 && ctx.req) {
-    console.log('DOMAIN_URL', process.env.DOMAIN_URL);
     ctx.res.writeHead(302, {
       Location: isProd ? 'https://data-warehouse-am.herokuapp.com/login' : 'http://localhost:3000',
     });

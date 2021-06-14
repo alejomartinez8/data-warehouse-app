@@ -1,6 +1,7 @@
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { Icon } from 'components/atoms';
-import { useAuth } from 'lib/hooks/useAuth';
+import { postLogout } from 'lib/services';
+import { useRouter } from 'next/router';
 
 import {
   StyledNav,
@@ -13,10 +14,11 @@ import {
 } from './NavBar.styled';
 
 export const NavBar = () => {
-  const { logout } = useAuth();
+  const router = useRouter();
 
   const handleLogout = () => {
-    logout();
+    postLogout();
+    router.push('/login');
   };
 
   return (
