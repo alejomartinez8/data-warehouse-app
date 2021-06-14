@@ -45,7 +45,7 @@ export const Auth = () => {
 
   useEffect(() => {
     if (state.isAuth) {
-      router.push('/contacts');
+      router.push('/users');
     }
   }, [router, state.isAuth]);
 
