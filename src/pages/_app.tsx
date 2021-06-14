@@ -32,26 +32,26 @@ function MyApp(props: AppProps) {
   const { Component, pageProps }: { Component: NextApplicationPage; pageProps: any } = props;
 
   return (
-    <AuthProvider>
-      <ThemeProvider theme={baseTheme}>
-        <Head>
-          <link
-            rel="stylesheet"
-            href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-            integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
-            crossOrigin="anonymous"
-          />
-        </Head>
-        <GlobalStyles />
-        {Component.requireAuth ? (
-          <AuthGuard>
-            <Component {...pageProps} />
-          </AuthGuard>
-        ) : (
+    // <AuthProvider>
+    <ThemeProvider theme={baseTheme}>
+      <Head>
+        <link
+          rel="stylesheet"
+          href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+          integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+          crossOrigin="anonymous"
+        />
+      </Head>
+      <GlobalStyles />
+      {Component.requireAuth ? (
+        <AuthGuard>
           <Component {...pageProps} />
-        )}
-      </ThemeProvider>
-    </AuthProvider>
+        </AuthGuard>
+      ) : (
+        <Component {...pageProps} />
+      )}
+    </ThemeProvider>
+    // </AuthProvider>
   );
 }
 
