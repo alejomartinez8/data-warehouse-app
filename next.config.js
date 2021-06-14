@@ -1,6 +1,6 @@
 module.exports = {
   env: {
-    DOMAIN_URL: 'http://localhost:3000',
-    API_URL: 'http://localhost:4000',
+    DOMAIN_URL: process.env.DOMAIN_URL,
+    API_URL: process.env.API_URL,
   },
 };
