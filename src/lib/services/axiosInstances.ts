@@ -1,10 +1,8 @@
 import axios from 'axios';
 
-console.log('API_URL', process.env.API_URL);
-
 const createApiInstance = () =>
   axios.create({
-    baseURL: `${process.env.API_URL}`,
+    baseURL: 'https://data-warehouse-am-api.herokuapp.com',
     method: 'POST',
     withCredentials: true,
   });
