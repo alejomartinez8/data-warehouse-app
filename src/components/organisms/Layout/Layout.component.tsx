@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavBar } from 'components/molecules';
 import { Footer } from 'components/atoms';
+
 import {
   StyledWrapper,
   StyledPageWrapper,

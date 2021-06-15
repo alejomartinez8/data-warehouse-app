@@ -28,7 +28,6 @@ export const UserList = ({ users }: ITable) => (
         <tr>
           <th>First Name</th>
           <th>Last Name</th>
-          <th>Username</th>
           <th>Email</th>
           <th>Role</th>
         </tr>
@@ -39,7 +38,6 @@ export const UserList = ({ users }: ITable) => (
             <StyledTR key={user.id}>
               <td>{user.firstName}</td>
               <td>{user.lastName}</td>
-              <td>{user.username}</td>
               <td>{user.email}</td>
               <td>{user.role}</td>
             </StyledTR>
