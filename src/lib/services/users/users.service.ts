@@ -12,3 +12,8 @@ export const getUsers = async (ctx?: GetServerSidePropsContext): Promise<any> =>
     .then((response) => response.data)
     .catch((err: AxiosError) => unauthorizedHandle(err, ctx));
 };
+
+export const registerUser = async (data) =>
+  ApiInstance.post('/users', data)
+    .then((response) => response.data)
+    .catch((err: AxiosError) => unauthorizedHandle(err));

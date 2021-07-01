@@ -7,12 +7,14 @@ const isProd = process.env.NODE_ENV === 'production';
 export function unauthorizedHandle(error: AxiosError, ctx?: GetServerSidePropsContext) {
   const { response } = error;
 
-  if (response.status === 401 && !ctx.req) {
+  // Client side
+  if (response.status === 401 && !ctx?.req) {
     Router.replace('/login');
-    return null;
+    throw error;
   }
 
-  if (response.status === 401 && ctx.req) {
+  // Server side
+  if (response.status === 401 && ctx?.req) {
     ctx.res.writeHead(302, {
       Location: isProd ? 'https://data-warehouse-am.herokuapp.com/login' : 'http://localhost:3000',
     });
