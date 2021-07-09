@@ -1,21 +1,35 @@
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import { Button, CardBox } from 'components/atoms';
 import { UserList } from 'components/molecules';
 import { Layout } from 'components/organisms';
-import { useModal } from 'lib/hooks/useModal';
+import { useAuth, useModal } from 'lib/hooks';
+import { IUser } from 'lib/types';
 import { HeaderUsersForm, BodyUsersForm, FooterUsersForm } from './Users.modal';
 import { StyledTitleContainer } from './Users.styled';
 
 export const Users = ({ users }) => {
+  const { user } = useAuth();
   const { setModal } = useModal();
+  const router = useRouter();
 
   const handleAddUser = () => {
     setModal({
-      header: <HeaderUsersForm />,
+      header: <HeaderUsersForm title="Add User" />,
       body: <BodyUsersForm />,
       footer: <FooterUsersForm />,
     });
   };
+
+  const handleEditUser = (editUser: IUser) => {
+    setModal({
+      header: <HeaderUsersForm title="Edit User" />,
+      body: <BodyUsersForm user={editUser} />,
+      footer: <FooterUsersForm />,
+    });
+  };
+
+  if (user.role === 'USER') router.push('/contacts');
 
   return (
     <>
@@ -33,7 +47,7 @@ export const Users = ({ users }) => {
             </StyledTitleContainer>
           </CardBox.Title>
           <CardBox.Content>
-            <UserList users={users} />
+            <UserList users={users} handleEditUser={handleEditUser} />
           </CardBox.Content>
         </CardBox>
       </Layout>

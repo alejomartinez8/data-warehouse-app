@@ -1,23 +1,17 @@
+import { IUser } from 'lib/types';
 import { createContext, useState, useEffect, useContext } from 'react';
-import { getProfile, postLogout } from '../services/auth/auth.service';
+import { getProfile, postLogout } from 'lib/services';
 
-interface IProfile {
-  email: string;
-  firstName: string;
-  lastName: string;
-  role: 'ADMIN' | 'USER';
-}
-
-interface IState {
+interface IAuthState {
   isAuth: boolean;
   error?: any;
 }
 
 interface IAuthContext {
-  user: IProfile;
-  state: IState;
-  setUser: (user: IProfile) => void;
-  setState: (state: IState) => void;
+  user: IUser;
+  state: IAuthState;
+  setUser: (user: IUser) => void;
+  setState: (state: IAuthState) => void;
   logout: () => void;
 }
 
@@ -47,8 +41,8 @@ export const useIsAuth = () => {
 };
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState<IProfile>(authContextDefault.user);
-  const [state, setState] = useState<IState>(authContextDefault.state);
+  const [user, setUser] = useState<IUser>(authContextDefault.user);
+  const [state, setState] = useState<IAuthState>(authContextDefault.state);
 
   useEffect(() => {
     getProfile()
@@ -61,9 +55,10 @@ export const AuthProvider = ({ children }) => {
       });
   }, []);
 
-  const logout = (): void => {
-    postLogout();
-    setState({ isAuth: false, error: null });
+  const logout = async () => {
+    await postLogout();
+    setState(authContextDefault.state);
+    setUser(authContextDefault.user);
   };
 
   return (

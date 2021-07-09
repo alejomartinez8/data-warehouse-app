@@ -1,11 +1,11 @@
 import { NextPage } from 'next';
 import Head from 'next/head';
-import { ThemeProvider, createGlobalStyle } from 'styled-components';
-import { ModalProvider } from 'lib/hooks/useModal';
 import type { AppProps } from 'next/app';
+import { ThemeProvider, createGlobalStyle } from 'styled-components';
+import { ModalProvider, AuthProvider } from 'lib/hooks';
 import baseTheme from 'themes/baseTheme';
-import '@fortawesome/fontawesome-svg-core/styles.css';
 import { AuthGuard } from 'components/atoms/AuthGuard/AuthGuard.component';
+import '@fortawesome/fontawesome-svg-core/styles.css';
 
 const GlobalStyles = createGlobalStyle`
    body{
@@ -31,7 +31,6 @@ function MyApp(props: AppProps) {
   const { Component, pageProps }: { Component: NextApplicationPage; pageProps: any } = props;
 
   return (
-    // <AuthProvider>
     <ThemeProvider theme={baseTheme}>
       <ModalProvider>
         <Head>
@@ -44,15 +43,16 @@ function MyApp(props: AppProps) {
         </Head>
         <GlobalStyles />
         {Component.requireAuth ? (
-          <AuthGuard>
-            <Component {...pageProps} />
-          </AuthGuard>
+          <AuthProvider>
+            <AuthGuard>
+              <Component {...pageProps} />
+            </AuthGuard>
+          </AuthProvider>
         ) : (
           <Component {...pageProps} />
         )}
       </ModalProvider>
     </ThemeProvider>
-    // </AuthProvider>
   );
 }
 

@@ -11,7 +11,7 @@ import {
   StyledCloseButton,
 } from './Modal.styled';
 
-interface IModal {
+interface IModalProps {
   header?: ReactNode;
   body?: ReactNode;
   footer?: ReactNode;
@@ -19,29 +19,23 @@ interface IModal {
   closeModal: () => void;
 }
 
-export const Modal = ({ header, body, footer, isOpen = false, closeModal }: IModal) => {
-  const handelOnClose = () => {
-    closeModal();
-  };
-
-  return (
-    <>
-      {isOpen && (
-        <StyledModal>
-          <StyledModalDialog role="dialog" aria-modal="true">
-            <StyledModalContent>
-              <StyledModalHeader>
-                <StyledCloseButton color="primary" onClick={handelOnClose}>
-                  <Icon icon={faWindowClose} color="primary" />
-                </StyledCloseButton>
-                {header}
-              </StyledModalHeader>
-              {body && <StyledModalBody>{body}</StyledModalBody>}
-              {footer && <StyledModalFooter>{footer}</StyledModalFooter>}
-            </StyledModalContent>
-          </StyledModalDialog>
-        </StyledModal>
-      )}
-    </>
-  );
-};
+export const Modal = ({ header, body, footer, isOpen = false, closeModal }: IModalProps) => (
+  <>
+    {isOpen && (
+      <StyledModal>
+        <StyledModalDialog role="dialog" aria-modal="true">
+          <StyledModalContent>
+            <StyledModalHeader>
+              <StyledCloseButton color="primary" onClick={closeModal}>
+                <Icon icon={faWindowClose} color="primary" />
+              </StyledCloseButton>
+              {header}
+            </StyledModalHeader>
+            {body && <StyledModalBody>{body}</StyledModalBody>}
+            {footer && <StyledModalFooter>{footer}</StyledModalFooter>}
+          </StyledModalContent>
+        </StyledModalDialog>
+      </StyledModal>
+    )}
+  </>
+);

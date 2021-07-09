@@ -6,7 +6,7 @@ export default function Page({ contacts }) {
   return <Contacts contacts={contacts} />;
 }
 
-Page.requrireAuth = true;
+Page.requireAuth = true;
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const contacts = await getContacts(ctx);

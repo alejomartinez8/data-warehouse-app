@@ -8,13 +8,13 @@ export function unauthorizedHandle(error: AxiosError, ctx?: GetServerSidePropsCo
   const { response } = error;
 
   // Client side
-  if (response.status === 401 && !ctx?.req) {
+  if (response?.status === 401 && !ctx?.req) {
     Router.replace('/login');
     throw error;
   }
 
   // Server side
-  if (response.status === 401 && ctx?.req) {
+  if (response?.status === 401 && ctx?.req) {
     ctx.res.writeHead(302, {
       Location: isProd ? 'https://data-warehouse-am.herokuapp.com/login' : 'http://localhost:3000',
     });

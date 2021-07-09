@@ -1,3 +1,4 @@
+import { IUser } from 'lib/types';
 import {
   StyledTableContet,
   StyledTable,
@@ -6,22 +7,12 @@ import {
   StyledTR,
 } from './UserList.styled';
 
-export type User = {
-  id: string;
-  firstName: string;
-  lastName: string;
-  username: string;
-  email: string;
-  password: string;
-  role: string;
-  avatar: string;
-};
-
 interface ITable {
-  users: User[];
+  users: IUser[];
+  handleEditUser: (user: IUser) => void;
 }
 
-export const UserList = ({ users }: ITable) => (
+export const UserList = ({ users, handleEditUser }: ITable) => (
   <StyledTableContet>
     <StyledTable>
       <StyledTHead>
@@ -33,9 +24,9 @@ export const UserList = ({ users }: ITable) => (
         </tr>
       </StyledTHead>
       <StyledTBody>
-        {users.length > 0 &&
+        {users?.length > 0 &&
           users.map((user) => (
-            <StyledTR key={user.id}>
+            <StyledTR key={user.id} onClick={() => handleEditUser(user)}>
               <td>{user.firstName}</td>
               <td>{user.lastName}</td>
               <td>{user.email}</td>

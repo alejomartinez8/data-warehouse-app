@@ -1,5 +1,6 @@
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { Icon } from 'components/atoms';
+import { useAuth } from 'lib/hooks';
 import { useRouter } from 'next/router';
 import { destroyCookie } from 'nookies';
 import {
@@ -13,6 +14,7 @@ import {
 } from './NavBar.styled';
 
 export const NavBar = () => {
+  const { user } = useAuth();
   const router = useRouter();
 
   const handleLogout = () => {
@@ -29,15 +31,17 @@ export const NavBar = () => {
         <StyledItem>
           <StyledNavItem href="/contacts">Contacts</StyledNavItem>
         </StyledItem>
-        {/* <StyledItem>
-          <StyledNavItem href="/companies">Companies</StyledNavItem>
-        </StyledItem> */}
         <StyledItem>
-          <StyledNavItem href="/users">Users</StyledNavItem>
+          <StyledNavItem href="/companies">Companies</StyledNavItem>
         </StyledItem>
-        {/* <StyledItem>
-          <StyledNavItem href="/companies">Region/City</StyledNavItem>
-        </StyledItem> */}
+        {user.role === 'ADMIN' && (
+          <StyledItem>
+            <StyledNavItem href="/users">Users</StyledNavItem>
+          </StyledItem>
+        )}
+        <StyledItem>
+          <StyledNavItem href="/regions">Region/City</StyledNavItem>
+        </StyledItem>
       </StyledList>
       <StyledListLogut>
         <StyledItem>

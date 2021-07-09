@@ -1,5 +1,5 @@
-import { Modal } from 'components/organisms/Modal/Modal.component';
 import { createContext, useContext, ReactNode, useReducer } from 'react';
+import { Modal } from 'components/organisms/Modal/Modal.component';
 
 interface IState {
   header?: ReactNode;
@@ -28,7 +28,6 @@ export const useModal = (): IModalContext => {
 };
 
 const modalReducer = (state: IState, action: { type: string; payload?: IState }): IState => {
-  console.log(action.payload);
   switch (action.type) {
     case 'SET_MODAL':
       return {
@@ -51,6 +50,7 @@ export const ModalProvider = ({ children }) => {
     footer: null,
     isOpen: false,
   };
+
   const [state, dispatch] = useReducer(modalReducer, initialState);
 
   const setModal = (values: IState) => {
