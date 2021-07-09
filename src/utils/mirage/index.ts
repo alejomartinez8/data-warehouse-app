@@ -1,7 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { createServer, Model, Factory } from 'miragejs';
 import faker from 'faker';
-import { User } from 'components/molecules';
+import { IUser } from 'lib/types';
 
 export function makeServer({ environment = 'test' } = {}) {
   return createServer({
@@ -35,7 +35,7 @@ export function makeServer({ environment = 'test' } = {}) {
     },
 
     models: {
-      user: Model.extend<Partial<User>>({}),
+      user: Model.extend<Partial<IUser>>({}),
     },
 
     routes() {
