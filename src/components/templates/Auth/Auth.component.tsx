@@ -1,9 +1,11 @@
-import React, { FormEvent, useState } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { setCookie } from 'nookies';
 import { faFacebookF, faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { Button } from 'components/atoms';
 import { login } from 'lib/services/auth/auth.service';
+import { useStore } from 'lib/hooks';
+import { observer } from 'mobx-react-lite';
 import {
   StyledBody,
   StyledContainer,
@@ -19,10 +21,11 @@ import {
   StyledButton,
 } from './Auth.styled';
 
-export const Auth = () => {
+export const Auth = observer(() => {
   const [signIn, setSignIn] = useState(true);
   const [formData, setFormData] = useState({ email: '', password: '' });
   const router = useRouter();
+  const { authState, fetchUser } = useStore('userStore');
 
   const { email, password } = formData;
 
@@ -38,11 +41,14 @@ export const Auth = () => {
         maxAge: 30 * 24 * 60 * 60,
         path: '/',
       });
-      router.push('/users');
+      await fetchUser();
+      router.push('/contacts');
     } catch (error) {
       console.log({ error });
     }
   };
+
+  if (authState.isAuth) router.push('/contacts');
 
   return (
     <StyledBody>
@@ -112,4 +118,4 @@ export const Auth = () => {
       </StyledContainer>
     </StyledBody>
   );
-};
+});

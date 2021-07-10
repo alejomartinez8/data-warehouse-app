@@ -1,6 +1,7 @@
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { Icon } from 'components/atoms';
-import { useAuth } from 'lib/hooks';
+import { useStore } from 'lib/hooks';
+import { observer } from 'mobx-react-lite';
 import { useRouter } from 'next/router';
 import { destroyCookie } from 'nookies';
 import {
@@ -13,8 +14,8 @@ import {
   StyledListLogut,
 } from './NavBar.styled';
 
-export const NavBar = () => {
-  const { user } = useAuth();
+export const NavBar = observer(() => {
+  const { user } = useStore('userStore');
   const router = useRouter();
 
   const handleLogout = () => {
@@ -34,7 +35,7 @@ export const NavBar = () => {
         <StyledItem>
           <StyledNavItem href="/companies">Companies</StyledNavItem>
         </StyledItem>
-        {user.role === 'ADMIN' && (
+        {user?.role === 'ADMIN' && (
           <StyledItem>
             <StyledNavItem href="/users">Users</StyledNavItem>
           </StyledItem>
@@ -52,6 +53,4 @@ export const NavBar = () => {
       </StyledListLogut>
     </StyledNav>
   );
-};
-
-export default NavBar;
+});

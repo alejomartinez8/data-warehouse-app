@@ -3,13 +3,13 @@ import { useRouter } from 'next/router';
 import { Button, CardBox } from 'components/atoms';
 import { UserList } from 'components/molecules';
 import { Layout } from 'components/organisms';
-import { useAuth, useModal } from 'lib/hooks';
+import { useStore, useModal } from 'lib/hooks';
 import { IUser } from 'lib/types';
 import { HeaderUsersForm, BodyUsersForm, FooterUsersForm } from './Users.modal';
 import { StyledTitleContainer } from './Users.styled';
 
 export const Users = ({ users }) => {
-  const { user } = useAuth();
+  const { user } = useStore('userStore');
   const { setModal } = useModal();
   const router = useRouter();
 
@@ -29,7 +29,7 @@ export const Users = ({ users }) => {
     });
   };
 
-  if (user.role === 'USER') router.push('/contacts');
+  if (user?.role === 'BASIC') router.push('/contacts');
 
   return (
     <>

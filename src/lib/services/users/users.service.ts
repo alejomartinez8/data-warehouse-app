@@ -1,18 +1,12 @@
 import { IUser } from 'lib/types';
-import { AxiosError, AxiosRequestConfig } from 'axios';
-import { GetServerSidePropsContext } from 'next';
+import { AxiosError } from 'axios';
 import { unauthorizedHandle } from 'utils/handleError/handleError.util';
 import { ApiInstance } from '../axiosInstances';
 
-export const getUsers = async (ctx?: GetServerSidePropsContext): Promise<any> => {
-  const { cookie } = ctx?.req.headers;
-
-  const config: AxiosRequestConfig = cookie ? { headers: { cookie } } : undefined;
-
-  return ApiInstance.get('/users', config)
+export const getProfiles = async (): Promise<IUser[]> =>
+  ApiInstance.get('/users')
     .then((response) => response.data)
-    .catch((err: AxiosError) => unauthorizedHandle(err, ctx));
-};
+    .catch((err: AxiosError) => unauthorizedHandle(err));
 
 export const registerUser = async (data) =>
   ApiInstance.post('/users', data)
