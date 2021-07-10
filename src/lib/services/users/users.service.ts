@@ -3,7 +3,7 @@ import { AxiosError } from 'axios';
 import { unauthorizedHandle } from 'utils/handleError/handleError.util';
 import { ApiInstance } from '../axiosInstances';
 
-export const getProfiles = async (): Promise<IUser[]> =>
+export const getUsers = async (): Promise<IUser[]> =>
   ApiInstance.get('/users')
     .then((response) => response.data)
     .catch((err: AxiosError) => unauthorizedHandle(err));

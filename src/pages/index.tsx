@@ -1,3 +1,18 @@
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
+import { useStore } from 'lib/hooks';
+
 export default function Page() {
-  return 'Home';
+  const { user } = useStore('userStore');
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!user) {
+      router.push('/login');
+    } else {
+      router.push('/contacts');
+    }
+  }, [router, user]);
+
+  return <p>Redirecting...</p>;
 }
