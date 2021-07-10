@@ -1,8 +1,9 @@
+import App from 'next/app';
 import { NextPage } from 'next';
 import Head from 'next/head';
 import type { AppProps } from 'next/app';
 import { ThemeProvider, createGlobalStyle } from 'styled-components';
-import { ModalProvider, AuthProvider } from 'lib/hooks';
+import { ModalProvider, StoresProvider } from 'lib/hooks';
 import baseTheme from 'themes/baseTheme';
 import { AuthGuard } from 'components/atoms/AuthGuard/AuthGuard.component';
 import '@fortawesome/fontawesome-svg-core/styles.css';
@@ -31,29 +32,34 @@ function MyApp(props: AppProps) {
   const { Component, pageProps }: { Component: NextApplicationPage; pageProps: any } = props;
 
   return (
-    <ThemeProvider theme={baseTheme}>
-      <ModalProvider>
-        <Head>
-          <link
-            rel="stylesheet"
-            href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-            integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
-            crossOrigin="anonymous"
-          />
-        </Head>
-        <GlobalStyles />
-        {Component.requireAuth ? (
-          <AuthProvider>
+    <StoresProvider>
+      <ThemeProvider theme={baseTheme}>
+        <ModalProvider>
+          <Head>
+            <link
+              rel="stylesheet"
+              href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+              integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+              crossOrigin="anonymous"
+            />
+          </Head>
+          <GlobalStyles />
+          {Component.requireAuth ? (
             <AuthGuard>
               <Component {...pageProps} />
             </AuthGuard>
-          </AuthProvider>
-        ) : (
-          <Component {...pageProps} />
-        )}
-      </ModalProvider>
-    </ThemeProvider>
+          ) : (
+            <Component {...pageProps} />
+          )}
+        </ModalProvider>
+      </ThemeProvider>
+    </StoresProvider>
   );
 }
+
+MyApp.getInitialProps = async (appContext) => {
+  const appProps = await App.getInitialProps(appContext);
+  return { ...appProps };
+};
 
 export default MyApp;

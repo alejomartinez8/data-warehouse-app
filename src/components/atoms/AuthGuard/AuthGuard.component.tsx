@@ -1,11 +1,23 @@
-import { useAuth } from 'lib/hooks';
+import { useEffect } from 'react';
+import { useStore } from 'lib/hooks';
+import { observer } from 'mobx-react-lite';
+import { useRouter } from 'next/router';
 
-export const AuthGuard = ({ children }) => {
-  const { state } = useAuth();
+export const AuthGuard = observer(({ children }) => {
+  const { fetchUser, authState } = useStore('userStore');
+  const router = useRouter();
 
-  if (!state.isAuth) {
-    return <p>Loading...</p>;
-  }
+  useEffect(() => {
+    (async () => {
+      if (!authState.isAuth) {
+        try {
+          await fetchUser();
+        } catch (error) {
+          router.push('/login');
+        }
+      }
+    })();
+  }, [authState.isAuth, fetchUser, router]);
 
   return <>{children}</>;
-};
+});

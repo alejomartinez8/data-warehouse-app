@@ -1,3 +1,4 @@
+import { IUser } from 'lib/types';
 import { ApiInstance } from '../axiosInstances';
 
 export const login = async (user: { email: string; password: string }): Promise<any> =>
@@ -14,7 +15,7 @@ export const postLogout = async (): Promise<any> =>
       throw err;
     });
 
-export const getProfile = async (): Promise<any> =>
+export const getProfile = async (): Promise<IUser> =>
   ApiInstance.get('/auth/profile')
     .then((response) => response.data)
     .catch((err) => {

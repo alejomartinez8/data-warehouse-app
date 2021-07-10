@@ -1,21 +1,22 @@
-import { GetServerSideProps } from 'next';
+import { useState, useEffect } from 'react';
 import { Users } from 'components/templates';
-import { getUsers } from 'lib/services';
+import { getProfiles } from 'lib/services';
+import { IUser } from 'lib/types';
 
-function Page({ users }) {
+function Page() {
+  const [users, setUsers] = useState<IUser[]>([]);
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      const response = await getProfiles();
+      console.log(response);
+    };
+    fetchUsers();
+  }, []);
+
   return <Users users={users} />;
 }
 
 Page.requireAuth = true;
-
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const users = await getUsers(ctx);
-
-  return {
-    props: {
-      users,
-    },
-  };
-};
 
 export default Page;

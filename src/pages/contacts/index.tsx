@@ -1,19 +1,9 @@
 import { Contacts } from 'components/templates';
 import { getContacts } from 'lib/services/contacts/contacts.service';
-import { GetServerSideProps } from 'next';
 
-export default function Page({ contacts }) {
+export default function Page() {
+  const contacts = [];
   return <Contacts contacts={contacts} />;
 }
 
 Page.requireAuth = true;
-
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const contacts = await getContacts(ctx);
-
-  return {
-    props: {
-      contacts,
-    },
-  };
-};
