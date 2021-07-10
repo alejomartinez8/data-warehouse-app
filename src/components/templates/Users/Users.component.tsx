@@ -3,7 +3,6 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { Button, CardBox } from 'components/atoms';
 import { UserList } from 'components/molecules';
-import { Layout } from 'components/organisms';
 import { useStore, useModal } from 'lib/hooks';
 import { IUser } from 'lib/types';
 import { getUsers } from 'lib/services';
@@ -47,21 +46,19 @@ export const Users = () => {
       <Head>
         <title>Data Warehouse - Users</title>
       </Head>
-      <Layout>
-        <CardBox>
-          <CardBox.Title>
-            <StyledTitleContainer>
-              <CardBox.Heading>Users</CardBox.Heading>
-              <Button color="primary" onClick={handleAddUser}>
-                Add User
-              </Button>
-            </StyledTitleContainer>
-          </CardBox.Title>
-          <CardBox.Content>
-            <UserList users={users} handleEditUser={handleEditUser} />
-          </CardBox.Content>
-        </CardBox>
-      </Layout>
+      <CardBox>
+        <CardBox.Title>
+          <StyledTitleContainer>
+            <CardBox.Heading>Users</CardBox.Heading>
+            <Button color="primary" onClick={handleAddUser}>
+              Add User
+            </Button>
+          </StyledTitleContainer>
+        </CardBox.Title>
+        <CardBox.Content>
+          <UserList users={users} handleEditUser={handleEditUser} />
+        </CardBox.Content>
+      </CardBox>
     </>
   );
 };

@@ -7,6 +7,7 @@ import { ModalProvider, StoresProvider } from 'lib/hooks';
 import baseTheme from 'themes/baseTheme';
 import { AuthGuard } from 'components/atoms/AuthGuard/AuthGuard.component';
 import '@fortawesome/fontawesome-svg-core/styles.css';
+import { Layout } from 'components/organisms';
 
 const GlobalStyles = createGlobalStyle`
    body{
@@ -46,7 +47,9 @@ function MyApp(props: AppProps) {
           <GlobalStyles />
           {Component.requireAuth ? (
             <AuthGuard>
-              <Component {...pageProps} />
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
             </AuthGuard>
           ) : (
             <Component {...pageProps} />
