@@ -1,10 +1,11 @@
 import axios from 'axios';
+import getConfig from 'next/config';
 
-const isProd = process.env.NODE_ENV === 'production';
+const { publicRuntimeConfig } = getConfig();
 
 const createApiInstance = () =>
   axios.create({
-    baseURL: '/api',
+    baseURL: publicRuntimeConfig.API_URL,
     withCredentials: true,
   });
 

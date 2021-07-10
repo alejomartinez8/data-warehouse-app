@@ -1,19 +1,19 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { Button, CardBox } from 'components/atoms';
 import { UserList } from 'components/molecules';
 import { useStore, useModal } from 'lib/hooks';
 import { IUser } from 'lib/types';
-import { getUsers } from 'lib/services';
+import { observer } from 'mobx-react-lite';
 import { HeaderUsersForm, BodyUsersForm, FooterUsersForm } from './Users.modal';
 import { StyledTitleContainer } from './Users.styled';
 
-export const Users = () => {
+export const Users = observer(() => {
   const { user } = useStore('userStore');
+  const { users, loading, fetchUsers } = useStore('usersStore');
   const { setModal } = useModal();
   const router = useRouter();
-  const [users, setUsers] = useState<IUser[]>([]);
 
   const handleAddUser = () => {
     setModal({
@@ -34,12 +34,8 @@ export const Users = () => {
   if (user?.role === 'BASIC') router.push('/contacts');
 
   useEffect(() => {
-    const fetchUsers = async () => {
-      const response = await getUsers();
-      setUsers(response);
-    };
     fetchUsers();
-  }, []);
+  }, [fetchUsers]);
 
   return (
     <>
@@ -56,9 +52,9 @@ export const Users = () => {
           </StyledTitleContainer>
         </CardBox.Title>
         <CardBox.Content>
-          <UserList users={users} handleEditUser={handleEditUser} />
+          {loading ? 'Loading...' : <UserList users={users} handleEditUser={handleEditUser} />}
         </CardBox.Content>
       </CardBox>
     </>
   );
-};
+});

@@ -1,4 +1,4 @@
-import { useModal } from 'lib/hooks';
+import { useModal, useStore } from 'lib/hooks';
 import { registerUser, updateUser } from 'lib/services';
 import { IUser } from 'lib/types';
 import { FormEvent, useState } from 'react';
@@ -25,6 +25,7 @@ export const BodyUsersForm = ({ user }: IBodyUsersFormProps) => {
   };
 
   const [formData, setFormData] = useState(initialState);
+  const { fetchUsers } = useStore('usersStore');
 
   const { firstName, lastName, email, role, password, repeatPassword } = formData;
 
@@ -32,7 +33,7 @@ export const BodyUsersForm = ({ user }: IBodyUsersFormProps) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (user) {
       updateUser({ ...formData, password: password || undefined, repeatPassword: undefined });
@@ -40,6 +41,7 @@ export const BodyUsersForm = ({ user }: IBodyUsersFormProps) => {
       registerUser({ ...formData, repeatPassword: undefined });
     }
     closeModal();
+    await fetchUsers();
   };
 
   return (
