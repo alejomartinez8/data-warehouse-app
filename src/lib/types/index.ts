@@ -1,1 +1,2 @@
-export * from './IUser/IUser';
+export * from './IUser';
+export * from './IContact';

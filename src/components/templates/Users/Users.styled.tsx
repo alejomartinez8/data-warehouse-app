@@ -66,3 +66,10 @@ export const StyledSelect = styled.select`
 export const StyledButton = styled(Button)`
   margin: 0 1rem;
 `;
+
+export const StyledButtonContainer = styled.div`
+  display: flex;
+  > button {
+    margin: 0 0.25rem;
+  }
+`;

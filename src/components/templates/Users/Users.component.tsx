@@ -7,11 +7,11 @@ import { useStore, useModal } from 'lib/hooks';
 import { IUser } from 'lib/types';
 import { observer } from 'mobx-react-lite';
 import { HeaderUsersForm, BodyUsersForm, FooterUsersForm } from './Users.modal';
-import { StyledTitleContainer } from './Users.styled';
+import { StyledTitleContainer, StyledButtonContainer } from './Users.styled';
 
 export const Users = observer(() => {
   const { user } = useStore('userStore');
-  const { users, loading, fetchUsers } = useStore('usersStore');
+  const { users, loading, usersSelected, fetchUsers } = useStore('usersStore');
   const { setModal } = useModal();
   const router = useRouter();
 
@@ -31,6 +31,10 @@ export const Users = observer(() => {
     });
   };
 
+  const handleOnDelete = () => {
+    // console.log(usersSelected);
+  };
+
   if (user?.role === 'BASIC') router.push('/contacts');
 
   useEffect(() => {
@@ -46,9 +50,16 @@ export const Users = observer(() => {
         <CardBox.Title>
           <StyledTitleContainer>
             <CardBox.Heading>Users</CardBox.Heading>
-            <Button color="primary" onClick={handleAddUser}>
-              Add User
-            </Button>
+            <StyledButtonContainer>
+              {usersSelected.length > 0 && (
+                <Button color="danger" onClick={handleOnDelete}>
+                  Delete
+                </Button>
+              )}
+              <Button color="primary" onClick={handleAddUser}>
+                Add User
+              </Button>
+            </StyledButtonContainer>
           </StyledTitleContainer>
         </CardBox.Title>
         <CardBox.Content>

@@ -1,11 +1,16 @@
 import { getUsers } from 'lib/services';
 import { makeAutoObservable } from 'mobx';
 import { IUser } from 'lib/types';
+import { checkboxEnum } from 'constans';
+
+const { UNCHECKED } = checkboxEnum;
 
 export class UsersStore {
-  users: IUser[] = null;
+  users: IUser[] = [];
 
   loading = false;
+
+  usersSelected: IUser[] = [];
 
   constructor() {
     makeAutoObservable(this);
@@ -18,8 +23,12 @@ export class UsersStore {
       this.setLoading(false);
     } catch (error) {
       this.setLoading(false);
-      this.setUsers(null);
+      this.setUsers([]);
     }
+  };
+
+  setUsersSelected = (users: IUser[]) => {
+    this.usersSelected = users;
   };
 
   setUsers = (users: IUser[]) => {

@@ -1,5 +1,9 @@
 import styled, { css } from 'styled-components';
 
+interface IStyledTR {
+  checked: boolean;
+}
+
 export const StyledTableContet = styled.div`
   width: 100%;
   overflow-x: auto;
@@ -33,12 +37,17 @@ export const StyledTHead = styled.thead(
 
 export const StyledTBody = styled.tbody``;
 
-export const StyledTR = styled.tr(
-  ({ theme }) => css`
+export const StyledTR = styled.tr<IStyledTR>(({ theme, checked }) => {
+  const mixinColor = css`
+    background-color: ${theme.colors.gray};
+    color: ${theme.colors.primary};
+  `;
+
+  return css`
+    ${checked && mixinColor};
     &:hover {
       cursor: pointer;
-      background-color: ${theme.colors.gray};
-      color: ${theme.colors.primary};
+      ${mixinColor};
     }
-  `,
-);
+  `;
+});
