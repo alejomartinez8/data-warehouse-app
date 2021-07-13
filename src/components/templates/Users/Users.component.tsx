@@ -6,7 +6,8 @@ import { UserList } from 'components/molecules';
 import { useStore, useModal } from 'lib/hooks';
 import { IUser } from 'lib/types';
 import { observer } from 'mobx-react-lite';
-import { HeaderUsersForm, BodyUsersForm, FooterUsersForm } from './Users.modal';
+import { HeaderUsersForm, BodyUsersForm, FooterUsersForm } from './UsersForm.modal';
+import { HeaderUsersDelete, BodyUsersDelete, FooterUsersDelete } from './UsersDelete.modal';
 import { StyledTitleContainer, StyledButtonContainer } from './Users.styled';
 
 export const Users = observer(() => {
@@ -26,13 +27,19 @@ export const Users = observer(() => {
   const handleEditUser = (editUser: IUser) => {
     setModal({
       header: <HeaderUsersForm title="Edit User" />,
-      body: <BodyUsersForm user={editUser} />,
+      body: <BodyUsersForm user={editUser as IUser} />,
       footer: <FooterUsersForm />,
     });
   };
 
   const handleOnDelete = () => {
-    // console.log(usersSelected);
+    setModal({
+      header: (
+        <HeaderUsersDelete title={usersSelected.length === 1 ? 'Delete User' : 'Delete Users'} />
+      ),
+      body: <BodyUsersDelete />,
+      footer: <FooterUsersDelete />,
+    });
   };
 
   if (user?.role === 'BASIC') router.push('/contacts');

@@ -1,9 +1,6 @@
-import { getUsers } from 'lib/services';
+import { deleteUser, getUsers, registerUser, updateUser } from 'lib/services';
 import { makeAutoObservable } from 'mobx';
 import { IUser } from 'lib/types';
-import { checkboxEnum } from 'constans';
-
-const { UNCHECKED } = checkboxEnum;
 
 export class UsersStore {
   users: IUser[] = [];
@@ -37,5 +34,39 @@ export class UsersStore {
 
   setLoading = (state: boolean) => {
     this.loading = state;
+  };
+
+  fetchRegisterUser = async (user) => {
+    try {
+      this.setLoading(true);
+      await registerUser(user);
+      this.fetchUsers();
+      this.setLoading(false);
+    } catch (error) {
+      this.setLoading(false);
+    }
+  };
+
+  fetchUpddateUser = async (user) => {
+    try {
+      this.setLoading(true);
+      await updateUser(user);
+      this.fetchUsers();
+      this.setLoading(false);
+    } catch (error) {
+      this.setLoading(false);
+    }
+  };
+
+  fetchDeleteUsers = async (users: IUser[]) => {
+    try {
+      this.setLoading(true);
+      const promises = users.map((user) => deleteUser(user.id));
+      await Promise.all(promises);
+      this.fetchUsers();
+      this.setLoading(false);
+    } catch (error) {
+      this.setLoading(false);
+    }
   };
 }

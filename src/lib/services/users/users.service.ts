@@ -8,12 +8,17 @@ export const getUsers = async (): Promise<IUser[]> =>
     .then((response) => response.data)
     .catch((err: AxiosError) => unauthorizedHandle(err));
 
-export const registerUser = async (data) =>
-  ApiInstance.post('/users', data)
+export const registerUser = async (user) =>
+  ApiInstance.post('/users', user)
     .then((response) => response.data)
     .catch((err: AxiosError) => unauthorizedHandle(err));
 
 export const updateUser = async (user) =>
   ApiInstance.put(`/users/${user.id}`, user)
+    .then((response) => response.data)
+    .catch((err: AxiosError) => unauthorizedHandle(err));
+
+export const deleteUser = async (id: string) =>
+  ApiInstance.delete(`/users/${id}`)
     .then((response) => response.data)
     .catch((err: AxiosError) => unauthorizedHandle(err));
