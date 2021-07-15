@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { Button, CardBox } from 'components/atoms';
@@ -12,7 +12,8 @@ import { StyledTitleContainer, StyledButtonContainer } from './Users.styled';
 
 export const Users = observer(() => {
   const { user } = useStore('userStore');
-  const { users, loading, usersSelected, fetchUsers } = useStore('usersStore');
+  const [usersSelected, setUsersSelected] = useState([]);
+  const { users, loading, fetchUsers } = useStore('usersStore');
   const { setModal } = useModal();
   const router = useRouter();
 
@@ -28,7 +29,7 @@ export const Users = observer(() => {
     setModal({
       header: <HeaderUsersForm title="Edit User" />,
       body: <BodyUsersForm user={editUser as IUser} />,
-      footer: <FooterUsersForm />,
+      footer: <FooterUsersForm user={editUser} />,
     });
   };
 
@@ -38,7 +39,7 @@ export const Users = observer(() => {
         <HeaderUsersDelete title={usersSelected.length === 1 ? 'Delete User' : 'Delete Users'} />
       ),
       body: <BodyUsersDelete />,
-      footer: <FooterUsersDelete />,
+      footer: <FooterUsersDelete users={usersSelected} />,
     });
   };
 
@@ -70,7 +71,15 @@ export const Users = observer(() => {
           </StyledTitleContainer>
         </CardBox.Title>
         <CardBox.Content>
-          {loading ? 'Loading...' : <UserList users={users} handleEditUser={handleEditUser} />}
+          {loading ? (
+            'Loading...'
+          ) : (
+            <UserList
+              users={users}
+              handleEditUser={handleEditUser}
+              setUsersSelected={setUsersSelected}
+            />
+          )}
         </CardBox.Content>
       </CardBox>
     </>

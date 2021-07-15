@@ -1,6 +1,5 @@
 import { Checkbox } from 'components/atoms';
 import { checkboxEnum } from 'constans';
-import { useStore } from 'lib/hooks';
 import { IUser } from 'lib/types';
 import { observer } from 'mobx-react-lite';
 import { useEffect, useState } from 'react';
@@ -16,13 +15,13 @@ const { CHECKED, UNCHECKED, INDETERMINATE } = checkboxEnum;
 
 interface ITableProps {
   users: IUser[];
+  setUsersSelected: (users: IUser[]) => void;
   handleEditUser: (user: IUser) => void;
 }
 
-export const UserList = observer(({ users, handleEditUser }: ITableProps) => {
+export const UserList = observer(({ users, setUsersSelected, handleEditUser }: ITableProps) => {
   const [userList, setUserList] = useState(users?.map((user) => ({ ...user, checked: false })));
   const [checkedAll, setCheckedAll] = useState(UNCHECKED);
-  const { setUsersSelected } = useStore('usersStore');
 
   const handleOnChange = (id: string) => {
     setUserList(
@@ -39,7 +38,7 @@ export const UserList = observer(({ users, handleEditUser }: ITableProps) => {
   };
 
   useEffect(() => {
-    const usersSelected = userList.filter((user) => user.checked);
+    const usersSelected = userList?.filter((user) => user.checked);
 
     if (usersSelected.length === userList.length) {
       setCheckedAll(CHECKED);

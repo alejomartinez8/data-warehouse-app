@@ -73,3 +73,7 @@ export const StyledButtonContainer = styled.div`
     margin: 0 0.25rem;
   }
 `;
+
+export const StyledParragraphDelete = styled.p`
+  text-align: center;
+`;

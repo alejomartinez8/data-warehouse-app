@@ -1,7 +1,7 @@
 import { useModal, useStore } from 'lib/hooks';
-import { registerUser, updateUser } from 'lib/services';
+import { registerUser, updateUser, UserWithPassword } from 'lib/services';
 import { IUser } from 'lib/types';
-import { FormEvent, useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 import {
   StyledFormGroup,
   StyledLabel,
@@ -9,9 +9,10 @@ import {
   StyledButton,
   StyledSelect,
 } from './Users.styled';
+import { HeaderUsersDelete, BodyUsersDelete, FooterUsersDelete } from './UsersDelete.modal';
 
 interface IBodyUsersFormProps {
-  user?: IUser;
+  user?: UserWithPassword;
 }
 
 export const HeaderUsersForm = ({ title }) => <h1>{title}</h1>;
@@ -19,7 +20,11 @@ export const HeaderUsersForm = ({ title }) => <h1>{title}</h1>;
 export const BodyUsersForm = ({ user }: IBodyUsersFormProps) => {
   const { closeModal } = useModal();
   const initialState = {
-    ...user,
+    id: user ? user.id : '',
+    firstName: user ? user.firstName : '',
+    lastName: user ? user.lastName : '',
+    email: user ? user.email : '',
+    role: user ? user.role : 'BASIC',
     password: '',
     repeatPassword: '',
   };
@@ -35,10 +40,15 @@ export const BodyUsersForm = ({ user }: IBodyUsersFormProps) => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+
+    delete formData.repeatPassword;
+
     if (user) {
-      updateUser({ ...formData, password: password || undefined, repeatPassword: undefined });
+      if (!password) delete formData.password;
+      await updateUser({ ...formData });
     } else {
-      registerUser({ ...formData, repeatPassword: undefined });
+      delete formData.id;
+      await registerUser({ ...formData });
     }
     closeModal();
     await fetchUsers();
@@ -101,12 +111,24 @@ export const BodyUsersForm = ({ user }: IBodyUsersFormProps) => {
   );
 };
 
-export const FooterUsersForm = () => {
-  const { closeModal } = useModal();
+export const FooterUsersForm = ({ user }: { user?: IUser }) => {
+  const { setModal, closeModal } = useModal();
+
+  const handleOnDelete = () => {
+    setModal({
+      header: <HeaderUsersDelete title="Delete User" />,
+      body: <BodyUsersDelete />,
+      footer: <FooterUsersDelete users={[user]} />,
+    });
+  };
+
+  const handleOnClick = () => (user ? handleOnDelete() : closeModal());
 
   return (
     <>
-      <StyledButton onClick={closeModal}>Cancel</StyledButton>
+      <StyledButton color={user ? 'danger' : 'default'} onClick={handleOnClick}>
+        {user ? 'Delete' : 'Cancel'}
+      </StyledButton>
       <StyledButton color="primary" form="user-form" type="submit">
         Save
       </StyledButton>

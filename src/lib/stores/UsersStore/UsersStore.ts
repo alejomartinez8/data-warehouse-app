@@ -1,4 +1,4 @@
-import { deleteUser, getUsers, registerUser, updateUser } from 'lib/services';
+import { deleteUser, getUsers, registerUser, updateUser, UserWithPassword } from 'lib/services';
 import { makeAutoObservable } from 'mobx';
 import { IUser } from 'lib/types';
 
@@ -6,8 +6,6 @@ export class UsersStore {
   users: IUser[] = [];
 
   loading = false;
-
-  usersSelected: IUser[] = [];
 
   constructor() {
     makeAutoObservable(this);
@@ -24,10 +22,6 @@ export class UsersStore {
     }
   };
 
-  setUsersSelected = (users: IUser[]) => {
-    this.usersSelected = users;
-  };
-
   setUsers = (users: IUser[]) => {
     this.users = users;
   };
@@ -36,22 +30,22 @@ export class UsersStore {
     this.loading = state;
   };
 
-  fetchRegisterUser = async (user) => {
+  fetchRegisterUser = async (user: UserWithPassword) => {
     try {
       this.setLoading(true);
       await registerUser(user);
-      this.fetchUsers();
+      await this.fetchUsers();
       this.setLoading(false);
     } catch (error) {
       this.setLoading(false);
     }
   };
 
-  fetchUpddateUser = async (user) => {
+  fetchUpddateUser = async (user: UserWithPassword) => {
     try {
       this.setLoading(true);
       await updateUser(user);
-      this.fetchUsers();
+      await this.fetchUsers();
       this.setLoading(false);
     } catch (error) {
       this.setLoading(false);
@@ -63,7 +57,7 @@ export class UsersStore {
       this.setLoading(true);
       const promises = users.map((user) => deleteUser(user.id));
       await Promise.all(promises);
-      this.fetchUsers();
+      await this.fetchUsers();
       this.setLoading(false);
     } catch (error) {
       this.setLoading(false);

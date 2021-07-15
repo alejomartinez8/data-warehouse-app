@@ -39,23 +39,23 @@ const bounceInRight = keyframes`
     }
 `;
 
-const flipInY = keyframes`
-  0% {
-    transform: perspective(400px) rotateY(90deg);
-    opacity: 0;
-  }
-  40% {
+// const flipInY = keyframes`
+//   0% {
+//     transform: perspective(400px) rotateY(90deg);
+//     opacity: 0;
+//   }
+//   40% {
 
-    transform: perspective(400px) rotateY(-10deg);
-  }
-  70% {
-    transform: perspective(400px) rotateY(10deg);
-  }
-  100% {
-    transform: perspective(400px) rotateY(0deg);
-    opacity: 1;
-  }
-`;
+//     transform: perspective(400px) rotateY(-10deg);
+//   }
+//   70% {
+//     transform: perspective(400px) rotateY(10deg);
+//   }
+//   100% {
+//     transform: perspective(400px) rotateY(0deg);
+//     opacity: 1;
+//   }
+// `;
 
 export const StyledModalContent = styled.div`
   position: relative;
