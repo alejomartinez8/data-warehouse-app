@@ -1,4 +1,4 @@
-import React, { FormEvent, useEffect, useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 import { useRouter } from 'next/router';
 import { setCookie } from 'nookies';
 import { faFacebookF, faGoogle } from '@fortawesome/free-brands-svg-icons';

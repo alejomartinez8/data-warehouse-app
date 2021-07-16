@@ -1,5 +1,5 @@
 import { getProfile, postLogout } from 'lib/services';
-import { makeAutoObservable, toJS } from 'mobx';
+import { makeAutoObservable } from 'mobx';
 import { IUser } from 'lib/types';
 
 interface IAuthState {
