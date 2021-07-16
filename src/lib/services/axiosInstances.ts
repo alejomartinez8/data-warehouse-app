@@ -1,11 +1,11 @@
 import axios from 'axios';
-import getConfig from 'next/config';
+// import getConfig from 'next/config';
 
-const { publicRuntimeConfig } = getConfig();
+// const { publicRuntimeConfig } = getConfig();
 
 const createApiInstance = () =>
   axios.create({
-    baseURL: publicRuntimeConfig.API_URL,
+    baseURL: '/api', // publicRuntimeConfig.API_URL,
     withCredentials: true,
   });
 
