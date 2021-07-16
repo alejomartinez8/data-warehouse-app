@@ -32,10 +32,10 @@
     "axios": "^0.21.1",
     "mobx": "^6.3.2",
     "mobx-react-lite": "^3.2.0",
-    "next": "10.0.9",
+    "next": "^11.0.1",
     "nookies": "^2.5.2",
-    "react": "17.0.2",
-    "react-dom": "17.0.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "styled-components": "^5.2.1"
   },
   "devDependencies": {
@@ -56,6 +56,7 @@
     "eslint": "^7.23.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-next": "^11.0.1",
     "eslint-config-prettier": "^8.1.0",
     "eslint-import-resolver-babel-module": "^5.2.0",
     "eslint-import-resolver-typescript": "^2.4.0",
@@ -69,6 +70,6 @@
     "miragejs": "^0.1.41",
     "prettier": "^2.2.1",
     "pretty-quick": "^3.1.0",
-    "typescript": "^4.2.3"
+    "typescript": "^4.3.5"
   }
 }
