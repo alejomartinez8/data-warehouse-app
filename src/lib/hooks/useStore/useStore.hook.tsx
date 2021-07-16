@@ -1,9 +1,9 @@
-import { createContext, ReactNode, useContext } from 'react';
+import { createContext, ReactNode, useContext, useEffect } from 'react';
 import { RootStore } from 'lib/stores';
 import { enableStaticRendering } from 'mobx-react-lite';
 import { isServer } from 'utils';
 
-const stores = new RootStore();
+let stores: RootStore;
 
 export const StoresContext = createContext<RootStore>({} as RootStore);
 StoresContext.displayName = 'StoresContext';
@@ -14,9 +14,19 @@ interface IStoresProviderProps {
   children: ReactNode;
 }
 
-export const StoresProvider = ({ children }: IStoresProviderProps) => (
-  <StoresContext.Provider value={stores}>{children}</StoresContext.Provider>
-);
+export const StoresProvider = ({ children }: IStoresProviderProps) => {
+  if (isServer) {
+    stores = new RootStore();
+  } else {
+    stores = stores ?? new RootStore();
+  }
+
+  useEffect(() => {
+    stores.userStore.fetchUser();
+  }, []);
+
+  return <StoresContext.Provider value={stores}>{children}</StoresContext.Provider>;
+};
 
 export const useStores = () => useContext(StoresContext);
 

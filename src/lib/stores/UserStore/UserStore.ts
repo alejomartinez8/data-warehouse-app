@@ -14,16 +14,15 @@ export class UserStore {
 
   constructor() {
     makeAutoObservable(this);
-    this.fetchUser();
   }
 
   fetchUser = async () => {
     try {
       const user = await getProfile();
       this.setUser(user);
-      this.authState = { isAuth: true, error: null };
+      this.setAuthState({ isAuth: true, error: null });
     } catch (error) {
-      this.authState = { isAuth: false, error };
+      this.setAuthState({ isAuth: false, error });
     }
 
     return this.authState;
@@ -39,7 +38,7 @@ export class UserStore {
 
   logout = async () => {
     await postLogout();
-    this.authState = { isAuth: false, error: null };
-    this.user = null;
+    this.setAuthState({ isAuth: false, error: null });
+    this.setUser(null);
   };
 }

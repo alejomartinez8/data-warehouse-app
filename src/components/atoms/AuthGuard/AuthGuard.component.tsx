@@ -4,20 +4,18 @@ import { observer } from 'mobx-react-lite';
 import { useRouter } from 'next/router';
 
 export const AuthGuard = observer(({ children }) => {
-  const { fetchUser, authState } = useStore('userStore');
+  const { authState } = useStore('userStore');
   const router = useRouter();
 
   useEffect(() => {
-    (async () => {
-      if (!authState.isAuth) {
-        try {
-          await fetchUser();
-        } catch (error) {
-          router.push('/login');
-        }
-      }
-    })();
-  }, [authState.isAuth, fetchUser, router]);
+    if (!authState.isAuth) {
+      router.push('/login');
+    }
+  }, [authState.isAuth, router]);
 
-  return <>{children}</>;
+  if (!authState.isAuth) return <p>Loading</p>;
+
+  if (authState.isAuth) return <>{children}</>;
+
+  return null;
 });

@@ -63,6 +63,7 @@ export const StyledNavItem = styled.a(
     font-weight: 600;
     display: block;
     text-decoration: none;
+    cursor: pointer;
 
     &:focus,
     &:hover {

@@ -1,9 +1,9 @@
+import Link from 'next/link';
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { Icon } from 'components/atoms';
 import { useStore } from 'lib/hooks';
 import { observer } from 'mobx-react-lite';
 import { useRouter } from 'next/router';
-import { destroyCookie } from 'nookies';
 import {
   StyledNav,
   StyledNavBrand,
@@ -15,11 +15,11 @@ import {
 } from './NavBar.styled';
 
 export const NavBar = observer(() => {
-  const { user } = useStore('userStore');
+  const { user, logout } = useStore('userStore');
   const router = useRouter();
 
   const handleLogout = () => {
-    destroyCookie(null, 'user');
+    logout();
     router.push('/login');
   };
 
@@ -30,18 +30,26 @@ export const NavBar = observer(() => {
       </StyledNavBrand>
       <StyledList>
         <StyledItem>
-          <StyledNavItem href="/contacts">Contacts</StyledNavItem>
+          <Link href="/contacts">
+            <StyledNavItem>Contacts</StyledNavItem>
+          </Link>
         </StyledItem>
         <StyledItem>
-          <StyledNavItem href="/companies">Companies</StyledNavItem>
+          <Link href="/companies">
+            <StyledNavItem>Companies</StyledNavItem>
+          </Link>
         </StyledItem>
         {user?.role === 'ADMIN' && (
           <StyledItem>
-            <StyledNavItem href="/users">Users</StyledNavItem>
+            <Link href="/users">
+              <StyledNavItem>Users</StyledNavItem>
+            </Link>
           </StyledItem>
         )}
         <StyledItem>
-          <StyledNavItem href="/regions">Region/City</StyledNavItem>
+          <Link href="/regions">
+            <StyledNavItem>Region/City</StyledNavItem>
+          </Link>
         </StyledItem>
       </StyledList>
       <StyledListLogut>
