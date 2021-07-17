@@ -19,6 +19,7 @@ export const Contacts = () => {
         <title>Data Warehouse - Contacts</title>
       </Head>
       <CardBox>
+        <h1>Contacts</h1>
         <CardBox.Title>
           <StyledTitleContainer>
             <InputSearch />

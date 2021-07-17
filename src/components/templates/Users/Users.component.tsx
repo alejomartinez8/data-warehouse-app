@@ -54,19 +54,19 @@ export const Users = observer(() => {
       <Head>
         <title>Data Warehouse - Users</title>
       </Head>
+      <h1>Users</h1>
       <CardBox>
         <CardBox.Title>
           <StyledTitleContainer>
-            <CardBox.Heading>Users</CardBox.Heading>
             <StyledButtonContainer>
+              <Button color="primary" onClick={handleAddUser}>
+                Add User
+              </Button>
               {usersSelected.length > 0 && (
                 <Button color="danger" onClick={handleOnDelete}>
                   Delete
                 </Button>
               )}
-              <Button color="primary" onClick={handleAddUser}>
-                Add User
-              </Button>
             </StyledButtonContainer>
           </StyledTitleContainer>
         </CardBox.Title>

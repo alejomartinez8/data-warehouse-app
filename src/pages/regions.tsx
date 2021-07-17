@@ -1,5 +1,7 @@
+import { Regions } from 'components/templates';
+
 export default function Page() {
-  return <h1>Regions</h1>;
+  return <Regions />;
 }
 
 Page.requireAuth = true;

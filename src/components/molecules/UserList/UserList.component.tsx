@@ -40,7 +40,7 @@ export const UserList = observer(({ users, setUsersSelected, handleEditUser }: I
   useEffect(() => {
     const usersSelected = userList?.filter((user) => user.checked);
 
-    if (usersSelected.length === userList.length) {
+    if (usersSelected?.length === userList?.length) {
       setCheckedAll(CHECKED);
     } else if (usersSelected.length > 0) {
       setCheckedAll(INDETERMINATE);
