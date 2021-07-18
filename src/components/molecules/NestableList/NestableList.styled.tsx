@@ -11,7 +11,7 @@ export const StyledContainer = styled.div`
   line-height: 20px;
 `;
 
-export const StyledList = styled.ol`
+export const StyledList = styled.ul`
   display: block;
   position: relative;
   margin: 0;
@@ -38,15 +38,11 @@ export const StyledItemContent = styled.div`
   align-items: center;
   justify-content: space-between;
   background: #f3f3f4;
-  padding: 10px;
+  padding: 0.25rem;
   margin: 5px 0;
   border-radius: 3px;
 `;
 
 export const StyledItemLabel = styled.span`
   margin-left: 10px;
-`;
-
-export const StyledButton = styled(Button)`
-  margin: 0 5px;
 `;

@@ -6,3 +6,4 @@ export * from './Icon/Icon.component';
 export * from './Input/Input.component';
 export * from './Select/Select.component';
 export * from './Chekbox/Checkbox.component';
+export * from './Form/Form.styled';

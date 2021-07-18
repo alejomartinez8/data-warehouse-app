@@ -1,26 +1,37 @@
 import { useState } from 'react';
-import { Button, Icon } from 'components/atoms';
-import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
+import { Icon, Button } from 'components/atoms';
+import { faPlus, faMinus, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import {
   StyledContainer,
   StyledList,
   StyledListItem,
   StyledItemContent,
   StyledItemLabel,
-  StyledButton,
 } from './NestableList.styled';
 
 export interface IItem {
+  id: string;
   name: string;
-  type: 'region' | 'country' | 'city';
   items?: IItem[];
+  type: string;
+  labelItems?: string;
+  icon: IconDefinition;
+  parentId?: string;
 }
 
 interface INestableListProps {
   items?: IItem[];
+  handleOnEdit: (item: IItem) => void;
+  handleOnDelete: (item: IItem) => void;
+  handleOnAddItem: (item: IItem) => void;
 }
 
-const RecursiveList = ({ items }: INestableListProps) => {
+const RecursiveList = ({
+  items,
+  handleOnEdit,
+  handleOnDelete,
+  handleOnAddItem,
+}: INestableListProps) => {
   const [itemList, setItemList] = useState(
     items ? items.map((item) => ({ ...item, collapsed: true })) : [],
   );
@@ -42,32 +53,52 @@ const RecursiveList = ({ items }: INestableListProps) => {
               <div>
                 {item.items?.length > 0 && (
                   <Button size="extraSmall" onClick={() => handleOnClick(item)}>
-                    <Icon icon={item.collapsed ? faMinus : faPlus} color="primary" />
+                    <Icon icon={item.collapsed ? faMinus : faPlus} />
                   </Button>
                 )}
+                <Icon icon={item.icon} />
                 <StyledItemLabel>{item.name}</StyledItemLabel>
               </div>
-              {item.items?.length > 0 && (
-                <div>
-                  <StyledButton color="info" size="extraSmall">
-                    Edit
-                  </StyledButton>
-                  <StyledButton color="danger" size="extraSmall">
-                    Delete
-                  </StyledButton>
-                  <StyledButton size="extraSmall">Add Item</StyledButton>
-                </div>
-              )}
+              <div>
+                <Button color="primary" size="extraSmall" onClick={() => handleOnEdit(item)}>
+                  Edit
+                </Button>
+                <Button color="danger" size="extraSmall" onClick={() => handleOnDelete(item)}>
+                  Delete
+                </Button>
+                {item.labelItems && (
+                  <Button color="info" size="extraSmall" onClick={() => handleOnAddItem(item)}>
+                    Add {item.labelItems}
+                  </Button>
+                )}
+              </div>
             </StyledItemContent>
-            {item.collapsed && <RecursiveList key={item.name} {...item} />}
+            {item.collapsed && item.items && (
+              <RecursiveList
+                items={item.items}
+                handleOnEdit={handleOnEdit}
+                handleOnDelete={handleOnDelete}
+                handleOnAddItem={handleOnAddItem}
+              />
+            )}
           </StyledListItem>
         ))}
     </StyledList>
   );
 };
 
-export const NestableList = ({ items }: INestableListProps) => (
+export const NestableList = ({
+  items,
+  handleOnEdit,
+  handleOnDelete,
+  handleOnAddItem,
+}: INestableListProps) => (
   <StyledContainer>
-    <RecursiveList items={items} />
+    <RecursiveList
+      items={items}
+      handleOnEdit={handleOnEdit}
+      handleOnDelete={handleOnDelete}
+      handleOnAddItem={handleOnAddItem}
+    />
   </StyledContainer>
 );

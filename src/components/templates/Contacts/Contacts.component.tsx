@@ -7,7 +7,7 @@ import { useStore } from 'lib/hooks';
 import { StyledTitleContainer, StyledButtonContainer } from './Contacts.styled';
 
 export const Contacts = () => {
-  const { contacts, loading, fetchContacts } = useStore('contactStore');
+  const { contacts, loading, fetchContacts } = useStore('contactsStore');
 
   useEffect(() => {
     fetchContacts();

@@ -9,7 +9,10 @@ export const AuthGuard = observer(({ children }) => {
 
   useEffect(() => {
     if (!authState.isAuth) {
-      router.push('/login');
+      router.push({
+        pathname: '/login',
+        query: { redirect: router.pathname },
+      });
     }
   }, [authState.isAuth, router]);
 

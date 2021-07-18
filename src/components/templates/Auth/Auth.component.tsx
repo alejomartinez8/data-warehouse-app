@@ -33,6 +33,10 @@ export const Auth = observer(() => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const urlRedirect = router.query.redirect as string;
+
+  const routerPush = () => router.push(urlRedirect || '/contacts');
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     try {
@@ -42,13 +46,13 @@ export const Auth = observer(() => {
         path: '/',
       });
       await fetchUser();
-      router.push('/contacts');
+      routerPush();
     } catch (error) {
       console.log({ error });
     }
   };
 
-  if (authState.isAuth) router.push('/contacts');
+  if (authState.isAuth) routerPush();
 
   return (
     <StyledBody>

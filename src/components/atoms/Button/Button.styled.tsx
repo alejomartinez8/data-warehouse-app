@@ -97,6 +97,7 @@ export const StyledButton = styled.button<IStyledButton>(
       text-align: center;
       line-height: 1.5;
       opacity: 1;
+      margin: 0 0.3rem;
       border-radius: 3px;
       padding: 0.375em 0.75em;
       transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,

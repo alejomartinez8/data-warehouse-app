@@ -39,6 +39,11 @@ export const NavBar = observer(() => {
             <StyledNavItem>Companies</StyledNavItem>
           </Link>
         </StyledItem>
+        <StyledItem>
+          <Link href="/regions">
+            <StyledNavItem>Region/City</StyledNavItem>
+          </Link>
+        </StyledItem>
         {user?.role === 'ADMIN' && (
           <StyledItem>
             <Link href="/users">
@@ -46,11 +51,6 @@ export const NavBar = observer(() => {
             </Link>
           </StyledItem>
         )}
-        <StyledItem>
-          <Link href="/regions">
-            <StyledNavItem>Region/City</StyledNavItem>
-          </Link>
-        </StyledItem>
       </StyledList>
       <StyledListLogut>
         <StyledItem>

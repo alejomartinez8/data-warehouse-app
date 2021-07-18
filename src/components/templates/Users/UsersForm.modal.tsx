@@ -3,12 +3,12 @@ import { registerUser, updateUser, UserWithPassword } from 'lib/services';
 import { IUser } from 'lib/types';
 import React, { FormEvent, useState } from 'react';
 import {
+  Button,
   StyledFormGroup,
-  StyledLabel,
-  StyledInput,
-  StyledButton,
-  StyledSelect,
-} from './Users.styled';
+  StyledFormInput,
+  StyledFormLabel,
+  StyledFormSelect,
+} from 'components/atoms';
 import { HeaderUsersDelete, BodyUsersDelete, FooterUsersDelete } from './UsersDelete.modal';
 
 interface IBodyUsersFormProps {
@@ -57,8 +57,8 @@ export const BodyUsersForm = ({ user }: IBodyUsersFormProps) => {
   return (
     <form onSubmit={handleSubmit} id="user-form">
       <StyledFormGroup>
-        <StyledLabel>First Name*</StyledLabel>
-        <StyledInput
+        <StyledFormLabel>First Name*</StyledFormLabel>
+        <StyledFormInput
           type="text"
           name="firstName"
           value={firstName}
@@ -67,8 +67,8 @@ export const BodyUsersForm = ({ user }: IBodyUsersFormProps) => {
         />
       </StyledFormGroup>
       <StyledFormGroup>
-        <StyledLabel>Last Name*</StyledLabel>
-        <StyledInput
+        <StyledFormLabel>Last Name*</StyledFormLabel>
+        <StyledFormInput
           type="text"
           name="lastName"
           value={lastName}
@@ -77,19 +77,19 @@ export const BodyUsersForm = ({ user }: IBodyUsersFormProps) => {
         />
       </StyledFormGroup>
       <StyledFormGroup>
-        <StyledLabel>E-mail*</StyledLabel>
-        <StyledInput type="email" name="email" value={email} onChange={handleChange} required />
+        <StyledFormLabel>E-mail*</StyledFormLabel>
+        <StyledFormInput type="email" name="email" value={email} onChange={handleChange} required />
       </StyledFormGroup>
       <StyledFormGroup>
-        <StyledLabel htmlFor="role">Role*</StyledLabel>
-        <StyledSelect id="role" name="role" value={role} onChange={handleChange}>
+        <StyledFormLabel htmlFor="role">Role*</StyledFormLabel>
+        <StyledFormSelect id="role" name="role" value={role} onChange={handleChange}>
           <option value="BASIC">BASIC</option>
           <option value="ADMIN">ADMIN</option>
-        </StyledSelect>
+        </StyledFormSelect>
       </StyledFormGroup>
       <StyledFormGroup>
-        <StyledLabel>Password{!user ? '*' : ''}</StyledLabel>
-        <StyledInput
+        <StyledFormLabel>Password{!user ? '*' : ''}</StyledFormLabel>
+        <StyledFormInput
           type="password"
           name="password"
           value={password}
@@ -98,8 +98,8 @@ export const BodyUsersForm = ({ user }: IBodyUsersFormProps) => {
         />
       </StyledFormGroup>
       <StyledFormGroup>
-        <StyledLabel>Repeat Password{password ? '*' : ''}</StyledLabel>
-        <StyledInput
+        <StyledFormLabel>Repeat Password{password ? '*' : ''}</StyledFormLabel>
+        <StyledFormInput
           type="password"
           name="repeatPassword"
           value={repeatPassword}
@@ -126,12 +126,12 @@ export const FooterUsersForm = ({ user }: { user?: IUser }) => {
 
   return (
     <>
-      <StyledButton color={user ? 'danger' : 'default'} onClick={handleOnClick}>
+      <Button color={user ? 'danger' : 'default'} onClick={handleOnClick}>
         {user ? 'Delete' : 'Cancel'}
-      </StyledButton>
-      <StyledButton color="primary" form="user-form" type="submit">
+      </Button>
+      <Button color="primary" form="user-form" type="submit">
         Save
-      </StyledButton>
+      </Button>
     </>
   );
 };

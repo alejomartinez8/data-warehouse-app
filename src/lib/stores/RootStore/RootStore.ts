@@ -1,15 +1,18 @@
-import { UserStore, UsersStore, ContactsStore } from 'lib/stores';
+import { UserStore, UsersStore, ContactsStore, RegionsStore } from 'lib/stores';
 
 export class RootStore {
   userStore: UserStore;
 
   usersStore: UsersStore;
 
-  contactStore: ContactsStore;
+  contactsStore: ContactsStore;
+
+  regionsStores: RegionsStore;
 
   constructor() {
     this.userStore = new UserStore();
     this.usersStore = new UsersStore();
-    this.contactStore = new ContactsStore();
+    this.contactsStore = new ContactsStore();
+    this.regionsStores = new RegionsStore();
   }
 }

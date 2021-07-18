@@ -1,55 +1,87 @@
+import { useEffect } from 'react';
 import Head from 'next/head';
-import { CardBox } from 'components/atoms';
+import { CardBox, Button } from 'components/atoms';
 import { observer } from 'mobx-react-lite';
 import { IItem, NestableList } from 'components/molecules/NestableList/NestableList.component';
+import { useModal, useStore } from 'lib/hooks';
+import { IRegion, regionRoutes, regionsType } from 'lib/types';
+import { faGlobeAmericas, faFlag, faCity } from '@fortawesome/free-solid-svg-icons';
+import { HeaderRegionsForm, BodyRegionsForm, FooterRegionsForm } from './RegionsForm.modal';
+import { BodyRegionDelete, FooterRegionDelete, HeaderRegionDelete } from './RegionsDelete.modal';
 
 export const Regions = observer(() => {
-  const data: IItem[] = [
-    {
-      name: 'Sudamerica',
+  const { regions, loading, fetchRegions } = useStore('regionsStores');
+  const { setModal } = useModal();
+
+  const mapToItems = (list: IRegion[]) => {
+    const itemsRegions: IItem[] = list?.map((region) => ({
+      id: region.id,
+      name: region.name,
       type: 'region',
-      items: [
-        {
-          name: 'Colombia',
-          type: 'country',
-          items: [
-            { name: 'Medellin', type: 'city' },
-            { name: 'Bogotá', type: 'city' },
-          ],
-        },
-        {
-          name: 'Argentina',
-          type: 'country',
-          items: [
-            { name: 'Buenos Aires', type: 'city' },
-            { name: 'Cordoba', type: 'city' },
-          ],
-        },
-      ],
-    },
-    {
-      name: 'Centro America',
-      type: 'region',
-      items: [
-        {
-          name: 'Mexico',
-          type: 'country',
-          items: [
-            { name: 'Mexico City', type: 'city' },
-            { name: 'Cancún', type: 'city' },
-          ],
-        },
-        {
-          name: 'El Salvador',
-          type: 'country',
-          items: [
-            { name: 'San Salvador', type: 'city' },
-            { name: 'Santa Tecla', type: 'city' },
-          ],
-        },
-      ],
-    },
-  ];
+      labelItems: 'country',
+      icon: faGlobeAmericas,
+      items: region.countries.map((country) => ({
+        id: country.id,
+        name: country.name,
+        type: 'country',
+        labelItems: 'city',
+        icon: faFlag,
+        parentId: region.id,
+        items: country.cities.map((city) => ({
+          id: city.id,
+          name: city.name,
+          type: 'city',
+          icon: faCity,
+          parentId: country.id,
+        })),
+      })),
+    }));
+
+    return itemsRegions;
+  };
+
+  useEffect(() => {
+    fetchRegions();
+  }, [fetchRegions]);
+
+  const handleOnAddItem = (item?: IItem) => {
+    const childType = (type: string) => {
+      switch (type) {
+        case regionsType.region:
+          return regionsType.country;
+
+        case regionsType.country:
+          return regionsType.city;
+
+        default:
+          return regionsType.region;
+      }
+    };
+
+    setModal({
+      header: (
+        <HeaderRegionsForm title={item ? `Add ${item.labelItems} in ${item.name}` : 'Add Region'} />
+      ),
+      body: <BodyRegionsForm type={childType(item?.type)} parentId={item?.id} />,
+      footer: <FooterRegionsForm />,
+    });
+  };
+
+  const handleOnEdit = (item: IItem) => {
+    setModal({
+      header: <HeaderRegionsForm title={`Edit ${item.type}`} />,
+      body: <BodyRegionsForm item={item} />,
+      footer: <FooterRegionsForm />,
+    });
+  };
+
+  const handleOnDelete = (item: IItem) => {
+    setModal({
+      header: <HeaderRegionDelete title={`Delete ${item.type}`} />,
+      body: <BodyRegionDelete />,
+      footer: <FooterRegionDelete id={item.id} route={regionRoutes[item.type]} />,
+    });
+  };
 
   return (
     <>
@@ -58,8 +90,22 @@ export const Regions = observer(() => {
       </Head>
       <h1>Regions</h1>
       <CardBox>
+        <CardBox.Title>
+          <Button size="extraSmall" onClick={() => handleOnAddItem()}>
+            Add Region
+          </Button>
+        </CardBox.Title>
         <CardBox.Content>
-          <NestableList items={data} />
+          {loading ? (
+            'Loading...'
+          ) : (
+            <NestableList
+              items={mapToItems(regions)}
+              handleOnEdit={handleOnEdit}
+              handleOnDelete={handleOnDelete}
+              handleOnAddItem={handleOnAddItem}
+            />
+          )}
         </CardBox.Content>
       </CardBox>
     </>
