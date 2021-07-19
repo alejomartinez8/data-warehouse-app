@@ -1,4 +1,4 @@
-export type IContact = {
+export interface IContact {
   id: string;
   firstName: string;
   lastName: string;
@@ -9,34 +9,34 @@ export type IContact = {
   company: string;
   city: string;
   channels: string[];
-};
+}
 
-export type IUser = {
+export interface IUser {
   id: string;
   firstName: string;
   lastName: string;
   email: string;
   role: string;
-};
+}
 
-export type ICity = {
+export interface ICity {
   id?: string;
   name: string;
   countryId: string;
-};
+}
 
-export type ICountry = {
+export interface ICountry {
   id?: string;
   name: string;
   regionId: string;
   cities?: ICity[];
-};
+}
 
-export type IRegion = {
+export interface IRegion {
   id?: string;
   name: string;
   countries?: ICountry[];
-};
+}
 
 export enum regionRoutes {
   'region' = 'regions',
@@ -48,4 +48,23 @@ export enum regionsType {
   'region' = 'region',
   'country' = 'country',
   'city' = 'city',
+}
+
+export interface ICompany {
+  id?: string;
+  name: string;
+  address: string;
+  email: string;
+  phone: string;
+  cityId?: string;
+  city: any;
+}
+
+export interface IUpdateCompanyDto {
+  id?: string;
+  name?: string;
+  address?: string;
+  email?: string;
+  phone?: string;
+  cityId?: string;
 }

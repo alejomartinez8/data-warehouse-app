@@ -1,5 +1,7 @@
+import { CompaniesTemplate } from 'components/templates/Companies/Companies.template';
+
 export default function Page() {
-  return <h1>Companies</h1>;
+  return <CompaniesTemplate />;
 }
 
 Page.requireAuth = true;

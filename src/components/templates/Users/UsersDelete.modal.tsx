@@ -1,6 +1,7 @@
 import { useModal, useStore } from 'lib/hooks';
 import { IUser } from 'lib/types';
-import { StyledButton, StyledParragraphDelete } from './Users.styled';
+import { Button } from 'components/atoms';
+import { StyledParragraphDelete } from './Users.styled';
 
 export const HeaderUsersDelete = ({ title }) => <h1>{title}</h1>;
 
@@ -21,10 +22,10 @@ export const FooterUsersDelete = ({ users }: { users?: IUser[] }) => {
 
   return (
     <>
-      <StyledButton color="primary" onClick={handleOnConfirmation}>
+      <Button color="primary" onClick={handleOnConfirmation}>
         Yes
-      </StyledButton>
-      <StyledButton onClick={closeModal}>No</StyledButton>
+      </Button>
+      <Button onClick={closeModal}>No</Button>
     </>
   );
 };

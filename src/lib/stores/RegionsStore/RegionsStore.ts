@@ -1,4 +1,4 @@
-import { deleteRegion, getRegions, createRegion, updateRegion } from 'lib/services';
+import { getRegions, getRegion, createRegion, updateRegion, deleteRegion } from 'lib/services';
 import { makeAutoObservable } from 'mobx';
 import { IRegion, ICountry, ICity } from 'lib/types';
 
@@ -11,6 +11,14 @@ export class RegionsStore {
     makeAutoObservable(this);
   }
 
+  setRegions = (regions: IRegion[]) => {
+    this.regions = regions;
+  };
+
+  setLoading = (state: boolean) => {
+    this.loading = state;
+  };
+
   fetchRegions = async () => {
     try {
       this.setLoading(true);
@@ -22,15 +30,18 @@ export class RegionsStore {
     }
   };
 
-  setRegions = (regions: IRegion[]) => {
-    this.regions = regions;
+  fetchGetRegion = async (route: string, id: string) => {
+    try {
+      this.setLoading(true);
+      await getRegion(route, id);
+      await this.fetchRegions();
+      this.setLoading(false);
+    } catch (error) {
+      this.setLoading(false);
+    }
   };
 
-  setLoading = (state: boolean) => {
-    this.loading = state;
-  };
-
-  fetchRegisterRegion = async (route: string, data: IRegion | ICountry | ICity) => {
+  fetchCreateRegion = async (route: string, data: IRegion | ICountry | ICity) => {
     try {
       this.setLoading(true);
       await createRegion(route, data);

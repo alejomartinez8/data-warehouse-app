@@ -48,7 +48,7 @@ export const Auth = observer(() => {
       await fetchUser();
       routerPush();
     } catch (error) {
-      console.log({ error });
+      // console.log({ error });
     }
   };
 

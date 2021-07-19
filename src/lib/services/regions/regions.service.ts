@@ -8,6 +8,11 @@ export const getRegions = async (): Promise<IRegion[]> =>
     .then((response) => response.data)
     .catch((err: AxiosError) => unauthorizedHandle(err));
 
+export const getRegion = async (route: string, id: string) =>
+  ApiInstance.get(`/${route}/${id}`)
+    .then((response) => response.data)
+    .catch((err: AxiosError) => unauthorizedHandle(err));
+
 export const createRegion = async (route: string, data: IRegion | ICountry | ICity) =>
   ApiInstance.post(`/${route}`, data)
     .then((response) => response.data)
