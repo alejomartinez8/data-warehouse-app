@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { useStore } from 'lib/hooks';
 
 export default function Page() {
-  const { user } = useStore('userStore');
+  const { user } = useStore('authStore');
   const router = useRouter();
 
   useEffect(() => {

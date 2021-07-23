@@ -25,7 +25,7 @@ export const Auth = observer(() => {
   const [signIn, setSignIn] = useState(true);
   const [formData, setFormData] = useState({ email: '', password: '' });
   const router = useRouter();
-  const { authState, fetchUser } = useStore('userStore');
+  const { authState, fetchUser } = useStore('authStore');
 
   const { email, password } = formData;
 

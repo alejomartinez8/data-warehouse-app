@@ -20,7 +20,7 @@ import { IRegion, regionRoutes, regionsType } from 'lib/types';
 import { faGlobeAmericas, faFlag, faCity } from '@fortawesome/free-solid-svg-icons';
 
 export const Regions = observer(() => {
-  const { user } = useStore('userStore');
+  const { user } = useStore('authStore');
   const { regions, loading, fetchRegions, fetchDeleteRegion } = useStore('regionsStores');
   const { setModal, closeModal } = useModal();
 

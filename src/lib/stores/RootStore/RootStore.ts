@@ -1,7 +1,7 @@
-import { UserStore, UsersStore, ContactsStore, RegionsStore, CompaniesStore } from 'lib/stores';
+import { AuthStore, UsersStore, ContactsStore, RegionsStore, CompaniesStore } from 'lib/stores';
 
 export class RootStore {
-  userStore: UserStore;
+  authStore: AuthStore;
 
   usersStore: UsersStore;
 
@@ -12,7 +12,7 @@ export class RootStore {
   companiesStores: CompaniesStore;
 
   constructor() {
-    this.userStore = new UserStore();
+    this.authStore = new AuthStore();
     this.usersStore = new UsersStore();
     this.contactsStore = new ContactsStore();
     this.regionsStores = new RegionsStore();

@@ -1,5 +1,5 @@
 import { getRegions, getRegion, createRegion, updateRegion, deleteRegion } from 'lib/services';
-import { makeAutoObservable, toJS } from 'mobx';
+import { makeAutoObservable } from 'mobx';
 import { IRegion, ICountry, ICity } from 'lib/types';
 
 export class RegionsStore {

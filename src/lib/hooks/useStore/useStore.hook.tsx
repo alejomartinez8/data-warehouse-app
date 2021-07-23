@@ -22,7 +22,7 @@ export const StoresProvider = ({ children }: IStoresProviderProps) => {
   }
 
   useEffect(() => {
-    stores.userStore.fetchUser();
+    stores.authStore.fetchUser();
   }, []);
 
   return <StoresContext.Provider value={stores}>{children}</StoresContext.Provider>;

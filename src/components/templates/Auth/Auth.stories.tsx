@@ -1,4 +1,4 @@
-import { Auth } from './Auth.component';
+import { Auth } from './Auth.template';
 
 export default {
   title: 'Template/Auth',

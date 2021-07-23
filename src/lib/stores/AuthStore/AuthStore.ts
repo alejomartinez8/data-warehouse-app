@@ -7,7 +7,7 @@ interface IAuthState {
   error?: any;
 }
 
-export class UserStore {
+export class AuthStore {
   user: IUser = null;
 
   authState: IAuthState = { isAuth: false, error: null };

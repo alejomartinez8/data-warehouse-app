@@ -4,7 +4,7 @@ import { observer } from 'mobx-react-lite';
 import { useRouter } from 'next/router';
 
 export const AuthGuard = observer(({ children }) => {
-  const { authState } = useStore('userStore');
+  const { authState } = useStore('authStore');
   const router = useRouter();
 
   useEffect(() => {

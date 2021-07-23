@@ -24,10 +24,16 @@ export const CompaniesTemplate = observer(() => {
     { key: 'cityName', label: 'City' },
   ];
 
+  const City = ({ city }) => (
+    <span>
+      <strong>{city.name}</strong> / <span>{city.country.name}</span>
+    </span>
+  );
+
   const mapItems = () =>
     companies.map((company) => ({
       ...company,
-      cityName: company.city.name,
+      cityName: <City city={company.city} />,
     }));
 
   const handleOnCreate = () => {

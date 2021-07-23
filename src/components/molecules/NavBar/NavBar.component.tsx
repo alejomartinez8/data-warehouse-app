@@ -15,7 +15,7 @@ import {
 } from './NavBar.styled';
 
 export const NavBar = observer(() => {
-  const { user, logout } = useStore('userStore');
+  const { user, logout } = useStore('authStore');
   const router = useRouter();
 
   const handleLogout = () => {
