@@ -30,7 +30,7 @@ export class UsersStore {
     this.loading = state;
   };
 
-  fetchRegisterUser = async (user: UserWithPassword) => {
+  fetchCreateUser = async (user: UserWithPassword) => {
     try {
       this.setLoading(true);
       await registerUser(user);

@@ -1,7 +1,7 @@
-import { Users } from 'components/templates';
+import { UsersTemplate } from 'components/templates';
 
 export default function Page() {
-  return <Users />;
+  return <UsersTemplate />;
 }
 
 Page.requireAuth = true;

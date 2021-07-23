@@ -1,4 +1,4 @@
-import { CompaniesTemplate } from 'components/templates/Companies/Companies.template';
+import { CompaniesTemplate } from 'components/templates';
 
 export default function Page() {
   return <CompaniesTemplate />;

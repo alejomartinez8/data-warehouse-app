@@ -22,7 +22,7 @@ export class RegionsStore {
   fetchRegions = async () => {
     try {
       this.setLoading(true);
-      this.setRegions(await getRegions());
+      this.setRegions(await getRegions('regions'));
       this.setLoading(false);
     } catch (error) {
       this.setLoading(false);
@@ -72,5 +72,10 @@ export class RegionsStore {
     } catch (error) {
       this.setLoading(false);
     }
+  };
+
+  getCountries = (id: string) => {
+    const region = this.regions.find((item) => item.id === id)?.countries;
+    console.log(region);
   };
 }

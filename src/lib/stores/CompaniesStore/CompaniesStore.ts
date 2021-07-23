@@ -41,10 +41,10 @@ export class CompaniesStore {
     }
   };
 
-  fetchUpddateCompany = async (id: string, company: IUpdateCompanyDto) => {
+  fetchUpddateCompany = async (company: IUpdateCompanyDto) => {
     try {
       this.setLoading(true);
-      await updateCompany(id, company);
+      await updateCompany(company.id, company);
       await this.fetchCompanies();
       this.setLoading(false);
     } catch (error) {
