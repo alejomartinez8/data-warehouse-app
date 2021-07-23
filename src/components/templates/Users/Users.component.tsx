@@ -4,9 +4,9 @@ import { useRouter } from 'next/router';
 import {
   Button,
   CardBox,
-  HeaderConfirmationModal,
-  BodyConfirmationModal,
-  FooterConfirmationModal,
+  HeaderConfirmation,
+  BodyConfirmation,
+  FooterConfirmation,
 } from 'components/atoms';
 import { UserList, HeaderUserForm, BodyUserForm, FooterUserForm } from 'components/molecules';
 import { useStore, useModal } from 'lib/hooks';
@@ -48,16 +48,12 @@ export const Users = observer(() => {
 
     setModal({
       header: (
-        <HeaderConfirmationModal
-          title={usersSelected.length === 1 ? 'Delete User' : 'Delete Users'}
-        />
+        <HeaderConfirmation title={usersSelected.length === 1 ? 'Delete User' : 'Delete Users'} />
       ),
       body: (
-        <BodyConfirmationModal>
-          Are you sure you want to delete the selected users?
-        </BodyConfirmationModal>
+        <BodyConfirmation>Are you sure you want to delete the selected users?</BodyConfirmation>
       ),
-      footer: <FooterConfirmationModal onConfirm={handleOnConfirmation} onClose={closeModal} />,
+      footer: <FooterConfirmation onConfirm={handleOnConfirmation} onClose={closeModal} />,
     });
   };
 

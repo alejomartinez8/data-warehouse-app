@@ -8,9 +8,9 @@ import {
   FormInput,
   FormLabel,
   FormSelect,
-  HeaderConfirmationModal,
-  BodyConfirmationModal,
-  FooterConfirmationModal,
+  HeaderConfirmation,
+  BodyConfirmation,
+  FooterConfirmation,
 } from 'components/atoms';
 
 interface IBodyUsersFormProps {
@@ -118,13 +118,11 @@ export const FooterUserForm = ({ user }: { user?: IUser }) => {
     };
 
     setModal({
-      header: <HeaderConfirmationModal title="Delete User" />,
+      header: <HeaderConfirmation title="Delete User" />,
       body: (
-        <BodyConfirmationModal>
-          Are you sure you want to delete the selected users?
-        </BodyConfirmationModal>
+        <BodyConfirmation>Are you sure you want to delete the selected users?</BodyConfirmation>
       ),
-      footer: <FooterConfirmationModal onConfirm={handleOnConfirmation} onClose={closeModal} />,
+      footer: <FooterConfirmation onConfirm={handleOnConfirmation} onClose={closeModal} />,
     });
   };
 

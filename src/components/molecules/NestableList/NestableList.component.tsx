@@ -20,18 +20,38 @@ export interface IItem {
 }
 
 interface INestableListProps {
+  editItem?: boolean;
   items?: IItem[];
   handleOnEdit: (item: IItem) => void;
   handleOnDelete: (item: IItem) => void;
   handleOnAddItem: (item: IItem) => void;
 }
 
-const RecursiveList = ({
+export const NestableList = ({
   items,
+  editItem,
   handleOnEdit,
   handleOnDelete,
   handleOnAddItem,
-}: INestableListProps) => {
+}: INestableListProps) => (
+  <StyledContainer>
+    <RecursiveList
+      editItem={editItem}
+      items={items}
+      handleOnEdit={handleOnEdit}
+      handleOnDelete={handleOnDelete}
+      handleOnAddItem={handleOnAddItem}
+    />
+  </StyledContainer>
+);
+
+function RecursiveList({
+  items,
+  editItem,
+  handleOnEdit,
+  handleOnDelete,
+  handleOnAddItem,
+}: INestableListProps) {
   const [itemList, setItemList] = useState(
     items ? items.map((item) => ({ ...item, collapsed: true })) : [],
   );
@@ -59,22 +79,25 @@ const RecursiveList = ({
                 <Icon icon={item.icon} />
                 <StyledItemLabel>{item.name}</StyledItemLabel>
               </div>
-              <div>
-                <Button color="primary" size="extraSmall" onClick={() => handleOnEdit(item)}>
-                  Edit
-                </Button>
-                <Button color="danger" size="extraSmall" onClick={() => handleOnDelete(item)}>
-                  Delete
-                </Button>
-                {item.labelItems && (
-                  <Button color="info" size="extraSmall" onClick={() => handleOnAddItem(item)}>
-                    Add {item.labelItems}
+              {editItem && (
+                <div>
+                  <Button color="primary" size="extraSmall" onClick={() => handleOnEdit(item)}>
+                    Edit
                   </Button>
-                )}
-              </div>
+                  <Button color="danger" size="extraSmall" onClick={() => handleOnDelete(item)}>
+                    Delete
+                  </Button>
+                  {item.labelItems && (
+                    <Button color="info" size="extraSmall" onClick={() => handleOnAddItem(item)}>
+                      Add {item.labelItems}
+                    </Button>
+                  )}
+                </div>
+              )}
             </StyledItemContent>
             {item.collapsed && item.items && (
               <RecursiveList
+                editItem={editItem}
                 items={item.items}
                 handleOnEdit={handleOnEdit}
                 handleOnDelete={handleOnDelete}
@@ -85,20 +108,4 @@ const RecursiveList = ({
         ))}
     </StyledList>
   );
-};
-
-export const NestableList = ({
-  items,
-  handleOnEdit,
-  handleOnDelete,
-  handleOnAddItem,
-}: INestableListProps) => (
-  <StyledContainer>
-    <RecursiveList
-      items={items}
-      handleOnEdit={handleOnEdit}
-      handleOnDelete={handleOnDelete}
-      handleOnAddItem={handleOnAddItem}
-    />
-  </StyledContainer>
-);
+}

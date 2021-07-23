@@ -1,17 +1,30 @@
 import { useEffect } from 'react';
 import Head from 'next/head';
-import { CardBox, Button } from 'components/atoms';
 import { observer } from 'mobx-react-lite';
-import { IItem, NestableList } from 'components/molecules/NestableList/NestableList.component';
+import {
+  CardBox,
+  Button,
+  HeaderConfirmation,
+  BodyConfirmation,
+  FooterConfirmation,
+} from 'components/atoms';
+import {
+  IItem,
+  NestableList,
+  HeaderRegionsForm,
+  BodyRegionsForm,
+  FooterRegionsForm,
+} from 'components/molecules';
 import { useModal, useStore } from 'lib/hooks';
 import { IRegion, regionRoutes, regionsType } from 'lib/types';
 import { faGlobeAmericas, faFlag, faCity } from '@fortawesome/free-solid-svg-icons';
-import { HeaderRegionsForm, BodyRegionsForm, FooterRegionsForm } from './RegionsForm.modal';
-import { BodyRegionDelete, FooterRegionDelete, HeaderRegionDelete } from './RegionsDelete.modal';
 
 export const Regions = observer(() => {
-  const { regions, loading, fetchRegions } = useStore('regionsStores');
-  const { setModal } = useModal();
+  const { user } = useStore('userStore');
+  const { regions, loading, fetchRegions, fetchDeleteRegion } = useStore('regionsStores');
+  const { setModal, closeModal } = useModal();
+
+  const isAdmin = user.role === 'ADMIN';
 
   const mapToItems = (list: IRegion[]) => {
     const itemsRegions: IItem[] = list?.map((region) => ({
@@ -76,10 +89,15 @@ export const Regions = observer(() => {
   };
 
   const handleOnDelete = (item: IItem) => {
+    const handleOnConfirmation = async () => {
+      await fetchDeleteRegion(regionRoutes[item.type], item.id);
+      closeModal();
+    };
+
     setModal({
-      header: <HeaderRegionDelete title={`Delete ${item.type}`} />,
-      body: <BodyRegionDelete />,
-      footer: <FooterRegionDelete id={item.id} route={regionRoutes[item.type]} />,
+      header: <HeaderConfirmation title={`Delete ${item.type}`} />,
+      body: <BodyConfirmation>Are you sure you want to delete this item?</BodyConfirmation>,
+      footer: <FooterConfirmation onConfirm={handleOnConfirmation} onClose={closeModal} />,
     });
   };
 
@@ -100,6 +118,7 @@ export const Regions = observer(() => {
             'Loading...'
           ) : (
             <NestableList
+              editItem={isAdmin}
               items={mapToItems(regions)}
               handleOnEdit={handleOnEdit}
               handleOnDelete={handleOnDelete}

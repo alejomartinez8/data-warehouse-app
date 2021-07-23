@@ -6,11 +6,11 @@ interface IFooterConfirmationModalProps {
   onConfirm: () => void;
 }
 
-export const HeaderConfirmationModal = ({ title }) => <h1>{title}</h1>;
+export const HeaderConfirmation = ({ title }) => <h1>{title}</h1>;
 
-export const BodyConfirmationModal = ({ children }) => <StyledP>{children}</StyledP>;
+export const BodyConfirmation = ({ children }) => <StyledP>{children}</StyledP>;
 
-export const FooterConfirmationModal = ({ onClose, onConfirm }: IFooterConfirmationModalProps) => (
+export const FooterConfirmation = ({ onClose, onConfirm }: IFooterConfirmationModalProps) => (
   <>
     <Button color="secondary" onClick={onClose}>
       No
