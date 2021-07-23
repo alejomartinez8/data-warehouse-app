@@ -4,20 +4,22 @@ import { IUser } from 'lib/types';
 import React, { FormEvent, useState } from 'react';
 import {
   Button,
-  StyledFormGroup,
-  StyledFormInput,
-  StyledFormLabel,
-  StyledFormSelect,
+  FormGroup,
+  FormInput,
+  FormLabel,
+  FormSelect,
+  HeaderConfirmationModal,
+  BodyConfirmationModal,
+  FooterConfirmationModal,
 } from 'components/atoms';
-import { HeaderUsersDelete, BodyUsersDelete, FooterUsersDelete } from './UsersDelete.modal';
 
 interface IBodyUsersFormProps {
   user?: UserWithPassword;
 }
 
-export const HeaderUsersForm = ({ title }) => <h1>{title}</h1>;
+export const HeaderUserForm = ({ title }) => <h1>{title}</h1>;
 
-export const BodyUsersForm = ({ user }: IBodyUsersFormProps) => {
+export const BodyUserForm = ({ user }: IBodyUsersFormProps) => {
   const { closeModal } = useModal();
   const initialState = {
     id: user ? user.id : '',
@@ -56,69 +58,73 @@ export const BodyUsersForm = ({ user }: IBodyUsersFormProps) => {
 
   return (
     <form onSubmit={handleSubmit} id="user-form">
-      <StyledFormGroup>
-        <StyledFormLabel>First Name*</StyledFormLabel>
-        <StyledFormInput
+      <FormGroup>
+        <FormLabel>First Name*</FormLabel>
+        <FormInput
           type="text"
           name="firstName"
           value={firstName}
           onChange={handleChange}
           required
         />
-      </StyledFormGroup>
-      <StyledFormGroup>
-        <StyledFormLabel>Last Name*</StyledFormLabel>
-        <StyledFormInput
-          type="text"
-          name="lastName"
-          value={lastName}
-          onChange={handleChange}
-          required
-        />
-      </StyledFormGroup>
-      <StyledFormGroup>
-        <StyledFormLabel>E-mail*</StyledFormLabel>
-        <StyledFormInput type="email" name="email" value={email} onChange={handleChange} required />
-      </StyledFormGroup>
-      <StyledFormGroup>
-        <StyledFormLabel htmlFor="role">Role*</StyledFormLabel>
-        <StyledFormSelect id="role" name="role" value={role} onChange={handleChange}>
+      </FormGroup>
+      <FormGroup>
+        <FormLabel>Last Name*</FormLabel>
+        <FormInput type="text" name="lastName" value={lastName} onChange={handleChange} required />
+      </FormGroup>
+      <FormGroup>
+        <FormLabel>E-mail*</FormLabel>
+        <FormInput type="email" name="email" value={email} onChange={handleChange} required />
+      </FormGroup>
+      <FormGroup>
+        <FormLabel htmlFor="role">Role*</FormLabel>
+        <FormSelect id="role" name="role" value={role} onChange={handleChange}>
           <option value="BASIC">BASIC</option>
           <option value="ADMIN">ADMIN</option>
-        </StyledFormSelect>
-      </StyledFormGroup>
-      <StyledFormGroup>
-        <StyledFormLabel>Password{!user ? '*' : ''}</StyledFormLabel>
-        <StyledFormInput
+        </FormSelect>
+      </FormGroup>
+      <FormGroup>
+        <FormLabel>Password{!user ? '*' : ''}</FormLabel>
+        <FormInput
           type="password"
           name="password"
           value={password}
           onChange={handleChange}
           required={!user}
         />
-      </StyledFormGroup>
-      <StyledFormGroup>
-        <StyledFormLabel>Repeat Password{password ? '*' : ''}</StyledFormLabel>
-        <StyledFormInput
+      </FormGroup>
+      <FormGroup>
+        <FormLabel>Repeat Password{password ? '*' : ''}</FormLabel>
+        <FormInput
           type="password"
           name="repeatPassword"
           value={repeatPassword}
           onChange={handleChange}
           required={!!password}
         />
-      </StyledFormGroup>
+      </FormGroup>
     </form>
   );
 };
 
-export const FooterUsersForm = ({ user }: { user?: IUser }) => {
+export const FooterUserForm = ({ user }: { user?: IUser }) => {
   const { setModal, closeModal } = useModal();
+  const { fetchDeleteUsers } = useStore('usersStore');
 
   const handleOnDelete = () => {
+    const handleOnConfirmation = async () => {
+      await fetchDeleteUsers([user]);
+      closeModal();
+    };
+
     setModal({
-      header: <HeaderUsersDelete title="Delete User" />,
-      body: <BodyUsersDelete />,
-      footer: <FooterUsersDelete users={[user]} />,
+      header: <HeaderConfirmationModal title="Delete User" />,
+      body: (
+        <BodyConfirmationModal>
+          Are you sure you want to delete the selected users?
+        </BodyConfirmationModal>
+      ),
+      footer: <FooterConfirmationModal onConfirm={handleOnConfirmation} onClose={closeModal} />,
     });
   };
 

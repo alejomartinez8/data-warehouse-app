@@ -1,45 +1,63 @@
 import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { Button, CardBox } from 'components/atoms';
-import { UserList } from 'components/molecules';
+import {
+  Button,
+  CardBox,
+  HeaderConfirmationModal,
+  BodyConfirmationModal,
+  FooterConfirmationModal,
+} from 'components/atoms';
+import { UserList, HeaderUserForm, BodyUserForm, FooterUserForm } from 'components/molecules';
 import { useStore, useModal } from 'lib/hooks';
 import { IUser } from 'lib/types';
 import { observer } from 'mobx-react-lite';
-import { HeaderUsersForm, BodyUsersForm, FooterUsersForm } from './UsersForm.modal';
-import { HeaderUsersDelete, BodyUsersDelete, FooterUsersDelete } from './UsersDelete.modal';
 import { StyledTitleContainer, StyledButtonContainer } from './Users.styled';
 
 export const Users = observer(() => {
   const { user } = useStore('userStore');
   const [usersSelected, setUsersSelected] = useState([]);
+  const { setModal, closeModal } = useModal();
   const { users, loading, fetchUsers } = useStore('usersStore');
-  const { setModal } = useModal();
+  const { fetchDeleteUsers } = useStore('usersStore');
   const router = useRouter();
 
   const handleAddUser = () => {
     setModal({
-      header: <HeaderUsersForm title="Add User" />,
-      body: <BodyUsersForm />,
-      footer: <FooterUsersForm />,
+      header: <HeaderUserForm title="Add User" />,
+      body: <BodyUserForm />,
+      footer: <FooterUserForm />,
+      size: 'large',
     });
   };
 
   const handleEditUser = (editUser: IUser) => {
     setModal({
-      header: <HeaderUsersForm title="Edit User" />,
-      body: <BodyUsersForm user={editUser as IUser} />,
-      footer: <FooterUsersForm user={editUser} />,
+      header: <HeaderUserForm title="Edit User" />,
+      body: <BodyUserForm user={editUser as IUser} />,
+      footer: <FooterUserForm user={editUser} />,
+      size: 'large',
     });
   };
 
   const handleOnDelete = () => {
+    const handleOnConfirmation = async () => {
+      await fetchDeleteUsers([user]);
+      closeModal();
+    };
+
     setModal({
       header: (
-        <HeaderUsersDelete title={usersSelected.length === 1 ? 'Delete User' : 'Delete Users'} />
+        <HeaderConfirmationModal
+          title={usersSelected.length === 1 ? 'Delete User' : 'Delete Users'}
+        />
       ),
-      body: <BodyUsersDelete />,
-      footer: <FooterUsersDelete users={usersSelected} />,
+      body: (
+        <BodyConfirmationModal>
+          Are you sure you want to delete the selected users?
+        </BodyConfirmationModal>
+      ),
+      footer: <FooterConfirmationModal onConfirm={handleOnConfirmation} onClose={closeModal} />,
     });
   };
 

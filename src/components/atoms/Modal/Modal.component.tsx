@@ -16,14 +16,15 @@ interface IModalProps {
   body?: ReactNode;
   footer?: ReactNode;
   isOpen: boolean;
+  size?: 'small' | 'large';
   closeModal: () => void;
 }
 
-export const Modal = ({ header, body, footer, isOpen = false, closeModal }: IModalProps) => (
+export const Modal = ({ header, body, footer, isOpen = false, size, closeModal }: IModalProps) => (
   <>
     {isOpen && (
       <StyledModal>
-        <StyledModalDialog role="dialog" aria-modal="true">
+        <StyledModalDialog role="dialog" aria-modal="true" size={size}>
           <StyledModalContent>
             <StyledModalHeader>
               <StyledCloseButton color="primary" onClick={closeModal}>

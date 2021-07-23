@@ -6,3 +6,4 @@ export * from './PageHeading/PageHeading.component';
 export * from './UserList/UserList.component';
 export * from './NestableList/NestableList.component';
 export * from './PageList/PageList.component';
+export * from './UserForm/UserForm.modal';

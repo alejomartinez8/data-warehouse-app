@@ -1,5 +1,9 @@
 import { Button } from 'components/atoms';
-import styled, { keyframes } from 'styled-components';
+import styled, { keyframes, css } from 'styled-components';
+
+interface IStyledModalDialogProps {
+  size?: 'small' | 'large';
+}
 
 export const StyledModal = styled.div`
   z-index: 1000;
@@ -13,14 +17,34 @@ export const StyledModal = styled.div`
   backdrop-filter: blur(5px);
 `;
 
-export const StyledModalDialog = styled.div`
-  position: relative;
-  max-width: 100%;
-  max-height: 100%;
-  pointer-events: none;
-  margin: 1.75rem 2rem;
-  z-index: 2000;
-`;
+export const StyledModalDialog = styled.div<IStyledModalDialogProps>(
+  ({ size }) => css`
+    position: relative;
+    pointer-events: none;
+    z-index: 2000;
+    width: auto;
+    margin: 0.5rem;
+
+    @media (min-width: 576px) {
+      max-width: 500px;
+      margin: 1.75rem auto;
+    }
+
+    ${size === 'large' &&
+    css`
+      @media (min-width: 992px) {
+        max-width: 800px;
+      }
+    `}
+
+    ${size === 'small' &&
+    css`
+      @media (min-width: 576px) {
+        max-width: 300px;
+      }
+    `}
+  `,
+);
 
 const bounceInRight = keyframes`
     0% {

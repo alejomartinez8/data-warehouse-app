@@ -1,7 +1,7 @@
 import { useModal, useStore } from 'lib/hooks';
 import { createRegion, updateRegion } from 'lib/services';
 import React, { FormEvent, useState } from 'react';
-import { Button, StyledFormGroup, StyledFormInput, StyledFormLabel } from 'components/atoms';
+import { Button, FormGroup, FormInput, FormLabel } from 'components/atoms';
 import { IItem } from 'components/molecules';
 
 interface IBodyRegionsFormProps {
@@ -68,10 +68,10 @@ export const BodyRegionsForm = ({ item, type, parentId }: IBodyRegionsFormProps)
 
   return (
     <form onSubmit={handleSubmit} id="item-form">
-      <StyledFormGroup>
-        <StyledFormLabel>Name*</StyledFormLabel>
-        <StyledFormInput type="text" name="name" value={name} onChange={handleChange} required />
-      </StyledFormGroup>
+      <FormGroup>
+        <FormLabel>Name*</FormLabel>
+        <FormInput type="text" name="name" value={name} onChange={handleChange} required />
+      </FormGroup>
     </form>
   );
 };

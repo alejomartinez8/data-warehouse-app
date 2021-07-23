@@ -42,7 +42,7 @@ export const TableList = observer(
     useEffect(() => {
       const itemsSelected = itemList?.filter((item) => item.checked);
 
-      if (itemsSelected?.length === itemList?.length) {
+      if (itemsSelected?.length > 0) {
         setCheckedAll(CHECKED);
       } else if (itemsSelected.length > 0) {
         setCheckedAll(INDETERMINATE);

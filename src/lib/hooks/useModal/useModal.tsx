@@ -1,11 +1,12 @@
 import { createContext, useContext, ReactNode, useReducer } from 'react';
-import { Modal } from 'components/organisms/Modal/Modal.component';
+import { Modal } from 'components/atoms';
 
 interface IState {
   header?: ReactNode;
   body?: ReactNode;
   footer?: ReactNode;
   isOpen?: boolean;
+  size?: 'small' | 'large';
 }
 
 interface IModalContext extends IState {
@@ -34,6 +35,7 @@ const modalReducer = (state: IState, action: { type: string; payload?: IState })
         header: action.payload.header,
         body: action.payload.body,
         footer: action.payload.footer,
+        size: action.payload.size,
         isOpen: true,
       };
     case 'CLOSE_MODAL':
@@ -69,6 +71,7 @@ export const ModalProvider = ({ children }) => {
         body={state.body}
         footer={state.footer}
         isOpen={state.isOpen}
+        size={state.size}
         closeModal={closeModal}
       />
     </ModalContext.Provider>

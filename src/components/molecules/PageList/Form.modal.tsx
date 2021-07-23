@@ -1,12 +1,6 @@
 import { useModal } from 'lib/hooks';
 import React, { FormEvent, useState } from 'react';
-import {
-  Button,
-  StyledFormGroup,
-  StyledFormInput,
-  StyledFormLabel,
-  // StyledFormSelect,
-} from 'components/atoms';
+import { Button, FormGroup, FormInput, FormLabel } from 'components/atoms';
 import { HeaderDelete, BodyDelete, FooterDelete } from './Delete.modal';
 import { IField } from './PageList.component';
 
@@ -54,19 +48,19 @@ export const BodyForm = ({
   return (
     <form onSubmit={handleSubmit} id="item-form">
       {fields.map((field) => (
-        <StyledFormGroup key={field.key}>
-          <StyledFormLabel>
+        <FormGroup key={field.key}>
+          <FormLabel>
             {field.label}
             {field.required ? '*' : ''}
-          </StyledFormLabel>
-          <StyledFormInput
+          </FormLabel>
+          <FormInput
             type={field.type}
             name={field.key}
             value={formData[field.key]}
             onChange={handleChange}
             required
           />
-        </StyledFormGroup>
+        </FormGroup>
       ))}
     </form>
   );
