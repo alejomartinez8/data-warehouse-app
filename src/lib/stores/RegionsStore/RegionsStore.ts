@@ -79,14 +79,12 @@ export class RegionsStore {
   };
 
   getCountriesByRegionId = (id: string) => {
-    // eslint-disable-next-line eqeqeq
-    const region = this.regions.find((item) => item.id == id);
+    const region = this.regions.find((item) => item.id === id);
     this.countries = region ? region.countries : [];
   };
 
   getCitiesByCountryId = (id: string) => {
-    // eslint-disable-next-line eqeqeq
-    const region = this.countries.find((item) => item.id == id);
-    this.cities = region ? region.cities : [];
+    const country = this.countries.find((item) => item.id === id);
+    this.cities = country ? country.cities : [];
   };
 }

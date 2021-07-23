@@ -79,22 +79,22 @@ export const BodyCompanyForm = observer(({ company }: IBodyCompaniesFormProps) =
   };
 
   useEffect(() => {
+    fetchRegions();
+
     if (company?.city) {
       setRegionId(company.city.country.regionId);
       setCountryId(company.city.countryId);
       setFormData({ ...formData, cityId: company.cityId });
-    } else {
-      fetchRegions();
     }
-  }, [company, fetchRegions]);
+  }, [company]);
 
   useEffect(() => {
     getCountriesByRegionId(regionId);
-  }, [regionId, getCountriesByRegionId]);
+  }, [regionId]);
 
   useEffect(() => {
     getCitiesByCountryId(countryId);
-  }, [countryId, getCitiesByCountryId]);
+  }, [countryId]);
 
   return (
     <form onSubmit={handleSubmit} id="company-form">
