@@ -8,13 +8,8 @@ import {
   BodyConfirmation,
   FooterConfirmation,
 } from 'components/atoms';
-import {
-  IItem,
-  NestableList,
-  HeaderRegionsForm,
-  BodyRegionsForm,
-  FooterRegionsForm,
-} from 'components/molecules';
+import { IItem, NestableList } from 'components/molecules';
+import { HeaderRegionsForm, BodyRegionsForm, FooterRegionsForm } from 'components/organisms';
 import { useModal, useStore } from 'lib/hooks';
 import { IRegion, regionRoutes, regionsType } from 'lib/types';
 import { faGlobeAmericas, faFlag, faCity } from '@fortawesome/free-solid-svg-icons';

@@ -1,13 +1,8 @@
 import { useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
 import { useStore, useModal } from 'lib/hooks';
-import {
-  IField,
-  PageList,
-  HeaderCompanyForm,
-  BodyCompanyForm,
-  FooterCompanyForm,
-} from 'components/molecules';
+import { IField, PageList } from 'components/molecules';
+import { HeaderCompanyForm, BodyCompanyForm, FooterCompanyForm } from 'components/organisms';
 import { HeaderConfirmation, BodyConfirmation, FooterConfirmation } from 'components/atoms';
 import { ICompany } from 'lib/types';
 

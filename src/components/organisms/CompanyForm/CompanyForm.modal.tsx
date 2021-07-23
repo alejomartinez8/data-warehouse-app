@@ -3,6 +3,7 @@ import { ICompany } from 'lib/types';
 import React, { FormEvent, useEffect, useState } from 'react';
 import {
   Button,
+  FormRow,
   FormGroup,
   FormInput,
   FormLabel,
@@ -98,67 +99,73 @@ export const BodyCompanyForm = observer(({ company }: IBodyCompaniesFormProps) =
 
   return (
     <form onSubmit={handleSubmit} id="company-form">
-      <FormGroup>
-        <FormLabel>First Name*</FormLabel>
-        <FormInput type="text" name="name" value={name} onChange={handleChange} required />
-      </FormGroup>
-      <FormGroup>
-        <FormLabel>E-mail*</FormLabel>
-        <FormInput type="email" name="email" value={email} onChange={handleChange} required />
-      </FormGroup>
-      <FormGroup>
-        <FormLabel>Address</FormLabel>
-        <FormInput type="type" name="address" value={address} onChange={handleChange} />
-      </FormGroup>
-      <FormGroup>
-        <FormLabel>Phone</FormLabel>
-        <FormInput type="type" name="phone" value={phone} onChange={handleChange} />
-      </FormGroup>
-      <FormGroup>
-        <FormLabel htmlFor="region">Region</FormLabel>
-        <FormSelect id="region" name="region" value={regionId} onChange={handleChange}>
-          <option value="">---</option>
-          {regions?.map((item) => (
-            <option key={item.id} value={item.id}>
-              {item.name}
-            </option>
-          ))}
-        </FormSelect>
-      </FormGroup>
-      <FormGroup>
-        <FormLabel htmlFor="country">Country</FormLabel>
-        <FormSelect
-          id="country"
-          name="country"
-          value={countryId}
-          onChange={handleChange}
-          disabled={!regionId}
-        >
-          <option value="">---</option>
-          {countries?.map((item) => (
-            <option key={item.id} value={item.id}>
-              {item.name}
-            </option>
-          ))}
-        </FormSelect>
-      </FormGroup>
-      <FormGroup>
-        <FormLabel htmlFor="city">City</FormLabel>
-        <FormSelect
-          id="city"
-          name="city"
-          value={cityId}
-          onChange={handleChange}
-          disabled={!countryId}
-        >
-          <option value="">---</option>
-          {cities?.map((item) => (
-            <option key={item.id} value={item.id}>
-              {item.name}
-            </option>
-          ))}
-        </FormSelect>
-      </FormGroup>
+      <FormRow>
+        <FormGroup widthCol={1 / 2}>
+          <FormLabel>Name*</FormLabel>
+          <FormInput type="text" name="name" value={name} onChange={handleChange} required />
+        </FormGroup>
+        <FormGroup widthCol={1 / 2}>
+          <FormLabel>E-mail*</FormLabel>
+          <FormInput type="email" name="email" value={email} onChange={handleChange} required />
+        </FormGroup>
+      </FormRow>
+      <FormRow>
+        <FormGroup widthCol={1 / 2}>
+          <FormLabel>Address</FormLabel>
+          <FormInput type="type" name="address" value={address} onChange={handleChange} />
+        </FormGroup>
+        <FormGroup widthCol={1 / 2}>
+          <FormLabel>Phone</FormLabel>
+          <FormInput type="type" name="phone" value={phone} onChange={handleChange} />
+        </FormGroup>
+      </FormRow>
+      <FormRow>
+        <FormGroup widthCol={1 / 3}>
+          <FormLabel htmlFor="region">Region</FormLabel>
+          <FormSelect id="region" name="region" value={regionId} onChange={handleChange}>
+            <option value="">---</option>
+            {regions?.map((item) => (
+              <option key={item.id} value={item.id}>
+                {item.name}
+              </option>
+            ))}
+          </FormSelect>
+        </FormGroup>
+        <FormGroup widthCol={1 / 3}>
+          <FormLabel htmlFor="country">Country</FormLabel>
+          <FormSelect
+            id="country"
+            name="country"
+            value={countryId}
+            onChange={handleChange}
+            disabled={!regionId}
+          >
+            <option value="">---</option>
+            {countries?.map((item) => (
+              <option key={item.id} value={item.id}>
+                {item.name}
+              </option>
+            ))}
+          </FormSelect>
+        </FormGroup>
+        <FormGroup widthCol={1 / 3}>
+          <FormLabel htmlFor="city">City</FormLabel>
+          <FormSelect
+            id="city"
+            name="city"
+            value={cityId}
+            onChange={handleChange}
+            disabled={!countryId}
+          >
+            <option value="">---</option>
+            {cities?.map((item) => (
+              <option key={item.id} value={item.id}>
+                {item.name}
+              </option>
+            ))}
+          </FormSelect>
+        </FormGroup>
+      </FormRow>
     </form>
   );
 });

@@ -1,7 +1,7 @@
-import { Contacts } from 'components/templates';
+import { ContactsTemplate } from 'components/templates';
 
 export default function Page() {
-  return <Contacts />;
+  return <ContactsTemplate />;
 }
 
 Page.requireAuth = true;

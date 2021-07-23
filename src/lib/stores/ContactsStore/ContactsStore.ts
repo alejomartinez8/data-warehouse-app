@@ -1,16 +1,11 @@
-import { getContacts } from 'lib/services';
-import { checkboxEnum } from 'constans';
 import { makeAutoObservable } from 'mobx';
+import { getContacts, createContact, updateContact, deleteContact } from 'lib/services';
 import { IContact } from 'lib/types';
-
-const { UNCHECKED } = checkboxEnum;
 
 export class ContactsStore {
   contacts: IContact[] = [];
 
   loading = false;
-
-  checkedAll: checkboxEnum = UNCHECKED;
 
   constructor() {
     makeAutoObservable(this);
@@ -33,5 +28,39 @@ export class ContactsStore {
 
   setLoading = (state: boolean) => {
     this.loading = state;
+  };
+
+  fetchCreateContact = async (contact: IContact) => {
+    try {
+      this.setLoading(true);
+      await createContact(contact);
+      await this.fetchContacts();
+      this.setLoading(false);
+    } catch (error) {
+      this.setLoading(false);
+    }
+  };
+
+  fetchUpddateContact = async (contact: IContact) => {
+    try {
+      this.setLoading(true);
+      await updateContact(contact.id, contact);
+      await this.fetchContacts();
+      this.setLoading(false);
+    } catch (error) {
+      this.setLoading(false);
+    }
+  };
+
+  fetchDeleteContacts = async (companies: IContact[]) => {
+    try {
+      this.setLoading(true);
+      const promises = companies.map((contact) => deleteContact(contact.id));
+      await Promise.all(promises);
+      await this.fetchContacts();
+      this.setLoading(false);
+    } catch (error) {
+      this.setLoading(false);
+    }
   };
 }

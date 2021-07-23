@@ -11,6 +11,7 @@ import {
   HeaderConfirmation,
   BodyConfirmation,
   FooterConfirmation,
+  FormRow,
 } from 'components/atoms';
 
 interface IBodyUsersFormProps {
@@ -58,51 +59,63 @@ export const BodyUserForm = ({ user }: IBodyUsersFormProps) => {
 
   return (
     <form onSubmit={handleSubmit} id="user-form">
-      <FormGroup>
-        <FormLabel>First Name*</FormLabel>
-        <FormInput
-          type="text"
-          name="firstName"
-          value={firstName}
-          onChange={handleChange}
-          required
-        />
-      </FormGroup>
-      <FormGroup>
-        <FormLabel>Last Name*</FormLabel>
-        <FormInput type="text" name="lastName" value={lastName} onChange={handleChange} required />
-      </FormGroup>
-      <FormGroup>
-        <FormLabel>E-mail*</FormLabel>
-        <FormInput type="email" name="email" value={email} onChange={handleChange} required />
-      </FormGroup>
-      <FormGroup>
-        <FormLabel htmlFor="role">Role*</FormLabel>
-        <FormSelect id="role" name="role" value={role} onChange={handleChange}>
-          <option value="BASIC">BASIC</option>
-          <option value="ADMIN">ADMIN</option>
-        </FormSelect>
-      </FormGroup>
-      <FormGroup>
-        <FormLabel>Password{!user ? '*' : ''}</FormLabel>
-        <FormInput
-          type="password"
-          name="password"
-          value={password}
-          onChange={handleChange}
-          required={!user}
-        />
-      </FormGroup>
-      <FormGroup>
-        <FormLabel>Repeat Password{password ? '*' : ''}</FormLabel>
-        <FormInput
-          type="password"
-          name="repeatPassword"
-          value={repeatPassword}
-          onChange={handleChange}
-          required={!!password}
-        />
-      </FormGroup>
+      <FormRow>
+        <FormGroup widthCol={1 / 2}>
+          <FormLabel>First Name*</FormLabel>
+          <FormInput
+            type="text"
+            name="firstName"
+            value={firstName}
+            onChange={handleChange}
+            required
+          />
+        </FormGroup>
+        <FormGroup widthCol={1 / 2}>
+          <FormLabel>Last Name*</FormLabel>
+          <FormInput
+            type="text"
+            name="lastName"
+            value={lastName}
+            onChange={handleChange}
+            required
+          />
+        </FormGroup>
+      </FormRow>
+      <FormRow>
+        <FormGroup widthCol={2 / 3}>
+          <FormLabel>E-mail*</FormLabel>
+          <FormInput type="email" name="email" value={email} onChange={handleChange} required />
+        </FormGroup>
+        <FormGroup widthCol={1 / 3}>
+          <FormLabel htmlFor="role">Role*</FormLabel>
+          <FormSelect id="role" name="role" value={role} onChange={handleChange}>
+            <option value="BASIC">BASIC</option>
+            <option value="ADMIN">ADMIN</option>
+          </FormSelect>
+        </FormGroup>
+      </FormRow>
+      <FormRow>
+        <FormGroup widthCol={1 / 2}>
+          <FormLabel>Password{!user ? '*' : ''}</FormLabel>
+          <FormInput
+            type="password"
+            name="password"
+            value={password}
+            onChange={handleChange}
+            required={!user}
+          />
+        </FormGroup>
+        <FormGroup widthCol={1 / 2}>
+          <FormLabel>Repeat Password{password ? '*' : ''}</FormLabel>
+          <FormInput
+            type="password"
+            name="repeatPassword"
+            value={repeatPassword}
+            onChange={handleChange}
+            required={!!password}
+          />
+        </FormGroup>
+      </FormRow>
     </form>
   );
 };

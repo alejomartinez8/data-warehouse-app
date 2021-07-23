@@ -5,9 +5,8 @@ import type { AppProps } from 'next/app';
 import { ThemeProvider, createGlobalStyle } from 'styled-components';
 import { ModalProvider, StoresProvider } from 'lib/hooks';
 import baseTheme from 'themes/baseTheme';
-import { AuthGuard } from 'components/atoms/AuthGuard/AuthGuard.component';
 import '@fortawesome/fontawesome-svg-core/styles.css';
-import { Layout } from 'components/organisms';
+import { Layout, AuthGuard } from 'components/organisms';
 
 const GlobalStyles = createGlobalStyle`
    body{

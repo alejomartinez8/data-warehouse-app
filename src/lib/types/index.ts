@@ -1,16 +1,3 @@
-export interface IContact {
-  id: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  position: string;
-  interest: number;
-  address: string;
-  company: string;
-  city: string;
-  channels: string[];
-}
-
 export interface IUser {
   id: string;
   firstName: string;
@@ -77,4 +64,28 @@ export interface IUpdateCompanyDto {
   email?: string;
   phone?: string;
   cityId?: string;
+}
+
+export interface IContact {
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  position: string;
+  companyId: string;
+  company?: ICompany;
+  cityId?: string;
+  city?: {
+    id: string;
+    name: string;
+    countryId: string;
+    country: {
+      id: string;
+      name: string;
+      regionId: string;
+      region: { id: string; name: string };
+    };
+  };
+  interest?: string;
+  channels?: string[];
 }
