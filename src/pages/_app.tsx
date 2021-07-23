@@ -1,4 +1,3 @@
-import App from 'next/app';
 import { NextPage } from 'next';
 import Head from 'next/head';
 import type { AppProps } from 'next/app';
@@ -58,10 +57,5 @@ function MyApp(props: AppProps) {
     </StoresProvider>
   );
 }
-
-MyApp.getInitialProps = async (appContext) => {
-  const appProps = await App.getInitialProps(appContext);
-  return { ...appProps };
-};
 
 export default MyApp;
