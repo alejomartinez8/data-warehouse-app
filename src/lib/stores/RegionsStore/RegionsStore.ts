@@ -5,6 +5,10 @@ import { IRegion, ICountry, ICity } from 'lib/types';
 export class RegionsStore {
   regions: IRegion[] = [];
 
+  countries: ICountry[] = [];
+
+  cities: ICity[] = [];
+
   loading = false;
 
   constructor() {
@@ -74,8 +78,15 @@ export class RegionsStore {
     }
   };
 
-  getCountries = (id: string) => {
-    const region = this.regions.find((item) => item.id === id)?.countries;
-    console.log(region);
+  getCountriesByRegionId = (id: string) => {
+    // eslint-disable-next-line eqeqeq
+    const region = this.regions.find((item) => item.id == id);
+    this.countries = region ? region.countries : [];
+  };
+
+  getCitiesByCountryId = (id: string) => {
+    // eslint-disable-next-line eqeqeq
+    const region = this.countries.find((item) => item.id == id);
+    this.cities = region ? region.cities : [];
   };
 }

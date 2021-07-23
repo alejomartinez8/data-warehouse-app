@@ -31,6 +31,8 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
+    '@typescript-eslint/no-unused-vars': ['error'],
+    'no-unused-vars': 2,
     'arrow-body-style': ['error', 'as-needed'],
     'react/prop-types': 'off',
     'react/require-default-props': 'off',
@@ -49,6 +51,8 @@ module.exports = {
       'error',
       { functions: false, classes: false, variables: true },
     ],
+    'react-hooks/rules-of-hooks': 'error',
+    'react-hooks/exhaustive-deps': 'off',
   },
   settings: {
     'import/resolver': {

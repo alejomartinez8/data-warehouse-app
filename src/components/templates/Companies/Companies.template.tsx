@@ -21,17 +21,13 @@ export const CompaniesTemplate = observer(() => {
     { key: 'address', label: 'Address' },
     { key: 'email', label: 'Email' },
     { key: 'phone', label: 'Phone' },
-    { key: 'city', label: 'City' },
+    { key: 'cityName', label: 'City' },
   ];
 
   const mapItems = () =>
     companies.map((company) => ({
-      id: company.id,
-      name: company.name,
-      address: company.address,
-      email: company.email,
-      phone: company.phone,
-      city: company.city.name,
+      ...company,
+      cityName: company.city.name,
     }));
 
   const handleOnCreate = () => {

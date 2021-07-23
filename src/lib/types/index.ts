@@ -57,7 +57,17 @@ export interface ICompany {
   email: string;
   phone: string;
   cityId?: string;
-  city: any;
+  city?: {
+    id: string;
+    name: string;
+    countryId: string;
+    country: {
+      id: string;
+      name: string;
+      regionId: string;
+      region: { id: string; name: string };
+    };
+  };
 }
 
 export interface IUpdateCompanyDto {

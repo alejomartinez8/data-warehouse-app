@@ -1,5 +1,5 @@
 import { useModal, useStore } from 'lib/hooks';
-import { ICompany, ICountry } from 'lib/types';
+import { ICompany } from 'lib/types';
 import React, { FormEvent, useEffect, useState } from 'react';
 import {
   Button,
@@ -11,7 +11,7 @@ import {
   BodyConfirmation,
   FooterConfirmation,
 } from 'components/atoms';
-import { toJS } from 'mobx';
+import { observer } from 'mobx-react-lite';
 
 interface IBodyCompaniesFormProps {
   company?: ICompany;
@@ -19,7 +19,7 @@ interface IBodyCompaniesFormProps {
 
 export const HeaderCompanyForm = ({ title }) => <h1>{title}</h1>;
 
-export const BodyCompanyForm = ({ company }: IBodyCompaniesFormProps) => {
+export const BodyCompanyForm = observer(({ company }: IBodyCompaniesFormProps) => {
   const { closeModal } = useModal();
   const initialState: ICompany = {
     id: company?.id || '',
@@ -27,19 +27,24 @@ export const BodyCompanyForm = ({ company }: IBodyCompaniesFormProps) => {
     address: company?.address || '',
     email: company?.email || '',
     phone: company?.phone || '',
-    city: company?.city || '',
     cityId: company?.cityId || '',
   };
 
   const { fetchCompanies, fetchCreateCompany, fetchUpddateCompany } = useStore('companiesStores');
-  const { regions, fetchRegions, getCountries } = useStore('regionsStores');
+  const {
+    regions,
+    countries,
+    cities,
+    fetchRegions,
+    getCountriesByRegionId,
+    getCitiesByCountryId,
+  } = useStore('regionsStores');
 
   const [formData, setFormData] = useState(initialState);
   const [regionId, setRegionId] = useState('');
   const [countryId, setCountryId] = useState('');
-  const [countries, setCountries] = useState<ICountry[]>([]);
 
-  const { name, address, email, phone } = formData;
+  const { name, address, email, phone, cityId } = formData;
 
   const handleChange = (e) => {
     switch (e.target.name) {
@@ -49,6 +54,10 @@ export const BodyCompanyForm = ({ company }: IBodyCompaniesFormProps) => {
 
       case 'country':
         setCountryId(e.target.value);
+        break;
+
+      case 'city':
+        setFormData({ ...formData, cityId: e.target.value });
         break;
 
       default:
@@ -70,12 +79,22 @@ export const BodyCompanyForm = ({ company }: IBodyCompaniesFormProps) => {
   };
 
   useEffect(() => {
-    fetchRegions();
-  }, [fetchRegions]);
+    if (company?.city) {
+      setRegionId(company.city.country.regionId);
+      setCountryId(company.city.countryId);
+      setFormData({ ...formData, cityId: company.cityId });
+    } else {
+      fetchRegions();
+    }
+  }, [company, fetchRegions]);
 
   useEffect(() => {
-    getCountries(regionId);
-  }, [getCountries, regionId]);
+    getCountriesByRegionId(regionId);
+  }, [regionId, getCountriesByRegionId]);
+
+  useEffect(() => {
+    getCitiesByCountryId(countryId);
+  }, [countryId, getCitiesByCountryId]);
 
   return (
     <form onSubmit={handleSubmit} id="company-form">
@@ -88,18 +107,18 @@ export const BodyCompanyForm = ({ company }: IBodyCompaniesFormProps) => {
         <FormInput type="email" name="email" value={email} onChange={handleChange} required />
       </FormGroup>
       <FormGroup>
-        <FormLabel>Address*</FormLabel>
-        <FormInput type="type" name="address" value={address} onChange={handleChange} required />
+        <FormLabel>Address</FormLabel>
+        <FormInput type="type" name="address" value={address} onChange={handleChange} />
       </FormGroup>
       <FormGroup>
-        <FormLabel>Phone*</FormLabel>
-        <FormInput type="type" name="phone" value={phone} onChange={handleChange} required />
+        <FormLabel>Phone</FormLabel>
+        <FormInput type="type" name="phone" value={phone} onChange={handleChange} />
       </FormGroup>
       <FormGroup>
-        <FormLabel htmlFor="region">Region*</FormLabel>
+        <FormLabel htmlFor="region">Region</FormLabel>
         <FormSelect id="region" name="region" value={regionId} onChange={handleChange}>
           <option value="">---</option>
-          {regions.map((item) => (
+          {regions?.map((item) => (
             <option key={item.id} value={item.id}>
               {item.name}
             </option>
@@ -107,10 +126,33 @@ export const BodyCompanyForm = ({ company }: IBodyCompaniesFormProps) => {
         </FormSelect>
       </FormGroup>
       <FormGroup>
-        <FormLabel htmlFor="country">Country*</FormLabel>
-        <FormSelect id="country" name="country" value={countryId} onChange={handleChange}>
+        <FormLabel htmlFor="country">Country</FormLabel>
+        <FormSelect
+          id="country"
+          name="country"
+          value={countryId}
+          onChange={handleChange}
+          disabled={!regionId}
+        >
           <option value="">---</option>
-          {countries.map((item) => (
+          {countries?.map((item) => (
+            <option key={item.id} value={item.id}>
+              {item.name}
+            </option>
+          ))}
+        </FormSelect>
+      </FormGroup>
+      <FormGroup>
+        <FormLabel htmlFor="city">City</FormLabel>
+        <FormSelect
+          id="city"
+          name="city"
+          value={cityId}
+          onChange={handleChange}
+          disabled={!countryId}
+        >
+          <option value="">---</option>
+          {cities?.map((item) => (
             <option key={item.id} value={item.id}>
               {item.name}
             </option>
@@ -119,7 +161,7 @@ export const BodyCompanyForm = ({ company }: IBodyCompaniesFormProps) => {
       </FormGroup>
     </form>
   );
-};
+});
 
 export const FooterCompanyForm = ({ company }: { company?: ICompany }) => {
   const { setModal, closeModal } = useModal();

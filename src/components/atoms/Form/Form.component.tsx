@@ -1,9 +1,9 @@
 import { StyledFormGroup, StyledFormLabel, StyledFormInput, StyledFormSelect } from './Form.styled';
 
-export const FormGroup = ({ ...props }) => <StyledFormGroup {...props} />;
+export const FormGroup = StyledFormGroup;
 
-export const FormLabel = ({ ...props }) => <StyledFormLabel {...props} />;
+export const FormLabel = StyledFormLabel;
 
-export const FormInput = ({ ...props }) => <StyledFormInput {...props} />;
+export const FormInput = StyledFormInput;
 
-export const FormSelect = ({ ...props }) => <StyledFormSelect {...props} />;
+export const FormSelect = StyledFormSelect;
