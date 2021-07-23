@@ -10,3 +10,4 @@ export * from './TableList/TableList.component';
 export * from './Form/Form.component';
 export * from './Modal/Modal.component';
 export * from './ConfirmationModal/Confirmation.modal';
+export * from './TableData/TableData.component';

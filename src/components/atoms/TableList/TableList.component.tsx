@@ -9,6 +9,7 @@ import {
   StyledTHead,
   StyledTBody,
   StyledTR,
+  StyledTD,
 } from './TableList.styled';
 
 const { CHECKED, UNCHECKED, INDETERMINATE } = checkboxEnum;
@@ -70,16 +71,16 @@ export const TableList = observer(
             {items?.length > 0 &&
               items.map((item) => (
                 <StyledTR key={item.id} onClick={() => handleEditItem(item)} checked={item.checked}>
-                  <td>
+                  <StyledTD>
                     <input
                       type="checkbox"
                       onChange={() => handleOnChange(item.id)}
                       onClick={(e) => e.stopPropagation()}
                       checked={item.checked}
                     />
-                  </td>
+                  </StyledTD>
                   {fields.map((field) => (
-                    <td key={field.key}>{item[field.key]}</td>
+                    <StyledTD key={field.key}>{item[field.key]}</StyledTD>
                   ))}
                 </StyledTR>
               ))}

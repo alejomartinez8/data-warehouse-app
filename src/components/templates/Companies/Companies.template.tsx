@@ -3,7 +3,12 @@ import { observer } from 'mobx-react-lite';
 import { useStore, useModal } from 'lib/hooks';
 import { IField, PageList } from 'components/molecules';
 import { HeaderCompanyForm, BodyCompanyForm, FooterCompanyForm } from 'components/organisms';
-import { HeaderConfirmation, BodyConfirmation, FooterConfirmation } from 'components/atoms';
+import {
+  HeaderConfirmation,
+  BodyConfirmation,
+  FooterConfirmation,
+  TableData,
+} from 'components/atoms';
 import { ICompany } from 'lib/types';
 
 export const CompaniesTemplate = observer(() => {
@@ -19,16 +24,10 @@ export const CompaniesTemplate = observer(() => {
     { key: 'cityName', label: 'City' },
   ];
 
-  const City = ({ city }) => (
-    <span>
-      <strong>{city.name}</strong> / <span>{city.country.name}</span>
-    </span>
-  );
-
   const mapItems = () =>
     companies.map((company) => ({
       ...company,
-      cityName: <City city={company.city} />,
+      cityName: <TableData firstLine={company.city.name} secondLine={company.city.country.name} />,
     }));
 
   const handleOnCreate = () => {

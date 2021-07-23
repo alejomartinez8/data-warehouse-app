@@ -51,3 +51,8 @@ export const StyledTR = styled.tr<IStyledTR>(({ theme, checked }) => {
     }
   `;
 });
+
+export const StyledTD = styled.td`
+  border-top: 1px solid #e7eaec;
+  padding: 0.5rem;
+`;

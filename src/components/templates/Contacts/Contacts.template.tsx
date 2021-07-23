@@ -3,7 +3,12 @@ import { observer } from 'mobx-react-lite';
 import { useStore, useModal } from 'lib/hooks';
 import { IField, PageList } from 'components/molecules';
 import { HeaderContactForm, BodyContactForm, FooterContactForm } from 'components/organisms';
-import { HeaderConfirmation, BodyConfirmation, FooterConfirmation } from 'components/atoms';
+import {
+  HeaderConfirmation,
+  BodyConfirmation,
+  FooterConfirmation,
+  TableData,
+} from 'components/atoms';
 import { IContact } from 'lib/types';
 
 export const ContactsTemplate = observer(() => {
@@ -20,35 +25,20 @@ export const ContactsTemplate = observer(() => {
     { key: 'interest', label: 'Interest' },
   ];
 
-  const Name = ({ firstName, lastName, email }) => (
-    <span>
-      <p>
-        <strong>{`${firstName} ${lastName}`}</strong>
-      </p>
-      <p>{email}</p>
-    </span>
-  );
-
-  const Region = ({ country, region }) => (
-    <span>
-      <p>
-        <strong>{country}</strong>
-      </p>
-      <p>{region}</p>
-    </span>
-  );
-
   const mapItems = () =>
     contacts.map((contact) => ({
       ...contact,
       name: (
-        <Name firstName={contact.firstName} lastName={contact.lastName} email={contact.email} />
+        <TableData
+          firstLine={`${contact.firstName} ${contact.lastName}`}
+          secondLine={contact.email}
+        />
       ),
       companyName: contact.company.name,
       regionData: (
-        <Region
-          country={contact.city?.country?.name}
-          region={contact.city?.country?.region?.name}
+        <TableData
+          firstLine={contact.city?.country?.name}
+          secondLine={contact.city?.country?.region?.name}
         />
       ),
     }));
