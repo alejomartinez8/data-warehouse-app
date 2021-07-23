@@ -33,14 +33,14 @@ export const Regions = observer(() => {
       type: 'region',
       labelItems: 'country',
       icon: faGlobeAmericas,
-      items: region.countries.map((country) => ({
+      items: region.countries?.map((country) => ({
         id: country.id,
         name: country.name,
         type: 'country',
         labelItems: 'city',
         icon: faFlag,
         parentId: region.id,
-        items: country.cities.map((city) => ({
+        items: country.cities?.map((city) => ({
           id: city.id,
           name: city.name,
           type: 'city',

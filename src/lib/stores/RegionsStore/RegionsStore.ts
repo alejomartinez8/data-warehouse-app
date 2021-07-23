@@ -1,5 +1,5 @@
 import { getRegions, getRegion, createRegion, updateRegion, deleteRegion } from 'lib/services';
-import { makeAutoObservable } from 'mobx';
+import { makeAutoObservable, toJS } from 'mobx';
 import { IRegion, ICountry, ICity } from 'lib/types';
 
 export class RegionsStore {
@@ -37,11 +37,12 @@ export class RegionsStore {
   fetchGetRegion = async (route: string, id: string) => {
     try {
       this.setLoading(true);
-      await getRegion(route, id);
-      await this.fetchRegions();
+      const region = await getRegion(route, id);
       this.setLoading(false);
+      return region;
     } catch (error) {
       this.setLoading(false);
+      return null;
     }
   };
 
@@ -78,13 +79,21 @@ export class RegionsStore {
     }
   };
 
-  getCountriesByRegionId = (id: string) => {
-    const region = this.regions.find((item) => item.id === id);
-    this.countries = region ? region.countries : [];
+  setCountries = (countries: ICountry[]) => {
+    this.countries = countries;
   };
 
-  getCitiesByCountryId = (id: string) => {
-    const country = this.countries.find((item) => item.id === id);
-    this.cities = country ? country.cities : [];
+  setCities = (cities: ICity[]) => {
+    this.cities = cities;
+  };
+
+  getCountriesByRegionId = async (id: string) => {
+    const region = await this.fetchGetRegion('regions', id);
+    this.setCountries(region ? region.countries : []);
+  };
+
+  getCitiesByCountryId = async (id: string) => {
+    const country = await this.fetchGetRegion('countries', id);
+    this.setCities(country ? country.cities : []);
   };
 }
