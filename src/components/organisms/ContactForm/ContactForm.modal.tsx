@@ -13,6 +13,7 @@ import {
   FooterConfirmation,
 } from 'components/atoms';
 import { observer } from 'mobx-react-lite';
+import { RegionSelect } from 'components/molecules';
 
 interface IBodyContactsFormProps {
   contact?: IContact;
@@ -30,40 +31,19 @@ export const BodyContactForm = observer(({ contact }: IBodyContactsFormProps) =>
     email: contact?.email || '',
     companyId: contact?.companyId || '',
     cityId: contact?.cityId || '',
+    channels: contact?.channels || [],
     interest: contact?.interest || '',
   };
 
-  const { fetchContacts, fetchCreateContact, fetchUpddateContact } = useStore('contactsStore');
-  const {
-    regions,
-    countries,
-    cities,
-    fetchRegions,
-    getCountriesByRegionId,
-    getCitiesByCountryId,
-  } = useStore('regionsStores');
-  const { companies, fetchCompanies } = useStore('companiesStores');
-
   const [formData, setFormData] = useState(initialState);
-  const [regionId, setRegionId] = useState('');
-  const [countryId, setCountryId] = useState('');
+
+  const { fetchContacts, fetchCreateContact, fetchUpddateContact } = useStore('contactsStore');
+  const { companies, fetchCompanies } = useStore('companiesStores');
 
   const { firstName, lastName, position, email, companyId, cityId } = formData;
 
   const handleChange = (e) => {
     switch (e.target.name) {
-      case 'region':
-        setRegionId(e.target.value);
-        break;
-
-      case 'country':
-        setCountryId(e.target.value);
-        break;
-
-      case 'city':
-        setFormData({ ...formData, cityId: e.target.value });
-        break;
-
       case 'company':
         setFormData({ ...formData, companyId: e.target.value });
         break;
@@ -87,26 +67,8 @@ export const BodyContactForm = observer(({ contact }: IBodyContactsFormProps) =>
   };
 
   useEffect(() => {
-    fetchRegions();
-
-    if (contact?.city) {
-      setRegionId(contact.city.country.regionId);
-      setCountryId(contact.city.countryId);
-      setFormData({ ...formData, cityId: contact.cityId });
-    }
-  }, [contact]);
-
-  useEffect(() => {
     fetchCompanies();
   }, []);
-
-  useEffect(() => {
-    if (regionId) getCountriesByRegionId(regionId);
-  }, [regions, regionId]);
-
-  useEffect(() => {
-    if (countryId) getCitiesByCountryId(countryId);
-  }, [countries, countryId]);
 
   return (
     <form onSubmit={handleSubmit} id="contact-form">
@@ -159,51 +121,15 @@ export const BodyContactForm = observer(({ contact }: IBodyContactsFormProps) =>
           </FormSelect>
         </FormGroup>
       </FormRow>
+      <RegionSelect
+        entity={contact}
+        cityId={cityId}
+        formData={formData}
+        setFormData={setFormData}
+      />
       <FormRow>
-        <FormGroup widthCol={1 / 3}>
-          <FormLabel htmlFor="region">Region</FormLabel>
-          <FormSelect id="region" name="region" value={regionId} onChange={handleChange}>
-            <option value="">---</option>
-            {regions?.map((item) => (
-              <option key={item.id} value={item.id}>
-                {item.name}
-              </option>
-            ))}
-          </FormSelect>
-        </FormGroup>
-        <FormGroup widthCol={1 / 3}>
-          <FormLabel htmlFor="country">Country</FormLabel>
-          <FormSelect
-            id="country"
-            name="country"
-            value={countryId}
-            onChange={handleChange}
-            disabled={!regionId}
-          >
-            <option value="">---</option>
-            {countries?.map((item) => (
-              <option key={item.id} value={item.id}>
-                {item.name}
-              </option>
-            ))}
-          </FormSelect>
-        </FormGroup>
-        <FormGroup widthCol={1 / 3}>
-          <FormLabel htmlFor="city">City</FormLabel>
-          <FormSelect
-            id="city"
-            name="city"
-            value={cityId}
-            onChange={handleChange}
-            disabled={!countryId}
-          >
-            <option value="">---</option>
-            {cities?.map((item) => (
-              <option key={item.id} value={item.id}>
-                {item.name}
-              </option>
-            ))}
-          </FormSelect>
+        <FormGroup widthCol={1}>
+          <FormLabel htmlFor="channels">Channels</FormLabel>
         </FormGroup>
       </FormRow>
     </form>

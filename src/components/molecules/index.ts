@@ -5,3 +5,4 @@ export * from './NavBar/NavBar.component';
 export * from './PageHeading/PageHeading.component';
 export * from './NestableList/NestableList.component';
 export * from './PageList/PageList.component';
+export * from './RegionsSelect/RegionSelect.component';

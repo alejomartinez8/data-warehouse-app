@@ -10,6 +10,7 @@ import {
   TableData,
 } from 'components/atoms';
 import { IContact } from 'lib/types';
+import { ChannelBadge } from 'components/molecules/ChannelBadge/ChannelBadge.componet';
 
 export const ContactsTemplate = observer(() => {
   const { setModal, closeModal } = useModal();
@@ -21,7 +22,7 @@ export const ContactsTemplate = observer(() => {
     { key: 'regionData', label: 'Country/Region' },
     { key: 'companyName', label: 'Company' },
     { key: 'position', label: 'Position' },
-    { key: 'channels', label: 'Channels' },
+    { key: 'channelsLabels', label: 'Channels' },
     { key: 'interest', label: 'Interest' },
   ];
 
@@ -41,6 +42,9 @@ export const ContactsTemplate = observer(() => {
           secondLine={contact.city?.country?.region?.name}
         />
       ),
+      channelsLabels: contact.channels.map((item) => (
+        <ChannelBadge key={item.channel.id} channel={item.channel.name} />
+      )),
     }));
 
   const handleOnCreate = () => {
@@ -80,7 +84,7 @@ export const ContactsTemplate = observer(() => {
 
   useEffect(() => {
     fetchContacts();
-  }, [fetchContacts]);
+  }, []);
 
   return (
     <PageList

@@ -87,5 +87,17 @@ export interface IContact {
     };
   };
   interest?: string;
-  channels?: string[];
+  channels?: IChannelsOnContacts[];
+}
+
+export interface IChannel {
+  id: string;
+  name: string;
+}
+
+export interface IChannelsOnContacts {
+  channel: IChannel;
+  account?: string;
+  phone?: string;
+  preference?: string;
 }

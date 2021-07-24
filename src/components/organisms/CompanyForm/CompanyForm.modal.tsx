@@ -1,18 +1,18 @@
 import { useModal, useStore } from 'lib/hooks';
 import { ICompany } from 'lib/types';
-import React, { FormEvent, useEffect, useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 import {
   Button,
   FormRow,
   FormGroup,
   FormInput,
   FormLabel,
-  FormSelect,
   HeaderConfirmation,
   BodyConfirmation,
   FooterConfirmation,
 } from 'components/atoms';
 import { observer } from 'mobx-react-lite';
+import { RegionSelect } from 'components/molecules';
 
 interface IBodyCompaniesFormProps {
   company?: ICompany;
@@ -32,39 +32,13 @@ export const BodyCompanyForm = observer(({ company }: IBodyCompaniesFormProps) =
   };
 
   const { fetchCompanies, fetchCreateCompany, fetchUpddateCompany } = useStore('companiesStores');
-  const {
-    regions,
-    countries,
-    cities,
-    fetchRegions,
-    getCountriesByRegionId,
-    getCitiesByCountryId,
-  } = useStore('regionsStores');
 
   const [formData, setFormData] = useState(initialState);
-  const [regionId, setRegionId] = useState('');
-  const [countryId, setCountryId] = useState('');
 
   const { name, address, email, phone, cityId } = formData;
 
   const handleChange = (e) => {
-    switch (e.target.name) {
-      case 'region':
-        setRegionId(e.target.value);
-        break;
-
-      case 'country':
-        setCountryId(e.target.value);
-        break;
-
-      case 'city':
-        setFormData({ ...formData, cityId: e.target.value });
-        break;
-
-      default:
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-        break;
-    }
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e: FormEvent) => {
@@ -78,24 +52,6 @@ export const BodyCompanyForm = observer(({ company }: IBodyCompaniesFormProps) =
     closeModal();
     await fetchCompanies();
   };
-
-  useEffect(() => {
-    fetchRegions();
-
-    if (company?.city) {
-      setRegionId(company.city.country.regionId);
-      setCountryId(company.city.countryId);
-      setFormData({ ...formData, cityId: company.cityId });
-    }
-  }, [company]);
-
-  useEffect(() => {
-    if (regionId) getCountriesByRegionId(regionId);
-  }, [regions, regionId]);
-
-  useEffect(() => {
-    if (countryId) getCitiesByCountryId(countryId);
-  }, [countries, countryId]);
 
   return (
     <form onSubmit={handleSubmit} id="company-form">
@@ -119,53 +75,12 @@ export const BodyCompanyForm = observer(({ company }: IBodyCompaniesFormProps) =
           <FormInput type="type" name="phone" value={phone} onChange={handleChange} />
         </FormGroup>
       </FormRow>
-      <FormRow>
-        <FormGroup widthCol={1 / 3}>
-          <FormLabel htmlFor="region">Region</FormLabel>
-          <FormSelect id="region" name="region" value={regionId} onChange={handleChange}>
-            <option value="">---</option>
-            {regions?.map((item) => (
-              <option key={item.id} value={item.id}>
-                {item.name}
-              </option>
-            ))}
-          </FormSelect>
-        </FormGroup>
-        <FormGroup widthCol={1 / 3}>
-          <FormLabel htmlFor="country">Country</FormLabel>
-          <FormSelect
-            id="country"
-            name="country"
-            value={countryId}
-            onChange={handleChange}
-            disabled={!regionId}
-          >
-            <option value="">---</option>
-            {countries?.map((item) => (
-              <option key={item.id} value={item.id}>
-                {item.name}
-              </option>
-            ))}
-          </FormSelect>
-        </FormGroup>
-        <FormGroup widthCol={1 / 3}>
-          <FormLabel htmlFor="city">City</FormLabel>
-          <FormSelect
-            id="city"
-            name="city"
-            value={cityId}
-            onChange={handleChange}
-            disabled={!countryId}
-          >
-            <option value="">---</option>
-            {cities?.map((item) => (
-              <option key={item.id} value={item.id}>
-                {item.name}
-              </option>
-            ))}
-          </FormSelect>
-        </FormGroup>
-      </FormRow>
+      <RegionSelect
+        entity={company}
+        cityId={cityId}
+        formData={formData}
+        setFormData={setFormData}
+      />
     </form>
   );
 });

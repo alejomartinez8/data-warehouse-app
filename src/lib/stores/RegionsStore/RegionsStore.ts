@@ -5,10 +5,6 @@ import { IRegion, ICountry, ICity } from 'lib/types';
 export class RegionsStore {
   regions: IRegion[] = [];
 
-  countries: ICountry[] = [];
-
-  cities: ICity[] = [];
-
   loading = false;
 
   constructor() {
@@ -79,21 +75,13 @@ export class RegionsStore {
     }
   };
 
-  setCountries = (countries: ICountry[]) => {
-    this.countries = countries;
-  };
-
-  setCities = (cities: ICity[]) => {
-    this.cities = cities;
-  };
-
   getCountriesByRegionId = async (id: string) => {
     const region = await this.fetchGetRegion('regions', id);
-    this.setCountries(region ? region.countries : []);
+    return region ? region.countries : [];
   };
 
   getCitiesByCountryId = async (id: string) => {
     const country = await this.fetchGetRegion('countries', id);
-    this.setCities(country ? country.cities : []);
+    return country ? country.cities : [];
   };
 }
