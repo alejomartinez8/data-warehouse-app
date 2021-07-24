@@ -12,3 +12,4 @@ export * from './Modal/Modal.component';
 export * from './ConfirmationModal/Confirmation.modal';
 export * from './TableData/TableData.component';
 export * from './Badge/Badge.component';
+export * from './ProgressBar/ProgressBar.component';

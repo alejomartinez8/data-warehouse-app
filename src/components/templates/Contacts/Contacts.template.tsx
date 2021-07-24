@@ -8,6 +8,7 @@ import {
   BodyConfirmation,
   FooterConfirmation,
   TableData,
+  ProgressBar,
 } from 'components/atoms';
 import { IContact } from 'lib/types';
 import { ChannelBadge } from 'components/molecules/ChannelBadge/ChannelBadge.componet';
@@ -23,7 +24,7 @@ export const ContactsTemplate = observer(() => {
     { key: 'companyName', label: 'Company' },
     { key: 'position', label: 'Position' },
     { key: 'channelsLabels', label: 'Channels' },
-    { key: 'interest', label: 'Interest' },
+    { key: 'interestBar', label: 'Interest' },
   ];
 
   const mapItems = () =>
@@ -45,6 +46,11 @@ export const ContactsTemplate = observer(() => {
       channelsLabels: contact.channels.map((item) => (
         <ChannelBadge key={item.channel.id} channel={item.channel.name} />
       )),
+      interestBar: (
+        <span>
+          {contact.interest}% <ProgressBar value={Number(contact.interest)} />
+        </span>
+      ),
     }));
 
   const handleOnCreate = () => {
