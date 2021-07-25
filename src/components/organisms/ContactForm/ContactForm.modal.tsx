@@ -1,5 +1,5 @@
 import { useModal, useStore } from 'lib/hooks';
-import { IContact } from 'lib/types';
+import { ICity, IContact, ICountry } from 'lib/types';
 import React, { FormEvent, useEffect, useState } from 'react';
 import {
   Button,
@@ -30,8 +30,7 @@ export const BodyContactForm = observer(({ contact }: IBodyContactsFormProps) =>
     position: contact?.position || '',
     email: contact?.email || '',
     companyId: contact?.companyId || '',
-    cityId: contact?.cityId || '',
-    channels: contact?.channels || [],
+    // channels: contact?.channels || [],
     interest: contact?.interest || '',
   };
 
@@ -39,11 +38,36 @@ export const BodyContactForm = observer(({ contact }: IBodyContactsFormProps) =>
 
   const { fetchContacts, fetchCreateContact, fetchUpddateContact } = useStore('contactsStore');
   const { companies, fetchCompanies } = useStore('companiesStores');
+  const { regions, fetchRegions, getCountriesByRegionId, getCitiesByCountryId } = useStore(
+    'regionsStores',
+  );
 
-  const { firstName, lastName, position, email, companyId, cityId } = formData;
+  const [regionId, setRegionId] = useState('');
+  const [countryId, setCountryId] = useState('');
+  const [cityId, setCityId] = useState(contact?.cityId || '');
 
-  const handleChange = (e) => {
+  const [countries, setCountries] = useState<ICountry[]>();
+  const [cities, setCities] = useState<ICity[]>();
+
+  const { firstName, lastName, position, email, companyId } = formData;
+
+  const handleOnChange = (e) => {
     switch (e.target.name) {
+      case 'region':
+        setRegionId(e.target.value);
+        setCountryId('');
+        setCityId('');
+        break;
+
+      case 'country':
+        setCountryId(e.target.value);
+        setCityId('');
+        break;
+
+      case 'city':
+        setCityId(e.target.value);
+        break;
+
       case 'company':
         setFormData({ ...formData, companyId: e.target.value });
         break;
@@ -58,17 +82,49 @@ export const BodyContactForm = observer(({ contact }: IBodyContactsFormProps) =>
     e.preventDefault();
 
     if (contact) {
-      await fetchUpddateContact(formData);
+      await fetchUpddateContact({ ...formData, cityId });
     } else {
-      await fetchCreateContact(formData);
+      await fetchCreateContact({ ...formData, cityId });
     }
     closeModal();
     await fetchContacts();
   };
 
   useEffect(() => {
+    fetchRegions();
+  }, []);
+
+  useEffect(() => {
     fetchCompanies();
   }, []);
+
+  useEffect(() => {
+    if (contact?.city) {
+      setRegionId(contact.city.country.regionId);
+      setCountryId(contact.city.countryId);
+      setCityId(contact.city.id);
+    }
+  }, [contact]);
+
+  useEffect(() => {
+    const fetchCountries = async () => {
+      if (regionId) {
+        const data = await getCountriesByRegionId(regionId);
+        setCountries(data);
+      }
+    };
+    fetchCountries();
+  }, [regionId]);
+
+  useEffect(() => {
+    const fetchCities = async () => {
+      if (countryId) {
+        const data = await getCitiesByCountryId(countryId);
+        setCities(data);
+      }
+    };
+    fetchCities();
+  }, [countryId]);
 
   return (
     <form onSubmit={handleSubmit} id="contact-form">
@@ -79,7 +135,7 @@ export const BodyContactForm = observer(({ contact }: IBodyContactsFormProps) =>
             type="text"
             name="firstName"
             value={firstName}
-            onChange={handleChange}
+            onChange={handleOnChange}
             required
           />
         </FormGroup>
@@ -89,13 +145,13 @@ export const BodyContactForm = observer(({ contact }: IBodyContactsFormProps) =>
             type="text"
             name="lastName"
             value={lastName}
-            onChange={handleChange}
+            onChange={handleOnChange}
             required
           />
         </FormGroup>
         <FormGroup widthCol={1 / 3}>
           <FormLabel>E-mail*</FormLabel>
-          <FormInput type="email" name="email" value={email} onChange={handleChange} required />
+          <FormInput type="email" name="email" value={email} onChange={handleOnChange} required />
         </FormGroup>
       </FormRow>
       <FormRow>
@@ -105,13 +161,13 @@ export const BodyContactForm = observer(({ contact }: IBodyContactsFormProps) =>
             type="text"
             name="position"
             value={position}
-            onChange={handleChange}
+            onChange={handleOnChange}
             required
           />
         </FormGroup>
         <FormGroup widthCol={1 / 2}>
           <FormLabel>Company</FormLabel>
-          <FormSelect id="company" name="company" value={companyId} onChange={handleChange}>
+          <FormSelect id="company" name="company" value={companyId} onChange={handleOnChange}>
             <option value="">---</option>
             {companies?.map((item) => (
               <option key={item.id} value={item.id}>
@@ -122,16 +178,19 @@ export const BodyContactForm = observer(({ contact }: IBodyContactsFormProps) =>
         </FormGroup>
       </FormRow>
       <RegionSelect
-        entity={contact}
+        regionId={regionId}
+        countryId={countryId}
         cityId={cityId}
-        formData={formData}
-        setFormData={setFormData}
+        regions={regions}
+        countries={countries}
+        cities={cities}
+        handleOnChange={handleOnChange}
       />
-      <FormRow>
+      {/* <FormRow>
         <FormGroup widthCol={1}>
           <FormLabel htmlFor="channels">Channels</FormLabel>
         </FormGroup>
-      </FormRow>
+      </FormRow> */}
     </form>
   );
 });

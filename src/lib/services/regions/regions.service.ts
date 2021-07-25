@@ -3,12 +3,14 @@ import { AxiosError } from 'axios';
 import { unauthorizedHandle } from 'utils/handleError/handleError.util';
 import { ApiInstance } from '../axiosInstances';
 
-export const getRegions = async (route: 'regions' | 'countries' | 'cities'): Promise<IRegion[]> =>
+export const getRegions = async (
+  route: 'regions' | 'countries' | 'cities',
+): Promise<IRegion[] | ICountry[] | ICity[]> =>
   ApiInstance.get(`/${route}`)
     .then((response) => response.data)
     .catch((err: AxiosError) => unauthorizedHandle(err));
 
-export const getRegion = async (route: string, id: string) =>
+export const getRegion = async (route: string, id: string): Promise<IRegion | ICountry | ICity> =>
   ApiInstance.get(`/${route}/${id}`)
     .then((response) => response.data)
     .catch((err: AxiosError) => unauthorizedHandle(err));

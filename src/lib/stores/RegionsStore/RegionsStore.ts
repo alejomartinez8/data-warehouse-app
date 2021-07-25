@@ -75,13 +75,19 @@ export class RegionsStore {
     }
   };
 
-  getCountriesByRegionId = async (id: string) => {
-    const region = await this.fetchGetRegion('regions', id);
-    return region ? region.countries : [];
+  getCountriesByRegionId = async (id: string): Promise<ICountry[]> => {
+    if (id) {
+      const region: IRegion = (await this.fetchGetRegion('regions', id)) as IRegion;
+      return region ? region.countries : [];
+    }
+    return [];
   };
 
-  getCitiesByCountryId = async (id: string) => {
-    const country = await this.fetchGetRegion('countries', id);
-    return country ? country.cities : [];
+  getCitiesByCountryId = async (id: string): Promise<ICity[]> => {
+    if (id) {
+      const country: ICountry = (await this.fetchGetRegion('countries', id)) as ICountry;
+      return country ? country.cities : [];
+    }
+    return [];
   };
 }

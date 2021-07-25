@@ -1,6 +1,6 @@
 import { useModal, useStore } from 'lib/hooks';
-import { ICompany } from 'lib/types';
-import React, { FormEvent, useState } from 'react';
+import { ICity, ICompany, ICountry } from 'lib/types';
+import React, { FormEvent, useEffect, useState } from 'react';
 import {
   Button,
   FormRow,
@@ -28,58 +28,119 @@ export const BodyCompanyForm = observer(({ company }: IBodyCompaniesFormProps) =
     address: company?.address || '',
     email: company?.email || '',
     phone: company?.phone || '',
-    cityId: company?.cityId || '',
   };
 
   const { fetchCompanies, fetchCreateCompany, fetchUpddateCompany } = useStore('companiesStores');
+  const { regions, fetchRegions, getCountriesByRegionId, getCitiesByCountryId } = useStore(
+    'regionsStores',
+  );
 
   const [formData, setFormData] = useState(initialState);
+  const [regionId, setRegionId] = useState('');
+  const [countryId, setCountryId] = useState('');
+  const [cityId, setCityId] = useState(company?.cityId || '');
+  const [countries, setCountries] = useState<ICountry[]>();
+  const [cities, setCities] = useState<ICity[]>();
 
-  const { name, address, email, phone, cityId } = formData;
+  const { name, address, email, phone } = formData;
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const handleOnChange = (e) => {
+    switch (e.target.name) {
+      case 'region':
+        setRegionId(e.target.value);
+        setCountryId('');
+        setCityId('');
+        break;
+
+      case 'country':
+        setCountryId(e.target.value);
+        setCityId('');
+        break;
+
+      case 'city':
+        setCityId(e.target.value);
+        break;
+
+      default:
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+        break;
+    }
   };
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
     if (company) {
-      await fetchUpddateCompany(formData);
+      await fetchUpddateCompany({ ...formData, cityId });
     } else {
-      await fetchCreateCompany(formData);
+      await fetchCreateCompany({ ...formData, cityId });
     }
     closeModal();
     await fetchCompanies();
   };
+
+  useEffect(() => {
+    fetchRegions();
+  }, []);
+
+  useEffect(() => {
+    if (company?.city) {
+      setRegionId(company.city.country.regionId);
+      setCountryId(company.city.countryId);
+      setCityId(company.city.id);
+    }
+  }, [company]);
+
+  useEffect(() => {
+    const fetchCountries = async () => {
+      if (regionId) {
+        const data = await getCountriesByRegionId(regionId);
+        setCountries(data);
+      }
+    };
+    fetchCountries();
+  }, [regionId]);
+
+  useEffect(() => {
+    const fetchCities = async () => {
+      if (countryId) {
+        const data = await getCitiesByCountryId(countryId);
+        setCities(data);
+      }
+    };
+    fetchCities();
+  }, [countryId]);
 
   return (
     <form onSubmit={handleSubmit} id="company-form">
       <FormRow>
         <FormGroup widthCol={1 / 2}>
           <FormLabel>Name*</FormLabel>
-          <FormInput type="text" name="name" value={name} onChange={handleChange} required />
+          <FormInput type="text" name="name" value={name} onChange={handleOnChange} required />
         </FormGroup>
         <FormGroup widthCol={1 / 2}>
           <FormLabel>E-mail*</FormLabel>
-          <FormInput type="email" name="email" value={email} onChange={handleChange} required />
+          <FormInput type="email" name="email" value={email} onChange={handleOnChange} required />
         </FormGroup>
       </FormRow>
       <FormRow>
         <FormGroup widthCol={1 / 2}>
           <FormLabel>Address</FormLabel>
-          <FormInput type="type" name="address" value={address} onChange={handleChange} />
+          <FormInput type="type" name="address" value={address} onChange={handleOnChange} />
         </FormGroup>
         <FormGroup widthCol={1 / 2}>
           <FormLabel>Phone</FormLabel>
-          <FormInput type="type" name="phone" value={phone} onChange={handleChange} />
+          <FormInput type="type" name="phone" value={phone} onChange={handleOnChange} />
         </FormGroup>
       </FormRow>
       <RegionSelect
-        entity={company}
+        regionId={regionId}
+        countryId={countryId}
         cityId={cityId}
-        formData={formData}
-        setFormData={setFormData}
+        regions={regions}
+        countries={countries}
+        cities={cities}
+        handleOnChange={handleOnChange}
       />
     </form>
   );
