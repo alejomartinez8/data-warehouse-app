@@ -49,7 +49,7 @@ export const BodyContactForm = observer(({ contact }: IBodyContactsFormProps) =>
   const [countries, setCountries] = useState<ICountry[]>();
   const [cities, setCities] = useState<ICity[]>();
 
-  const { firstName, lastName, position, email, companyId } = formData;
+  const { firstName, lastName, position, email, companyId, interest } = formData;
 
   const handleOnChange = (e) => {
     switch (e.target.name) {
@@ -149,9 +149,19 @@ export const BodyContactForm = observer(({ contact }: IBodyContactsFormProps) =>
             required
           />
         </FormGroup>
-        <FormGroup widthCol={1 / 3}>
+        <FormGroup widthCol={2 / 3}>
           <FormLabel>E-mail*</FormLabel>
           <FormInput type="email" name="email" value={email} onChange={handleOnChange} required />
+        </FormGroup>
+        <FormGroup widthCol={1 / 3}>
+          <FormLabel>Interest</FormLabel>
+          <FormSelect id="interest" name="interest" value={interest} onChange={handleOnChange}>
+            <option value="0">0%</option>
+            <option value="25">25%</option>
+            <option value="50">50%</option>
+            <option value="75">75%</option>
+            <option value="100">100%</option>
+          </FormSelect>
         </FormGroup>
       </FormRow>
       <FormRow>
