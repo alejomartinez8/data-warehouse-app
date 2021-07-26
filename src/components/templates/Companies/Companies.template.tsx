@@ -9,13 +9,24 @@ import {
   FooterConfirmation,
   TableList,
   TableData,
+  IOrderBy,
 } from 'components/atoms';
 import { ICompany } from 'lib/types';
+
+const EnumLabelContact = {
+  name: 'name',
+  address: 'address',
+  email: 'email',
+  phone: 'phone',
+  cityName: 'city',
+};
 
 export const CompaniesTemplate = observer(() => {
   const { setModal, closeModal } = useModal();
   const { companies, loading, fetchCompanies, fetchDeleteCompanies } = useStore('companiesStores');
 
+  const [searchQuery, setSearchQuery] = useState('');
+  const [orderBy, setOrderBy] = useState<IOrderBy>({ orderBy: 'name', order: 'asc' });
   const [itemsSelected, setItemsSelected] = useState<ICompany[]>([]);
 
   const fields: IField[] = [
@@ -69,24 +80,40 @@ export const CompaniesTemplate = observer(() => {
     });
   };
 
+  const mapOrderBy = () => ({
+    orderBy: EnumLabelContact[orderBy.orderBy] || '',
+    order: orderBy.order,
+  });
+
   useEffect(() => {
-    fetchCompanies();
-  }, [fetchCompanies]);
+    let params: { searchQuery?: string; orderBy?: string; order?: string } = {};
+    if (searchQuery) params.searchQuery = searchQuery;
+    if (orderBy) params = { ...params, ...mapOrderBy() };
+
+    if (Object.keys(params).length > 0) {
+      fetchCompanies(params);
+    } else {
+      fetchCompanies();
+    }
+  }, [searchQuery, orderBy]);
 
   return (
     <PageLayout
       singularItem="Company"
       pluralItem="Companies"
       loading={loading}
-      deleteButton={itemsSelected.length > 0}
+      deleteButton={itemsSelected?.length > 0}
       handleOnCreate={handleOnCreate}
       handleOnDelete={handleOnDelete}
+      querySearch={setSearchQuery}
     >
       <TableList
         fields={fields}
         items={mapItems()}
+        orderBy={orderBy}
         handleEditItem={handleOnEdit}
         setItemsSelected={setItemsSelected}
+        handleOnSortBy={setOrderBy}
       />
     </PageLayout>
   );

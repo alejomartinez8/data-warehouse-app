@@ -11,10 +11,10 @@ export class UsersStore {
     makeAutoObservable(this);
   }
 
-  fetchUsers = async () => {
+  fetchUsers = async (params?) => {
     try {
       this.setLoading(true);
-      this.setUsers(await getUsers());
+      this.setUsers(await getUsers(params));
       this.setLoading(false);
     } catch (error) {
       this.setLoading(false);

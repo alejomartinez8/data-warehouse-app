@@ -7,8 +7,8 @@ export interface UserWithPassword extends IUser {
   password?: string;
 }
 
-export const getUsers = async (): Promise<IUser[]> =>
-  ApiInstance.get('/users')
+export const getUsers = async (params?): Promise<IUser[]> =>
+  ApiInstance.get('/users', { params })
     .then((response) => response.data)
     .catch((err: AxiosError) => unauthorizedHandle(err));
 

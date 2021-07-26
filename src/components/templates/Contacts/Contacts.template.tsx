@@ -118,7 +118,7 @@ export const ContactsTemplate = observer(() => {
       singularItem="Contact"
       pluralItem="Contacts"
       loading={loading}
-      deleteButton={itemsSelected.length > 0}
+      deleteButton={itemsSelected?.length > 0}
       handleOnCreate={handleOnCreate}
       handleOnDelete={handleOnDelete}
       querySearch={setSearchQuery}

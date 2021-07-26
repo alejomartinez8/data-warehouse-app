@@ -3,8 +3,8 @@ import { AxiosError } from 'axios';
 import { unauthorizedHandle } from 'utils/handleError/handleError.util';
 import { ApiInstance } from '../axiosInstances';
 
-export const getCompanies = async (): Promise<ICompany[]> =>
-  ApiInstance.get('/companies')
+export const getCompanies = async (params?): Promise<ICompany[]> =>
+  ApiInstance.get('/companies', { params })
     .then((response) => response.data)
     .catch((err: AxiosError) => unauthorizedHandle(err));
 

@@ -8,6 +8,7 @@ import {
   BodyConfirmation,
   FooterConfirmation,
   TableList,
+  IOrderBy,
 } from 'components/atoms';
 import { IUser } from 'lib/types';
 
@@ -16,6 +17,8 @@ export const UsersTemplate = observer(() => {
 
   const { users, loading, fetchUsers, fetchDeleteUsers } = useStore('usersStore');
 
+  const [searchQuery, setSearchQuery] = useState('');
+  const [orderBy, setOrderBy] = useState<IOrderBy>({ orderBy: 'firstName', order: 'asc' });
   const [itemsSelected, setItemsSelected] = useState<IUser[]>([]);
 
   const fields: IField[] = [
@@ -70,8 +73,16 @@ export const UsersTemplate = observer(() => {
   };
 
   useEffect(() => {
-    fetchUsers();
-  }, [fetchUsers]);
+    let params: { searchQuery?: string; orderBy?: string; order?: string } = {};
+    if (searchQuery) params.searchQuery = searchQuery;
+    if (orderBy) params = { ...params, ...orderBy };
+
+    if (Object.keys(params).length > 0) {
+      fetchUsers(params);
+    } else {
+      fetchUsers();
+    }
+  }, [searchQuery, orderBy]);
 
   return (
     <PageLayout
@@ -81,12 +92,15 @@ export const UsersTemplate = observer(() => {
       deleteButton={itemsSelected.length > 0}
       handleOnCreate={handleOnCreate}
       handleOnDelete={handleOnDelete}
+      querySearch={setSearchQuery}
     >
       <TableList
         fields={fields}
         items={mapItems()}
+        orderBy={orderBy}
         handleEditItem={handleOnEdit}
         setItemsSelected={setItemsSelected}
+        handleOnSortBy={setOrderBy}
       />
     </PageLayout>
   );

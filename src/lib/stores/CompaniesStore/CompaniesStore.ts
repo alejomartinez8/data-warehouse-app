@@ -11,10 +11,10 @@ export class CompaniesStore {
     makeAutoObservable(this);
   }
 
-  fetchCompanies = async () => {
+  fetchCompanies = async (params?) => {
     try {
       this.setLoading(true);
-      this.setCompanies(await getCompanies());
+      this.setCompanies(await getCompanies(params));
       this.setLoading(false);
     } catch (error) {
       this.setLoading(false);
