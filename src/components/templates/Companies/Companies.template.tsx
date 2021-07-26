@@ -13,7 +13,6 @@ import { ICompany } from 'lib/types';
 
 export const CompaniesTemplate = observer(() => {
   const { setModal, closeModal } = useModal();
-
   const { companies, loading, fetchCompanies, fetchDeleteCompanies } = useStore('companiesStores');
 
   const fields: IField[] = [

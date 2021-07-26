@@ -56,3 +56,7 @@ export const StyledTD = styled.td`
   border-top: 1px solid #e7eaec;
   padding: 0.5rem;
 `;
+
+export const StyledTH = styled.th`
+  cursor: pointer;
+`;

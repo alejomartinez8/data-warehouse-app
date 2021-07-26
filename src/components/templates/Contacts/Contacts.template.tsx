@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { useStore, useModal } from 'lib/hooks';
 import { IField, PageList } from 'components/molecules';
@@ -9,14 +9,26 @@ import {
   FooterConfirmation,
   TableData,
   ProgressBar,
+  IOrderBy,
 } from 'components/atoms';
 import { IContact } from 'lib/types';
 // import { ChannelBadge } from 'components/molecules/ChannelBadge/ChannelBadge.componet';
+
+const EnumLabelContact = {
+  name: 'firstName',
+  regionData: 'city',
+  companyName: 'company',
+  position: 'position',
+  interestBar: 'interest',
+};
 
 export const ContactsTemplate = observer(() => {
   const { setModal, closeModal } = useModal();
 
   const { contacts, loading, fetchContacts, fetchDeleteContacts } = useStore('contactsStore');
+
+  const [searchQuery, setSearchQuery] = useState('');
+  const [orderBy, setOrderBy] = useState<IOrderBy>({ orderBy: '', order: 'asc' });
 
   const fields: IField[] = [
     { key: 'name', label: 'Contact' },
@@ -88,17 +100,25 @@ export const ContactsTemplate = observer(() => {
     });
   };
 
-  useEffect(() => {
-    fetchContacts();
-  }, []);
+  const mapOrderBy = () => ({
+    orderBy: EnumLabelContact[orderBy.orderBy] || '',
+    order: orderBy.order,
+  });
 
-  const handleOnSearch = async (searchQuery: string) => {
-    if (searchQuery) {
-      await fetchContacts({ searchQuery });
+  useEffect(() => {
+    console.log(mapOrderBy());
+    let params: { searchQuery?: string; orderBy?: string; order?: string } = {};
+    if (searchQuery) params.searchQuery = searchQuery;
+    if (orderBy) params = { ...params, ...mapOrderBy() };
+
+    console.log(params);
+
+    if (Object.keys(params).length > 0) {
+      fetchContacts(params);
     } else {
       fetchContacts();
     }
-  };
+  }, [searchQuery, orderBy]);
 
   return (
     <PageList
@@ -107,10 +127,12 @@ export const ContactsTemplate = observer(() => {
       fields={fields}
       items={mapItems()}
       loading={loading}
-      querySearch={handleOnSearch}
+      orderBy={orderBy}
       handleOnCreate={handleOnCreate}
       handleOnEdit={handleOnEdit}
       handleOnDelete={handleOnDelete}
+      querySearch={setSearchQuery}
+      handleOrderBy={setOrderBy}
     />
   );
 });

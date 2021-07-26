@@ -1,8 +1,10 @@
+import { faSort, faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons';
 import { Checkbox } from 'components/atoms';
 import { IField } from 'components/molecules';
 import { checkboxEnum } from 'constans';
 import { observer } from 'mobx-react-lite';
 import { useEffect, useState } from 'react';
+import { Icon } from '../Icon/Icon.component';
 import {
   StyledTableContet,
   StyledTable,
@@ -10,19 +12,26 @@ import {
   StyledTBody,
   StyledTR,
   StyledTD,
+  StyledTH,
 } from './TableList.styled';
 
 const { CHECKED, UNCHECKED, INDETERMINATE } = checkboxEnum;
 
+export interface IOrderBy {
+  orderBy: string;
+  order: 'asc' | 'desc';
+}
 interface ITableProps {
   fields: IField[];
   items: any[];
+  orderBy: IOrderBy;
   setItemsSelected: (items: any[]) => void;
   handleEditItem: (item: any) => void;
+  handleOnSortBy: (orderBy: IOrderBy) => void;
 }
 
 export const TableList = observer(
-  ({ fields, items, setItemsSelected, handleEditItem }: ITableProps) => {
+  ({ fields, items, orderBy, setItemsSelected, handleEditItem, handleOnSortBy }: ITableProps) => {
     const [itemList, setItemList] = useState(items?.map((item) => ({ ...item, checked: false })));
     const [checkedAll, setCheckedAll] = useState(UNCHECKED);
 
@@ -40,6 +49,21 @@ export const TableList = observer(
       }
     };
 
+    const handleOnClickTH = (key: string) => {
+      if (orderBy?.orderBy === key) {
+        handleOnSortBy?.({ orderBy: key, order: orderBy.order === 'asc' ? 'desc' : 'asc' });
+      } else {
+        handleOnSortBy?.({ orderBy: key, order: 'asc' });
+      }
+    };
+
+    const getSortIcon = (key: string) => {
+      if (orderBy?.orderBy === key) {
+        return orderBy.order === 'asc' ? faSortDown : faSortUp;
+      }
+      return faSort;
+    };
+
     useEffect(() => {
       const itemsSelected = itemList?.filter((item) => item.checked);
 
@@ -52,7 +76,7 @@ export const TableList = observer(
       }
 
       setItemsSelected(itemsSelected);
-    }, [setCheckedAll, setItemsSelected, itemList]);
+    }, [itemList]);
 
     return (
       <StyledTableContet>
@@ -63,7 +87,9 @@ export const TableList = observer(
                 <Checkbox onChange={handleOnChangeAll} value={checkedAll} />
               </th>
               {fields.map((field) => (
-                <th key={field.key}>{field.label}</th>
+                <StyledTH key={field.key} onClick={() => handleOnClickTH(field.key)}>
+                  {field.label} <Icon icon={getSortIcon(field.key)} />
+                </StyledTH>
               ))}
             </tr>
           </StyledTHead>
