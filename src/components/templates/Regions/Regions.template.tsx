@@ -1,14 +1,7 @@
 import { useEffect } from 'react';
-import Head from 'next/head';
 import { observer } from 'mobx-react-lite';
-import {
-  CardBox,
-  Button,
-  HeaderConfirmation,
-  BodyConfirmation,
-  FooterConfirmation,
-} from 'components/atoms';
-import { IItem, NestableList } from 'components/molecules';
+import { HeaderConfirmation, BodyConfirmation, FooterConfirmation } from 'components/atoms';
+import { IItem, NestableList, PageLayout } from 'components/molecules';
 import { HeaderRegionsForm, BodyRegionsForm, FooterRegionsForm } from 'components/organisms';
 import { useModal, useStore } from 'lib/hooks';
 import { IRegion, regionRoutes, regionsType } from 'lib/types';
@@ -97,31 +90,19 @@ export const Regions = observer(() => {
   };
 
   return (
-    <>
-      <Head>
-        <title>Data Warehouse - Regions</title>
-      </Head>
-      <h1>Regions</h1>
-      <CardBox>
-        <CardBox.Title>
-          <Button size="extraSmall" onClick={() => handleOnAddItem()}>
-            Add Region
-          </Button>
-        </CardBox.Title>
-        <CardBox.Content>
-          {loading ? (
-            'Loading...'
-          ) : (
-            <NestableList
-              editItem={isAdmin}
-              items={mapToItems(regions)}
-              handleOnEdit={handleOnEdit}
-              handleOnDelete={handleOnDelete}
-              handleOnAddItem={handleOnAddItem}
-            />
-          )}
-        </CardBox.Content>
-      </CardBox>
-    </>
+    <PageLayout
+      singularItem="Region"
+      pluralItem="Regions"
+      loading={loading}
+      handleOnCreate={handleOnAddItem}
+    >
+      <NestableList
+        editItem={isAdmin}
+        items={mapToItems(regions)}
+        handleOnEdit={handleOnEdit}
+        handleOnDelete={handleOnDelete}
+        handleOnAddItem={handleOnAddItem}
+      />
+    </PageLayout>
   );
 });

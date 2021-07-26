@@ -19,8 +19,8 @@ interface IPageLayoutProps {
   children?: ReactNode;
   deleteButton?: boolean;
   querySearch?: (search: string) => void;
-  handleOnCreate: () => void;
-  handleOnDelete: () => void;
+  handleOnCreate?: () => void;
+  handleOnDelete?: () => void;
 }
 
 export const PageLayout = ({
@@ -55,11 +55,13 @@ export const PageLayout = ({
                 Export {pluralItem}
               </Button>
             )}
-            <Button color="primary" onClick={handleOnCreate}>
-              Add {singularItem}
-            </Button>
+            {handleOnCreate && (
+              <Button color="primary" onClick={handleOnCreate}>
+                Add {singularItem}
+              </Button>
+            )}
             {deleteButton && (
-              <Button color="danger" onClick={() => handleOnDelete()}>
+              <Button color="danger" onClick={handleOnDelete}>
                 Delete
               </Button>
             )}
