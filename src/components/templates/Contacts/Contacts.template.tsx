@@ -16,7 +16,7 @@ import { IContact } from 'lib/types';
 
 const EnumLabelContact = {
   name: 'firstName',
-  regionData: 'city',
+  cityData: 'city',
   companyName: 'company',
   position: 'position',
   interestBar: 'interest',
@@ -28,11 +28,11 @@ export const ContactsTemplate = observer(() => {
   const { contacts, loading, fetchContacts, fetchDeleteContacts } = useStore('contactsStore');
 
   const [searchQuery, setSearchQuery] = useState('');
-  const [orderBy, setOrderBy] = useState<IOrderBy>({ orderBy: '', order: 'asc' });
+  const [orderBy, setOrderBy] = useState<IOrderBy>({ orderBy: 'name', order: 'asc' });
 
   const fields: IField[] = [
     { key: 'name', label: 'Contact' },
-    { key: 'regionData', label: 'Country/Region' },
+    { key: 'cityData', label: 'City/Country' },
     { key: 'companyName', label: 'Company' },
     { key: 'position', label: 'Position' },
     // { key: 'channelsLabels', label: 'Channels' },
@@ -49,11 +49,8 @@ export const ContactsTemplate = observer(() => {
         />
       ),
       companyName: contact.company.name,
-      regionData: (
-        <TableData
-          firstLine={contact.city?.country?.name}
-          secondLine={contact.city?.country?.region?.name}
-        />
+      cityData: (
+        <TableData firstLine={contact.city?.name} secondLine={contact.city?.country?.name} />
       ),
       // channelsLabels: contact.channels.map((item) => (
       //   <ChannelBadge key={item.channel.id} channel={item.channel.name} />
@@ -106,12 +103,9 @@ export const ContactsTemplate = observer(() => {
   });
 
   useEffect(() => {
-    console.log(mapOrderBy());
     let params: { searchQuery?: string; orderBy?: string; order?: string } = {};
     if (searchQuery) params.searchQuery = searchQuery;
     if (orderBy) params = { ...params, ...mapOrderBy() };
-
-    console.log(params);
 
     if (Object.keys(params).length > 0) {
       fetchContacts(params);
