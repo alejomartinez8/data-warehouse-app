@@ -1,18 +1,18 @@
 import { useEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { useStore, useModal } from 'lib/hooks';
-import { IField, PageList } from 'components/molecules';
+import { IField, PageLayout } from 'components/molecules';
 import { HeaderContactForm, BodyContactForm, FooterContactForm } from 'components/organisms';
 import {
   HeaderConfirmation,
   BodyConfirmation,
   FooterConfirmation,
+  TableList,
   TableData,
   ProgressBar,
   IOrderBy,
 } from 'components/atoms';
 import { IContact } from 'lib/types';
-// import { ChannelBadge } from 'components/molecules/ChannelBadge/ChannelBadge.componet';
 
 const EnumLabelContact = {
   name: 'firstName',
@@ -29,13 +29,13 @@ export const ContactsTemplate = observer(() => {
 
   const [searchQuery, setSearchQuery] = useState('');
   const [orderBy, setOrderBy] = useState<IOrderBy>({ orderBy: 'name', order: 'asc' });
+  const [itemsSelected, setItemsSelected] = useState([]);
 
   const fields: IField[] = [
     { key: 'name', label: 'Contact' },
     { key: 'cityData', label: 'City/Country' },
     { key: 'companyName', label: 'Company' },
     { key: 'position', label: 'Position' },
-    // { key: 'channelsLabels', label: 'Channels' },
     { key: 'interestBar', label: 'Interest' },
   ];
 
@@ -52,9 +52,6 @@ export const ContactsTemplate = observer(() => {
       cityData: (
         <TableData firstLine={contact.city?.name} secondLine={contact.city?.country?.name} />
       ),
-      // channelsLabels: contact.channels.map((item) => (
-      //   <ChannelBadge key={item.channel.id} channel={item.channel.name} />
-      // )),
       interestBar: (
         <span>
           {contact.interest}% <ProgressBar value={Number(contact.interest)} />
@@ -80,15 +77,17 @@ export const ContactsTemplate = observer(() => {
     });
   };
 
-  const handleOnDelete = (items: IContact[]) => {
+  const handleOnDelete = () => {
     const handleOnConfirmation = async () => {
-      await fetchDeleteContacts(items);
+      await fetchDeleteContacts(itemsSelected);
       closeModal();
     };
 
     setModal({
       header: (
-        <HeaderConfirmation title={items.length === 1 ? 'Delete Contact' : 'Delete Companies'} />
+        <HeaderConfirmation
+          title={itemsSelected.length === 1 ? 'Delete Contact' : 'Delete Companies'}
+        />
       ),
       body: (
         <BodyConfirmation>Are you sure you want to delete the selected contacts?</BodyConfirmation>
@@ -115,18 +114,23 @@ export const ContactsTemplate = observer(() => {
   }, [searchQuery, orderBy]);
 
   return (
-    <PageList
+    <PageLayout
       singularItem="Contact"
       pluralItem="Contacts"
-      fields={fields}
-      items={mapItems()}
       loading={loading}
-      orderBy={orderBy}
+      deleteButton={itemsSelected.length > 0}
       handleOnCreate={handleOnCreate}
-      handleOnEdit={handleOnEdit}
       handleOnDelete={handleOnDelete}
       querySearch={setSearchQuery}
-      handleOrderBy={setOrderBy}
-    />
+    >
+      <TableList
+        fields={fields}
+        items={mapItems()}
+        orderBy={orderBy}
+        handleEditItem={handleOnEdit}
+        setItemsSelected={setItemsSelected}
+        handleOnSortBy={setOrderBy}
+      />
+    </PageLayout>
   );
 });

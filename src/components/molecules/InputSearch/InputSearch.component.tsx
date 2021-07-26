@@ -23,14 +23,16 @@ export const InputSearch = ({ filterSearch = false, handleOnSearch }: IInputSear
     <StyledContainer>
       <StyledInput type="text" onChange={handleOnChange} placeholder="Search" />
       {filterSearch && (
-        <Button color="default" type="button" onClick={handleOnClickFilter}>
-          <Icon icon={faCaretDown} />
-        </Button>
+        <>
+          <Button color="default" type="button" onClick={handleOnClickFilter}>
+            <Icon icon={faCaretDown} />
+          </Button>
+          <Button color="primary" type="submit">
+            <Icon icon={faSearch} color="white" />
+          </Button>
+          <StyledFilterSearch collapsed={collapsed} />
+        </>
       )}
-      <Button color="primary" type="submit">
-        <Icon icon={faSearch} color="white" />
-      </Button>
-      {filterSearch && <StyledFilterSearch collapsed={collapsed} />}
     </StyledContainer>
   );
 };

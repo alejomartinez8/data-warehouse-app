@@ -1,15 +1,22 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { useStore, useModal } from 'lib/hooks';
-import { IField, PageList } from 'components/molecules';
+import { IField, PageLayout } from 'components/molecules';
 import { HeaderUserForm, BodyUserForm, FooterUserForm } from 'components/organisms';
-import { HeaderConfirmation, BodyConfirmation, FooterConfirmation } from 'components/atoms';
+import {
+  HeaderConfirmation,
+  BodyConfirmation,
+  FooterConfirmation,
+  TableList,
+} from 'components/atoms';
 import { IUser } from 'lib/types';
 
 export const UsersTemplate = observer(() => {
   const { setModal, closeModal } = useModal();
 
   const { users, loading, fetchUsers, fetchDeleteUsers } = useStore('usersStore');
+
+  const [itemsSelected, setItemsSelected] = useState<IUser[]>([]);
 
   const fields: IField[] = [
     { key: 'firstName', label: 'First Name' },
@@ -36,23 +43,25 @@ export const UsersTemplate = observer(() => {
     });
   };
 
-  const handleOnEdit = (editUser: IUser) => {
+  const handleOnEdit = (item: IUser) => {
     setModal({
       header: <HeaderUserForm title="Edit User" />,
-      body: <BodyUserForm user={editUser as IUser} />,
-      footer: <FooterUserForm user={editUser} />,
+      body: <BodyUserForm user={item as IUser} />,
+      footer: <FooterUserForm user={item} />,
       size: 'large',
     });
   };
 
-  const handleOnDelete = (items: IUser[]) => {
+  const handleOnDelete = () => {
     const handleOnConfirmation = async () => {
-      await fetchDeleteUsers(items);
+      await fetchDeleteUsers(itemsSelected);
       closeModal();
     };
 
     setModal({
-      header: <HeaderConfirmation title={items.length === 1 ? 'Delete User' : 'Delete Users'} />,
+      header: (
+        <HeaderConfirmation title={itemsSelected.length === 1 ? 'Delete User' : 'Delete Users'} />
+      ),
       body: (
         <BodyConfirmation>Are you sure you want to delete the selected users?</BodyConfirmation>
       ),
@@ -65,15 +74,20 @@ export const UsersTemplate = observer(() => {
   }, [fetchUsers]);
 
   return (
-    <PageList
+    <PageLayout
       singularItem="User"
       pluralItem="Users"
-      fields={fields}
-      items={mapItems()}
       loading={loading}
+      deleteButton={itemsSelected.length > 0}
       handleOnCreate={handleOnCreate}
-      handleOnEdit={handleOnEdit}
       handleOnDelete={handleOnDelete}
-    />
+    >
+      <TableList
+        fields={fields}
+        items={mapItems()}
+        handleEditItem={handleOnEdit}
+        setItemsSelected={setItemsSelected}
+      />
+    </PageLayout>
   );
 });

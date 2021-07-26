@@ -129,7 +129,7 @@ export const BodyContactForm = observer(({ contact }: IBodyContactsFormProps) =>
   return (
     <form onSubmit={handleSubmit} id="contact-form">
       <FormRow>
-        <FormGroup widthCol={1 / 3}>
+        <FormGroup widthCol={1 / 2}>
           <FormLabel>First Name*</FormLabel>
           <FormInput
             type="text"
@@ -139,7 +139,7 @@ export const BodyContactForm = observer(({ contact }: IBodyContactsFormProps) =>
             required
           />
         </FormGroup>
-        <FormGroup widthCol={1 / 3}>
+        <FormGroup widthCol={1 / 2}>
           <FormLabel>Last Name*</FormLabel>
           <FormInput
             type="text"

@@ -1,12 +1,13 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { useStore, useModal } from 'lib/hooks';
-import { IField, PageList } from 'components/molecules';
+import { IField, PageLayout } from 'components/molecules';
 import { HeaderCompanyForm, BodyCompanyForm, FooterCompanyForm } from 'components/organisms';
 import {
   HeaderConfirmation,
   BodyConfirmation,
   FooterConfirmation,
+  TableList,
   TableData,
 } from 'components/atoms';
 import { ICompany } from 'lib/types';
@@ -14,6 +15,8 @@ import { ICompany } from 'lib/types';
 export const CompaniesTemplate = observer(() => {
   const { setModal, closeModal } = useModal();
   const { companies, loading, fetchCompanies, fetchDeleteCompanies } = useStore('companiesStores');
+
+  const [itemsSelected, setItemsSelected] = useState<ICompany[]>([]);
 
   const fields: IField[] = [
     { key: 'name', label: 'Name' },
@@ -47,15 +50,17 @@ export const CompaniesTemplate = observer(() => {
     });
   };
 
-  const handleOnDelete = (items: ICompany[]) => {
+  const handleOnDelete = () => {
     const handleOnConfirmation = async () => {
-      await fetchDeleteCompanies(items);
+      await fetchDeleteCompanies(itemsSelected);
       closeModal();
     };
 
     setModal({
       header: (
-        <HeaderConfirmation title={items.length === 1 ? 'Delete Company' : 'Delete Companies'} />
+        <HeaderConfirmation
+          title={itemsSelected.length === 1 ? 'Delete Company' : 'Delete Companies'}
+        />
       ),
       body: (
         <BodyConfirmation>Are you sure you want to delete the selected companies?</BodyConfirmation>
@@ -69,15 +74,20 @@ export const CompaniesTemplate = observer(() => {
   }, [fetchCompanies]);
 
   return (
-    <PageList
+    <PageLayout
       singularItem="Company"
       pluralItem="Companies"
-      fields={fields}
-      items={mapItems()}
       loading={loading}
+      deleteButton={itemsSelected.length > 0}
       handleOnCreate={handleOnCreate}
-      handleOnEdit={handleOnEdit}
       handleOnDelete={handleOnDelete}
-    />
+    >
+      <TableList
+        fields={fields}
+        items={mapItems()}
+        handleEditItem={handleOnEdit}
+        setItemsSelected={setItemsSelected}
+      />
+    </PageLayout>
   );
 });

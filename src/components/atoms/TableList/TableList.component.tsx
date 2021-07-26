@@ -24,10 +24,10 @@ export interface IOrderBy {
 interface ITableProps {
   fields: IField[];
   items: any[];
-  orderBy: IOrderBy;
+  orderBy?: IOrderBy;
   setItemsSelected: (items: any[]) => void;
   handleEditItem: (item: any) => void;
-  handleOnSortBy: (orderBy: IOrderBy) => void;
+  handleOnSortBy?: (orderBy: IOrderBy) => void;
 }
 
 export const TableList = observer(
@@ -67,7 +67,7 @@ export const TableList = observer(
     useEffect(() => {
       const itemsSelected = itemList?.filter((item) => item.checked);
 
-      if (itemsSelected?.length > 0) {
+      if (itemsSelected?.length > 0 && itemsSelected?.length === itemList?.length) {
         setCheckedAll(CHECKED);
       } else if (itemsSelected?.length > 0) {
         setCheckedAll(INDETERMINATE);
@@ -94,8 +94,8 @@ export const TableList = observer(
             </tr>
           </StyledTHead>
           <StyledTBody>
-            {items?.length > 0 &&
-              items.map((item) => (
+            {itemList?.length > 0 &&
+              itemList.map((item) => (
                 <StyledTR key={item.id} onClick={() => handleEditItem(item)} checked={item.checked}>
                   <StyledTD>
                     <input
