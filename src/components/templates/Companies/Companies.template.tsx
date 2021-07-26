@@ -25,7 +25,7 @@ export const CompaniesTemplate = observer(() => {
   ];
 
   const mapItems = () =>
-    companies.map((company) => ({
+    companies?.map((company) => ({
       ...company,
       cityName: <TableData firstLine={company.city.name} secondLine={company.city.country.name} />,
     }));

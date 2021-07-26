@@ -19,7 +19,7 @@ export const UsersTemplate = observer(() => {
   ];
 
   const mapItems = () =>
-    users.map((user) => ({
+    users?.map((user) => ({
       id: user.id,
       firstName: user.firstName,
       lastName: user.lastName,

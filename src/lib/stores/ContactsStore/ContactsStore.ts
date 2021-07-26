@@ -11,10 +11,10 @@ export class ContactsStore {
     makeAutoObservable(this);
   }
 
-  fetchContacts = async () => {
+  fetchContacts = async (data?) => {
     try {
       this.setLoading(true);
-      this.setContacts(await getContacts());
+      this.setContacts(await getContacts(data));
       this.setLoading(false);
     } catch (error) {
       this.setLoading(false);

@@ -28,7 +28,7 @@ export const ContactsTemplate = observer(() => {
   ];
 
   const mapItems = () =>
-    contacts.map((contact) => ({
+    contacts?.map((contact) => ({
       ...contact,
       name: (
         <TableData
@@ -92,6 +92,14 @@ export const ContactsTemplate = observer(() => {
     fetchContacts();
   }, []);
 
+  const handleOnSearch = async (searchQuery: string) => {
+    if (searchQuery) {
+      await fetchContacts({ searchQuery });
+    } else {
+      fetchContacts();
+    }
+  };
+
   return (
     <PageList
       singularItem="Contact"
@@ -99,47 +107,10 @@ export const ContactsTemplate = observer(() => {
       fields={fields}
       items={mapItems()}
       loading={loading}
+      querySearch={handleOnSearch}
       handleOnCreate={handleOnCreate}
       handleOnEdit={handleOnEdit}
       handleOnDelete={handleOnDelete}
     />
   );
 });
-
-// export const Contacts = () => {
-//   const { contacts, loading, fetchContacts } = useStore('contactsStore');
-
-//   useEffect(() => {
-//     fetchContacts();
-//   }, [fetchContacts]);
-
-//   return (
-//     <>
-//       <Head>
-//         <title>Data Warehouse - Contacts</title>
-//       </Head>
-//       <CardBox>
-//         <h1>Contacts</h1>
-//         <CardBox.Title>
-//           <StyledTitleContainer>
-//             <InputSearch />
-//             <StyledButtonContainer>
-//               <Button color="primary" outline>
-//                 <Icon icon={faUpload} color="primary" />
-//               </Button>
-//               <Button color="primary" outline dropdown>
-//                 Export Contacts
-//               </Button>
-//               <Button color="primary" disabled>
-//                 Add Contact
-//               </Button>
-//             </StyledButtonContainer>
-//           </StyledTitleContainer>
-//         </CardBox.Title>
-//         <CardBox.Content>
-//           {loading ? 'Loading...' : <ContactList contacts={contacts} />}
-//         </CardBox.Content>
-//       </CardBox>
-//     </>
-//   );
-// };

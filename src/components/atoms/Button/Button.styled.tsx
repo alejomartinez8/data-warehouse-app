@@ -112,7 +112,7 @@ export const StyledButton = styled.button<IStyledButton>(
       color: ${outline
         ? theme.colors[color]
         : color === 'default'
-        ? 'inherint'
+        ? 'inherit'
         : theme.colors.white};
 
       border: 1px solid ${color === 'default' ? '#e7eaec' : theme.colors[color]};

@@ -45,7 +45,7 @@ export const TableList = observer(
 
       if (itemsSelected?.length > 0) {
         setCheckedAll(CHECKED);
-      } else if (itemsSelected.length > 0) {
+      } else if (itemsSelected?.length > 0) {
         setCheckedAll(INDETERMINATE);
       } else {
         setCheckedAll(UNCHECKED);

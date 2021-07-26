@@ -13,6 +13,10 @@ export const StyledContainer = styled.div(
     display: flex;
     position: relative;
     flex: 0 0 50%;
+
+    > * {
+      margin: 0;
+    }
   `,
 );
 
