@@ -94,7 +94,7 @@ export const Regions = observer(() => {
       singularItem="Region"
       pluralItem="Regions"
       loading={loading}
-      handleOnCreate={handleOnAddItem}
+      handleOnCreate={() => handleOnAddItem()}
     >
       <NestableList
         editItem={isAdmin}
