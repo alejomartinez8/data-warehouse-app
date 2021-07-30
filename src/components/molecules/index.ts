@@ -6,3 +6,4 @@ export * from './PageHeading/PageHeading.component';
 export * from './NestableList/NestableList.component';
 export * from './PageLayout/PageLayout.component';
 export * from './RegionsSelect/RegionSelect.component';
+export * from './ChannelSelect/ChannelSelect.component';

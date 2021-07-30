@@ -7,10 +7,11 @@ interface IStyledButton {
   block?: boolean;
   dropdown?: boolean;
   size?: string;
+  height?: number;
 }
 
 export const StyledButton = styled.button<IStyledButton>(
-  ({ theme, color, outline, size, round, block, disabled, dropdown }) => {
+  ({ theme, color, outline, size, round, block, disabled, dropdown, height }) => {
     const stylesDisabled = css`
       opacity: 0.6;
     `;
@@ -102,6 +103,8 @@ export const StyledButton = styled.button<IStyledButton>(
       padding: 0.375em 0.75em;
       transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
         border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, opacity 0.15s ease-in-out;
+
+      height: ${height}px;
 
       background-color: ${outline
         ? theme.colors.white

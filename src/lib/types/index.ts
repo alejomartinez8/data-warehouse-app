@@ -87,7 +87,7 @@ export interface IContact {
     };
   };
   interest?: string;
-  channels?: IChannelsOnContacts[];
+  channels?: IChannelsOnContact[];
 }
 
 export interface IChannel {
@@ -95,9 +95,10 @@ export interface IChannel {
   name: string;
 }
 
-export interface IChannelsOnContacts {
-  channel: IChannel;
+export interface IChannelsOnContact {
+  contactId?: string;
+  channelId: string;
   account?: string;
-  phone?: string;
   preference?: string;
+  channel?: IChannel;
 }

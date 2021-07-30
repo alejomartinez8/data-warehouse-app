@@ -1,5 +1,6 @@
 import { useModal, useStore } from 'lib/hooks';
 import { ICity, IContact, ICountry } from 'lib/types';
+
 import React, { FormEvent, useEffect, useState } from 'react';
 import {
   Button,
@@ -13,7 +14,9 @@ import {
   FooterConfirmation,
 } from 'components/atoms';
 import { observer } from 'mobx-react-lite';
-import { RegionSelect } from 'components/molecules';
+import { ChannelSelect, IChannelWithKey, RegionSelect } from 'components/molecules';
+import { toJS } from 'mobx';
+import { nanoid } from 'nanoid';
 
 interface IBodyContactsFormProps {
   contact?: IContact;
@@ -30,8 +33,7 @@ export const BodyContactForm = observer(({ contact }: IBodyContactsFormProps) =>
     position: contact?.position || '',
     email: contact?.email || '',
     companyId: contact?.companyId || '',
-    // channels: contact?.channels || [],
-    interest: contact?.interest || '',
+    interest: contact?.interest || '0',
   };
 
   const [formData, setFormData] = useState(initialState);
@@ -41,13 +43,15 @@ export const BodyContactForm = observer(({ contact }: IBodyContactsFormProps) =>
   const { regions, fetchRegions, getCountriesByRegionId, getCitiesByCountryId } = useStore(
     'regionsStores',
   );
+  const { channels: channelList, fetchChannels } = useStore('channelsStore');
 
   const [regionId, setRegionId] = useState('');
   const [countryId, setCountryId] = useState('');
   const [cityId, setCityId] = useState(contact?.cityId || '');
 
-  const [countries, setCountries] = useState<ICountry[]>();
-  const [cities, setCities] = useState<ICity[]>();
+  const [countries, setCountries] = useState<ICountry[]>([]);
+  const [cities, setCities] = useState<ICity[]>([]);
+  const [channels, setChannels] = useState<IChannelWithKey[]>([]);
 
   const { firstName, lastName, position, email, companyId, interest } = formData;
 
@@ -78,24 +82,34 @@ export const BodyContactForm = observer(({ contact }: IBodyContactsFormProps) =>
     }
   };
 
+  const handleOnChangeChannel = (channel: IChannelWithKey) => {
+    setChannels(channels.map((item) => (item.key === channel.key ? channel : item)));
+  };
+
+  const handleOnAddChannel = () => {
+    setChannels([...channels, { channelId: '', account: '', preference: '', key: nanoid(5) }]);
+  };
+
+  const handleOnDeleteChannel = (key: string) => {
+    setChannels(channels.filter((channel) => channel.key !== key));
+  };
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
     if (contact) {
-      await fetchUpddateContact({ ...formData, cityId });
+      await fetchUpddateContact({ ...formData, cityId, channels });
     } else {
-      await fetchCreateContact({ ...formData, cityId });
+      await fetchCreateContact({ ...formData, cityId, channels });
     }
     closeModal();
     await fetchContacts();
   };
 
   useEffect(() => {
-    fetchRegions();
-  }, []);
-
-  useEffect(() => {
     fetchCompanies();
+    fetchRegions();
+    fetchChannels();
   }, []);
 
   useEffect(() => {
@@ -125,6 +139,14 @@ export const BodyContactForm = observer(({ contact }: IBodyContactsFormProps) =>
     };
     fetchCities();
   }, [countryId]);
+
+  useEffect(() => {
+    if (contact?.channels.length > 0) {
+      setChannels(contact.channels.map((item) => toJS({ ...item, key: nanoid(5) })));
+    } else {
+      setChannels([{ channelId: '', account: '', preference: '', key: nanoid(5) }]);
+    }
+  }, []);
 
   return (
     <form onSubmit={handleSubmit} id="contact-form">
@@ -196,11 +218,29 @@ export const BodyContactForm = observer(({ contact }: IBodyContactsFormProps) =>
         cities={cities}
         handleOnChange={handleOnChange}
       />
-      {/* <FormRow>
-        <FormGroup widthCol={1}>
-          <FormLabel htmlFor="channels">Channels</FormLabel>
-        </FormGroup>
-      </FormRow> */}
+      <table style={{ width: '100%' }}>
+        <thead>
+          <tr>
+            <th>Channel*</th>
+            <th>Account/Number*</th>
+            <th>Preference</th>
+          </tr>
+        </thead>
+        <tbody>
+          {channels.length > 0 &&
+            channels.map((channel, index) => (
+              <ChannelSelect
+                key={channel.key}
+                channelsList={channelList}
+                initialChannel={channel}
+                buttonAdd={index + 1 === channels.length}
+                handleOnChange={handleOnChangeChannel}
+                handleOnDelete={handleOnDeleteChannel}
+                handleOnAdd={handleOnAddChannel}
+              />
+            ))}
+        </tbody>
+      </table>
     </form>
   );
 });

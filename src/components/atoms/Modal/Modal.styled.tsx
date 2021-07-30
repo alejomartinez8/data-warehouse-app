@@ -97,10 +97,11 @@ export const StyledModalContent = styled.div`
   pointer-events: auto;
   animation-name: ${bounceInRight};
   animation-duration: 1s;
+  max-height: 90vh;
 `;
 
 export const StyledModalHeader = styled.div`
-  padding: 30px 15px;
+  padding: 15px 15px;
   text-align: center;
   display: block;
   align-items: flex-start;
@@ -120,6 +121,8 @@ export const StyledModalBody = styled.div`
   flex: 1 1 auto;
   padding: 1rem;
   background: #f8fafb;
+  overflow: auto;
+  max-height: 80%;
 `;
 
 export const StyledModalFooter = styled.div`

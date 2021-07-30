@@ -13,6 +13,7 @@ import {
   IOrderBy,
 } from 'components/atoms';
 import { IContact } from 'lib/types';
+import { ChannelBadge } from 'components/molecules/ChannelBadge/ChannelBadge.componet';
 
 const EnumLabelContact = {
   name: 'firstName',
@@ -36,6 +37,7 @@ export const ContactsTemplate = observer(() => {
     { key: 'cityData', label: 'City/Country' },
     { key: 'companyName', label: 'Company' },
     { key: 'position', label: 'Position' },
+    { key: 'channelLabel', label: 'Channel' },
     { key: 'interestBar', label: 'Interest' },
   ];
 
@@ -52,6 +54,13 @@ export const ContactsTemplate = observer(() => {
       cityData: (
         <TableData firstLine={contact.city?.name} secondLine={contact.city?.country?.name} />
       ),
+      channelLabel: contact.channels?.map((channel) => (
+        <ChannelBadge
+          key={channel.channelId}
+          label={channel.channel.name}
+          preference={channel.preference}
+        />
+      )),
       interestBar: (
         <span>
           {contact.interest}% <ProgressBar value={Number(contact.interest)} />

@@ -11,6 +11,7 @@ export interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   color?: ColorType;
   icon?: any;
   size?: 'large' | 'normal' | 'small' | 'extraSmall';
+  height?: number;
   disabled?: boolean;
   dropdown?: boolean;
   ref?: any;
@@ -27,6 +28,7 @@ export const Button = forwardRef(
       icon,
       color = 'default',
       size = 'normal',
+      height,
       children,
       ...props
     }: IButtonProps,
@@ -41,6 +43,7 @@ export const Button = forwardRef(
       block={block}
       disabled={disabled}
       dropdown={dropdown}
+      height={height}
       {...props}
     >
       {icon ? <Icon icon={icon} /> : null}
