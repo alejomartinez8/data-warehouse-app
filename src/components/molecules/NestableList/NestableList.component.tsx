@@ -1,6 +1,12 @@
 import { useState, useEffect } from 'react';
 import { Icon, Button } from 'components/atoms';
-import { faPlus, faMinus, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import {
+  faPlus,
+  faMinus,
+  IconDefinition,
+  faEdit,
+  faTrash,
+} from '@fortawesome/free-solid-svg-icons';
 import {
   StyledContainer,
   StyledList,
@@ -84,14 +90,14 @@ function RecursiveList({
               {editItem && (
                 <div>
                   <Button color="primary" size="extraSmall" onClick={() => handleOnEdit(item)}>
-                    Edit
+                    <Icon icon={faEdit} />
                   </Button>
                   <Button color="danger" size="extraSmall" onClick={() => handleOnDelete(item)}>
-                    Delete
+                    <Icon icon={faTrash} />
                   </Button>
                   {item.labelItems && (
                     <Button color="info" size="extraSmall" onClick={() => handleOnAddItem(item)}>
-                      Add {item.labelItems}
+                      <Icon icon={faPlus} />
                     </Button>
                   )}
                 </div>
