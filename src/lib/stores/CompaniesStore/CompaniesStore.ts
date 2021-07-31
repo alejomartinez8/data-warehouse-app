@@ -1,14 +1,18 @@
+import { RootStore } from 'lib/stores';
 import { deleteCompany, getCompanies, createCompany, updateCompany } from 'lib/services';
 import { makeAutoObservable } from 'mobx';
 import { ICompany, IUpdateCompanyDto } from 'lib/types';
 
 export class CompaniesStore {
+  private rootStore: RootStore;
+
   companies: ICompany[] = [];
 
   loading = false;
 
-  constructor() {
+  constructor(rootStore: RootStore) {
     makeAutoObservable(this);
+    this.rootStore = rootStore;
   }
 
   fetchCompanies = async (params?) => {
@@ -32,21 +36,28 @@ export class CompaniesStore {
 
   fetchCreateCompany = async (company: ICompany) => {
     try {
-      this.setLoading(true);
       await createCompany(company);
+      this.rootStore.notificationsStore.pushNotification({
+        type: 'Success',
+        message: 'Company created successfully',
+      });
       await this.fetchCompanies();
-      this.setLoading(false);
     } catch (error) {
-      this.setLoading(false);
+      this.rootStore.notificationsStore.pushNotification({
+        type: 'Error',
+        message: 'Error company create',
+      });
     }
   };
 
   fetchUpddateCompany = async (company: IUpdateCompanyDto) => {
     try {
-      this.setLoading(true);
       await updateCompany(company.id, company);
+      this.rootStore.notificationsStore.pushNotification({
+        type: 'Success',
+        message: 'Company updated successfully',
+      });
       await this.fetchCompanies();
-      this.setLoading(false);
     } catch (error) {
       this.setLoading(false);
     }
@@ -54,13 +65,18 @@ export class CompaniesStore {
 
   fetchDeleteCompanies = async (companies: ICompany[]) => {
     try {
-      this.setLoading(true);
       const promises = companies.map((company) => deleteCompany(company.id)); // TODO: endpoint with several id?
       await Promise.all(promises);
+      this.rootStore.notificationsStore.pushNotification({
+        type: 'Success',
+        message: 'Company(s) deleted successfully',
+      });
       await this.fetchCompanies();
-      this.setLoading(false);
     } catch (error) {
-      this.setLoading(false);
+      this.rootStore.notificationsStore.pushNotification({
+        type: 'Error',
+        message: 'Error company(s) delete',
+      });
     }
   };
 }

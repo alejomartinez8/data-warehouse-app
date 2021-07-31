@@ -25,11 +25,11 @@ export class RootStore {
 
   constructor() {
     this.authStore = new AuthStore();
-    this.usersStore = new UsersStore();
+    this.usersStore = new UsersStore(this);
     this.contactsStore = new ContactsStore(this);
-    this.regionsStores = new RegionsStore();
-    this.companiesStores = new CompaniesStore();
-    this.channelsStore = new ChannelsStore();
+    this.regionsStores = new RegionsStore(this);
+    this.companiesStores = new CompaniesStore(this);
+    this.channelsStore = new ChannelsStore(this);
     this.notificationsStore = new NotificationsStore();
   }
 }

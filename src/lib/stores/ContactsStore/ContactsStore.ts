@@ -53,11 +53,11 @@ export class ContactsStore {
   fetchUpddateContact = async (contact: IContact) => {
     try {
       await updateContact(contact.id, contact);
-      await this.fetchContacts();
       this.rootStore.notificationsStore.pushNotification({
         type: 'Success',
         message: 'Contact updated successfully',
       });
+      await this.fetchContacts();
     } catch (error) {
       this.rootStore.notificationsStore.pushNotification({
         type: 'Error',
@@ -72,13 +72,13 @@ export class ContactsStore {
       await Promise.all(promises);
       this.rootStore.notificationsStore.pushNotification({
         type: 'Success',
-        message: 'Contact deleted successfully',
+        message: 'Contact(s) deleted successfully',
       });
       await this.fetchContacts();
     } catch (error) {
       this.rootStore.notificationsStore.pushNotification({
         type: 'Error',
-        message: 'Error contact delete',
+        message: 'Error contact(s) delete',
       });
     }
   };

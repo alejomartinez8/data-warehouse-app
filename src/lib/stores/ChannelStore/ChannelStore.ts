@@ -10,8 +10,9 @@ export class ChannelsStore {
 
   loading = false;
 
-  constructor() {
+  constructor(rootStore: RootStore) {
     makeAutoObservable(this);
+    this.rootStore = rootStore;
   }
 
   fetchChannels = async () => {
@@ -51,24 +52,34 @@ export class ChannelsStore {
 
   fetchUpddateChannel = async (channel: IChannel) => {
     try {
-      this.setLoading(true);
       await updateChannel(channel.id, channel);
+      this.rootStore.notificationsStore.pushNotification({
+        type: 'Success',
+        message: 'Channel updated successfully',
+      });
       await this.fetchChannels();
-      this.setLoading(false);
     } catch (error) {
-      this.setLoading(false);
+      this.rootStore.notificationsStore.pushNotification({
+        type: 'Error',
+        message: 'Error channel update',
+      });
     }
   };
 
   fetchDeleteChannels = async (companies: IChannel[]) => {
     try {
-      this.setLoading(true);
       const promises = companies.map((channel) => deleteChannel(channel.id));
       await Promise.all(promises);
+      this.rootStore.notificationsStore.pushNotification({
+        type: 'Success',
+        message: 'Channel deleted successfully',
+      });
       await this.fetchChannels();
-      this.setLoading(false);
     } catch (error) {
-      this.setLoading(false);
+      this.rootStore.notificationsStore.pushNotification({
+        type: 'Error',
+        message: 'Error channel delete',
+      });
     }
   };
 }

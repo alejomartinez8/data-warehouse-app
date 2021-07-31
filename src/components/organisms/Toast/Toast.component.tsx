@@ -18,7 +18,6 @@ export const Toast = observer(() => {
   const { notificationsLength, shiftNotification } = useStore('notificationsStore');
 
   useEffect(() => {
-    console.log(notificationsLength);
     if (notificationsLength > 0) {
       setNotification(shiftNotification());
       setShow(true);

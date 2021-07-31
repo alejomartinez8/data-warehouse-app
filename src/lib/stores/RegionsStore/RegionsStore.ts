@@ -1,14 +1,18 @@
+import { RootStore } from 'lib/stores';
 import { getRegions, getRegion, createRegion, updateRegion, deleteRegion } from 'lib/services';
 import { makeAutoObservable } from 'mobx';
 import { IRegion, ICountry, ICity } from 'lib/types';
 
 export class RegionsStore {
+  private rootStore: RootStore;
+
   regions: IRegion[] = [];
 
   loading = false;
 
-  constructor() {
+  constructor(rootStore: RootStore) {
     makeAutoObservable(this);
+    this.rootStore = rootStore;
   }
 
   setRegions = (regions: IRegion[]) => {
@@ -44,34 +48,49 @@ export class RegionsStore {
 
   fetchCreateRegion = async (route: string, data: IRegion | ICountry | ICity) => {
     try {
-      this.setLoading(true);
       await createRegion(route, data);
+      this.rootStore.notificationsStore.pushNotification({
+        type: 'Success',
+        message: 'Region/Country/City created successfully',
+      });
       await this.fetchRegions();
-      this.setLoading(false);
     } catch (error) {
-      this.setLoading(false);
+      this.rootStore.notificationsStore.pushNotification({
+        type: 'Error',
+        message: 'Error region/country/city create',
+      });
     }
   };
 
   fetchUpddateRegion = async (route: string, id: string, data: IRegion | ICountry | ICity) => {
     try {
-      this.setLoading(true);
       await updateRegion(route, id, data);
+      this.rootStore.notificationsStore.pushNotification({
+        type: 'Success',
+        message: 'Region/Country/City updated successfully',
+      });
       await this.fetchRegions();
-      this.setLoading(false);
     } catch (error) {
-      this.setLoading(false);
+      this.rootStore.notificationsStore.pushNotification({
+        type: 'Error',
+        message: 'Error region/country/city update',
+      });
     }
   };
 
   fetchDeleteRegion = async (route: string, regionId: string) => {
     try {
-      this.setLoading(true);
       await deleteRegion(route, regionId);
+      this.rootStore.notificationsStore.pushNotification({
+        type: 'Success',
+        message: 'Region/Country/City deleted successfully',
+      });
       await this.fetchRegions();
-      this.setLoading(false);
     } catch (error) {
-      this.setLoading(false);
+      this.rootStore.notificationsStore.pushNotification({
+        type: 'Error',
+        message: 'Error region/country/city delete',
+      });
     }
   };
 
