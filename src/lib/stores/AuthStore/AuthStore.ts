@@ -1,4 +1,5 @@
-import { getProfile, postLogout } from 'lib/services';
+import Cookies from 'js-cookie';
+import { getProfile } from 'lib/services';
 import { makeAutoObservable } from 'mobx';
 import { IUser } from 'lib/types';
 
@@ -37,7 +38,7 @@ export class AuthStore {
   };
 
   logout = async () => {
-    await postLogout();
+    Cookies.remove('user');
     this.setAuthState({ isAuth: false, error: null });
     this.setUser(null);
   };

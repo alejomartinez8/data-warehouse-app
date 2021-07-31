@@ -1,5 +1,4 @@
 import { useModal, useStore } from 'lib/hooks';
-import { createRegion, updateRegion } from 'lib/services';
 import React, { FormEvent, useState } from 'react';
 import { Button, FormGroup, FormInput, FormLabel } from 'components/atoms';
 import { IItem } from 'components/molecules';
@@ -21,7 +20,7 @@ export const BodyRegionsForm = ({ item, type, parentId }: IBodyRegionsFormProps)
   };
 
   const [formData, setFormData] = useState(initialState);
-  const { fetchRegions } = useStore('regionsStores');
+  const { fetchRegions, fetchUpddateRegion, fetchCreateRegion } = useStore('regionsStores');
 
   const { name } = formData;
 
@@ -35,13 +34,13 @@ export const BodyRegionsForm = ({ item, type, parentId }: IBodyRegionsFormProps)
     if (item) {
       switch (item.type) {
         case 'region':
-          await updateRegion('regions', item.id, { name });
+          await fetchUpddateRegion('regions', item.id, { name });
           break;
         case 'country':
-          await updateRegion('countries', item.id, { name, regionId: item.parentId });
+          await fetchUpddateRegion('countries', item.id, { name, regionId: item.parentId });
           break;
         case 'city':
-          await updateRegion('cities', item.id, { name, countryId: item.parentId });
+          await fetchUpddateRegion('cities', item.id, { name, countryId: item.parentId });
           break;
         default:
           break;
@@ -49,13 +48,13 @@ export const BodyRegionsForm = ({ item, type, parentId }: IBodyRegionsFormProps)
     } else {
       switch (type) {
         case 'region':
-          await createRegion('regions', { name });
+          await fetchCreateRegion('regions', { name });
           break;
         case 'country':
-          await createRegion('countries', { name, regionId: parentId });
+          await fetchCreateRegion('countries', { name, regionId: parentId });
           break;
         case 'city':
-          await createRegion('cities', { name, countryId: parentId });
+          await fetchCreateRegion('cities', { name, countryId: parentId });
           break;
         default:
           break;
