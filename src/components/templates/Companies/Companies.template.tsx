@@ -37,11 +37,10 @@ export const CompaniesTemplate = observer(() => {
     { key: 'cityName', label: 'City' },
   ];
 
-  const mapItems = () =>
-    companies?.map((company) => ({
-      ...company,
-      cityName: <TableData firstLine={company.city.name} secondLine={company.city.country.name} />,
-    }));
+  const mapItems = companies?.map((company) => ({
+    ...company,
+    cityName: <TableData firstLine={company.city.name} secondLine={company.city.country.name} />,
+  }));
 
   const handleOnCreate = () => {
     setModal({
@@ -108,7 +107,7 @@ export const CompaniesTemplate = observer(() => {
     >
       <TableList
         fields={fields}
-        items={mapItems()}
+        items={mapItems}
         orderBy={orderBy}
         loading={loading}
         handleEditItem={handleOnEdit}
