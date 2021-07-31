@@ -12,7 +12,7 @@ export default function Page() {
     } else {
       router.push('/contacts');
     }
-  }, [router, user]);
+  }, [user]);
 
-  return <p>Redirecting...</p>;
+  return null;
 }

@@ -28,14 +28,13 @@ export const UsersTemplate = observer(() => {
     { key: 'role', label: 'Role' },
   ];
 
-  const mapItems = () =>
-    users?.map((user) => ({
-      id: user.id,
-      firstName: user.firstName,
-      lastName: user.lastName,
-      email: user.email,
-      role: user.role,
-    }));
+  const tableItems = users?.map((user) => ({
+    id: user.id,
+    firstName: user.firstName,
+    lastName: user.lastName,
+    email: user.email,
+    role: user.role,
+  }));
 
   const handleOnCreate = () => {
     setModal({
@@ -95,7 +94,7 @@ export const UsersTemplate = observer(() => {
     >
       <TableList
         fields={fields}
-        items={mapItems()}
+        items={tableItems}
         orderBy={orderBy}
         loading={loading}
         handleEditItem={handleOnEdit}
