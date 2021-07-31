@@ -101,7 +101,6 @@ export const CompaniesTemplate = observer(() => {
     <PageLayout
       singularItem="Company"
       pluralItem="Companies"
-      loading={loading}
       deleteButton={itemsSelected?.length > 0}
       handleOnCreate={handleOnCreate}
       handleOnDelete={handleOnDelete}
@@ -111,6 +110,7 @@ export const CompaniesTemplate = observer(() => {
         fields={fields}
         items={mapItems()}
         orderBy={orderBy}
+        loading={loading}
         handleEditItem={handleOnEdit}
         setItemsSelected={setItemsSelected}
         handleOnSortBy={setOrderBy}

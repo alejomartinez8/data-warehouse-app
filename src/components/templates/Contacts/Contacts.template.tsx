@@ -126,7 +126,6 @@ export const ContactsTemplate = observer(() => {
     <PageLayout
       singularItem="Contact"
       pluralItem="Contacts"
-      loading={loading}
       deleteButton={itemsSelected?.length > 0}
       handleOnCreate={handleOnCreate}
       handleOnDelete={handleOnDelete}
@@ -136,6 +135,7 @@ export const ContactsTemplate = observer(() => {
         fields={fields}
         items={mapItems()}
         orderBy={orderBy}
+        loading={loading}
         handleEditItem={handleOnEdit}
         setItemsSelected={setItemsSelected}
         handleOnSortBy={setOrderBy}

@@ -1,9 +1,11 @@
+import { useEffect, useState } from 'react';
 import { faSort, faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons';
 import { Checkbox } from 'components/atoms';
 import { IField } from 'components/molecules';
 import { checkboxEnum } from 'constans';
 import { observer } from 'mobx-react-lite';
-import { useEffect, useState } from 'react';
+import Skeleton from 'react-loading-skeleton';
+import { nanoid } from 'nanoid';
 import { Icon } from '../Icon/Icon.component';
 import {
   StyledTableContet,
@@ -25,15 +27,26 @@ interface ITableProps {
   fields: IField[];
   items: any[];
   orderBy?: IOrderBy;
+  loading: boolean;
   setItemsSelected: (items: any[]) => void;
   handleEditItem: (item: any) => void;
   handleOnSortBy?: (orderBy: IOrderBy) => void;
 }
 
 export const TableList = observer(
-  ({ fields, items, orderBy, setItemsSelected, handleEditItem, handleOnSortBy }: ITableProps) => {
+  ({
+    fields,
+    items,
+    orderBy,
+    loading,
+    setItemsSelected,
+    handleEditItem,
+    handleOnSortBy,
+  }: ITableProps) => {
     const [itemList, setItemList] = useState(items?.map((item) => ({ ...item, checked: false })));
     const [checkedAll, setCheckedAll] = useState(UNCHECKED);
+
+    const skeletonArray = [...Array(5)].map(() => null);
 
     const handleOnChange = (id: string) => {
       setItemList(
@@ -78,6 +91,23 @@ export const TableList = observer(
       setItemsSelected(itemsSelected);
     }, [itemList]);
 
+    const SkeletonData = () => (
+      <>
+        {skeletonArray.map(() => (
+          <tr key={nanoid(5)}>
+            <td>
+              <Skeleton />
+            </td>
+            {fields.map(() => (
+              <td key={nanoid(5)}>
+                <Skeleton />
+              </td>
+            ))}
+          </tr>
+        ))}
+      </>
+    );
+
     return (
       <StyledTableContet>
         <StyledTable>
@@ -94,7 +124,7 @@ export const TableList = observer(
             </tr>
           </StyledTHead>
           <StyledTBody>
-            {itemList?.length > 0 &&
+            {!loading ? (
               itemList.map((item) => (
                 <StyledTR key={item.id} onClick={() => handleEditItem(item)} checked={item.checked}>
                   <StyledTD>
@@ -109,7 +139,10 @@ export const TableList = observer(
                     <StyledTD key={field.key}>{item[field.key]}</StyledTD>
                   ))}
                 </StyledTR>
-              ))}
+              ))
+            ) : (
+              <SkeletonData />
+            )}
           </StyledTBody>
         </StyledTable>
       </StyledTableContet>

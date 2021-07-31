@@ -9,7 +9,7 @@ import { faGlobeAmericas, faFlag, faCity } from '@fortawesome/free-solid-svg-ico
 
 export const Regions = observer(() => {
   const { user } = useStore('authStore');
-  const { regions, loading, fetchRegions, fetchDeleteRegion } = useStore('regionsStores');
+  const { regions, fetchRegions, fetchDeleteRegion } = useStore('regionsStores');
   const { setModal, closeModal } = useModal();
 
   const isAdmin = user.role === 'ADMIN';
@@ -90,12 +90,7 @@ export const Regions = observer(() => {
   };
 
   return (
-    <PageLayout
-      singularItem="Region"
-      pluralItem="Regions"
-      loading={loading}
-      handleOnCreate={() => handleOnAddItem()}
-    >
+    <PageLayout singularItem="Region" pluralItem="Regions" handleOnCreate={() => handleOnAddItem()}>
       <NestableList
         editItem={isAdmin}
         items={mapToItems(regions)}

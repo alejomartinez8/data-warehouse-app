@@ -88,7 +88,6 @@ export const UsersTemplate = observer(() => {
     <PageLayout
       singularItem="User"
       pluralItem="Users"
-      loading={loading}
       deleteButton={itemsSelected.length > 0}
       handleOnCreate={handleOnCreate}
       handleOnDelete={handleOnDelete}
@@ -98,6 +97,7 @@ export const UsersTemplate = observer(() => {
         fields={fields}
         items={mapItems()}
         orderBy={orderBy}
+        loading={loading}
         handleEditItem={handleOnEdit}
         setItemsSelected={setItemsSelected}
         handleOnSortBy={setOrderBy}

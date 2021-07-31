@@ -13,7 +13,6 @@ export interface IField {
 interface IPageLayoutProps {
   pluralItem: string;
   singularItem: string;
-  loading: boolean;
   exportFields?: boolean;
   importFields?: boolean;
   children?: ReactNode;
@@ -26,7 +25,6 @@ interface IPageLayoutProps {
 export const PageLayout = ({
   pluralItem,
   singularItem,
-  loading,
   exportFields = false,
   importFields = false,
   deleteButton = false,
@@ -68,7 +66,7 @@ export const PageLayout = ({
           </StyledButtonContainer>
         </StyledTitleContainer>
       </CardBox.Title>
-      <CardBox.Content>{loading ? 'Loading...' : children}</CardBox.Content>
+      <CardBox.Content>{children}</CardBox.Content>
     </CardBox>
   </>
 );
