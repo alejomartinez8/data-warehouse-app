@@ -5,3 +5,4 @@ export * from './ContactsStore/ContactsStore';
 export * from './RegionsStore/RegionsStore';
 export * from './CompaniesStore/CompaniesStore';
 export * from './ChannelStore/ChannelStore';
+export * from './NotificationsStore/NotificationsStore';

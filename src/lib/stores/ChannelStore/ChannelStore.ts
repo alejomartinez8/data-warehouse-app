@@ -1,8 +1,11 @@
 import { makeAutoObservable } from 'mobx';
 import { getChannels, createChannel, updateChannel, deleteChannel } from 'lib/services';
 import { IChannel } from 'lib/types';
+import { RootStore } from '..';
 
 export class ChannelsStore {
+  private rootStore: RootStore;
+
   channels: IChannel[] = [];
 
   loading = false;
@@ -32,12 +35,17 @@ export class ChannelsStore {
 
   fetchCreateChannel = async (channel: IChannel) => {
     try {
-      this.setLoading(true);
       await createChannel(channel);
       await this.fetchChannels();
-      this.setLoading(false);
+      this.rootStore.notificationsStore.pushNotification({
+        type: 'Success',
+        message: 'Channel created successfully',
+      });
     } catch (error) {
-      this.setLoading(false);
+      this.rootStore.notificationsStore.pushNotification({
+        type: 'Error',
+        message: 'Error channel create',
+      });
     }
   };
 

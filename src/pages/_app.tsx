@@ -5,7 +5,7 @@ import { ThemeProvider, createGlobalStyle } from 'styled-components';
 import { ModalProvider, StoresProvider } from 'lib/hooks';
 import baseTheme from 'themes/baseTheme';
 import '@fortawesome/fontawesome-svg-core/styles.css';
-import { Layout, AuthGuard } from 'components/organisms';
+import { Layout, AuthGuard, Toast } from 'components/organisms';
 
 const GlobalStyles = createGlobalStyle`
    body{
@@ -43,6 +43,7 @@ function MyApp(props: AppProps) {
             />
           </Head>
           <GlobalStyles />
+          <Toast />
           {Component.requireAuth ? (
             <AuthGuard>
               <Layout>
