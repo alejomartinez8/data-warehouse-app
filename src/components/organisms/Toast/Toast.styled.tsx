@@ -2,50 +2,50 @@ import styled, { css } from 'styled-components';
 
 interface IStyledToastContainer {
   show: boolean;
+  color: 'Success' | 'Error';
 }
 
-export const StyledToastContainer = styled.div<IStyledToastContainer>(
-  ({ show }) => css`
-    display: block;
+export const StyledToastContainer = styled.div<IStyledToastContainer>(({ show, color }) => {
+  const mixinColor = () => {
+    switch (color) {
+      case 'Success':
+        return css`
+          color: #155724;
+          background-color: #d4edda;
+          border-color: #c3e6cb;
+        `;
+
+      case 'Error':
+        return css`
+          color: #721c24;
+          background-color: #f8d7da;
+          border-color: #f5c6cb;
+        `;
+
+      default:
+        return null;
+    }
+  };
+
+  return css`
     opacity: ${show ? 1 : 0};
-    max-width: 350px;
-    min-width: 200px;
-    overflow: hidden;
-    font-size: 0.875rem;
-    background-color: #e7eaec;
-    background-clip: padding-box;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    box-shadow: 0 0.25rem 0.75rem rgb(0 0 0 / 10%);
-    backdrop-filter: blur(10px);
+    padding: 0.75rem 1.25rem;
+    border: 1px solid transparent;
     border-radius: 0.25rem;
     transition: opacity 0.15s linear;
     position: fixed;
     bottom: 50px;
     left: 20px;
     z-index: 3000;
-  `,
-);
+    display: flex;
+    align-items: center;
 
-export const StyledToastHeader = styled.div`
-  display: flex;
-  align-items: center;
-  padding: 0.25rem 0.75rem;
-  color: #6c757d;
-  background-color: rgba(255, 255, 255, 0.85);
-  background-clip: padding-box;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-`;
+    ${mixinColor()}
+  `;
+});
 
 export const StyledToastBody = styled.div`
-  background-color: #fbfbfb;
-  font-size: 0.775rem;
-  padding: 0.75rem;
-`;
-
-export const StyledToastTitle = styled.strong`
-  margin-left: 10px;
-  margin-right: auto;
-  font-weight: bolder;
+  padding: 0 0.75rem;
 `;
 
 export const StyledToastCloseButton = styled.button`
@@ -54,14 +54,12 @@ export const StyledToastCloseButton = styled.button`
   background-color: transparent;
   border: 0;
   appearance: none;
-  margin-left: 0.5rem;
-  margin-bottom: 0.2rem;
+
+  float: right;
   font-size: 1.3rem;
   font-weight: 700;
   font-family: inherit;
-  line-height: 1;
   color: #000;
   text-shadow: 0 1px 0 #fff;
   opacity: 0.5;
-  text-transform: none;
 `;

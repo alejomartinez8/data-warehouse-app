@@ -24,8 +24,10 @@ export const Auth = observer(() => {
   const [signIn, setSignIn] = useState(true);
   const [loading, setLoading] = useState(true);
   const [formData, setFormData] = useState({ email: '', password: '' });
+
   const router = useRouter();
   const { authState, fetchUser } = useStore('authStore');
+  const { pushNotification } = useStore('notificationsStore');
 
   const { email, password } = formData;
 
@@ -40,13 +42,10 @@ export const Auth = observer(() => {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     try {
-      setLoading(true);
       await login(formData);
       await fetchUser();
     } catch (error) {
-      // TODO: Mange error
-      setLoading(true);
-      console.log({ error });
+      pushNotification({ type: 'Error', message: error?.response?.data?.message });
     }
   };
 

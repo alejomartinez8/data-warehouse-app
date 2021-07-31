@@ -1,16 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+import { faInfoCircle, faWindowClose } from '@fortawesome/free-solid-svg-icons';
 import { Icon } from 'components/atoms';
 import { useStore } from 'lib/hooks';
 import { INotificacion } from 'lib/stores';
 import { observer } from 'mobx-react-lite';
-import {
-  StyledToastBody,
-  StyledToastCloseButton,
-  StyledToastContainer,
-  StyledToastHeader,
-  StyledToastTitle,
-} from './Toast.styled';
+import { StyledToastCloseButton, StyledToastContainer, StyledToastBody } from './Toast.styled';
 
 export const Toast = observer(() => {
   const [show, setShow] = useState(false);
@@ -29,15 +23,12 @@ export const Toast = observer(() => {
   const handleOnClose = () => setShow(false);
 
   return (
-    <StyledToastContainer show={show}>
-      <StyledToastHeader>
-        <Icon icon={faInfoCircle} />
-        <StyledToastTitle>{notification?.type}</StyledToastTitle>
-        <StyledToastCloseButton onClick={handleOnClose}>
-          <span aria-hidden="true">x</span>
-        </StyledToastCloseButton>
-      </StyledToastHeader>
+    <StyledToastContainer show={show} color={notification?.type}>
+      <Icon icon={faInfoCircle} />
       <StyledToastBody>{notification?.message}</StyledToastBody>
+      <StyledToastCloseButton onClick={handleOnClose}>
+        <Icon icon={faWindowClose} />
+      </StyledToastCloseButton>
     </StyledToastContainer>
   );
 });
