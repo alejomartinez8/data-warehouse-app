@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Icon, Button } from 'components/atoms';
 import { faPlus, faMinus, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import {
@@ -52,9 +52,7 @@ function RecursiveList({
   handleOnDelete,
   handleOnAddItem,
 }: INestableListProps) {
-  const [itemList, setItemList] = useState(
-    items ? items.map((item) => ({ ...item, collapsed: true })) : [],
-  );
+  const [itemList, setItemList] = useState([]);
 
   const handleOnClick = (itemSelected: IItem) => {
     setItemList(
@@ -63,6 +61,10 @@ function RecursiveList({
       ),
     );
   };
+
+  useEffect(() => {
+    setItemList(items ? items.map((item) => ({ ...item, collapsed: true })) : []);
+  }, [items]);
 
   return (
     <StyledList>
