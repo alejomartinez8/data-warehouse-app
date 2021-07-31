@@ -108,6 +108,8 @@ export const TableList = observer(
       </>
     );
 
+    console.log(itemList);
+
     return (
       <StyledTableContet>
         <StyledTable>
