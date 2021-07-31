@@ -125,6 +125,7 @@ export const TableList = observer(
           </StyledTHead>
           <StyledTBody>
             {!loading ? (
+              itemList.length > 0 &&
               itemList.map((item) => (
                 <StyledTR key={item.id} onClick={() => handleEditItem(item)} checked={item.checked}>
                   <StyledTD>
