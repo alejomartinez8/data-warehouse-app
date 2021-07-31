@@ -28,6 +28,7 @@ export const CompaniesTemplate = observer(() => {
   const [searchQuery, setSearchQuery] = useState('');
   const [orderBy, setOrderBy] = useState<IOrderBy>({ orderBy: 'name', order: 'asc' });
   const [itemsSelected, setItemsSelected] = useState<ICompany[]>([]);
+  const [itemsMapped, setItemsMapped] = useState([]);
 
   const fields: IField[] = [
     { key: 'name', label: 'Name' },
@@ -36,11 +37,6 @@ export const CompaniesTemplate = observer(() => {
     { key: 'phone', label: 'Phone' },
     { key: 'cityName', label: 'City' },
   ];
-
-  const mapItems = companies?.map((company) => ({
-    ...company,
-    cityName: <TableData firstLine={company.city.name} secondLine={company.city.country.name} />,
-  }));
 
   const handleOnCreate = () => {
     setModal({
@@ -92,9 +88,17 @@ export const CompaniesTemplate = observer(() => {
     if (Object.keys(params).length > 0) {
       fetchCompanies(params);
     } else {
-      fetchCompanies();
+      fetchCompanies({ orderBy: 'name', order: 'asc' });
     }
   }, [searchQuery, orderBy]);
+
+  useEffect(() => {
+    const mapItems = companies?.map((company) => ({
+      ...company,
+      cityName: <TableData firstLine={company.city.name} secondLine={company.city.country.name} />,
+    }));
+    setItemsMapped(mapItems);
+  }, [companies]);
 
   return (
     <PageLayout
@@ -107,7 +111,7 @@ export const CompaniesTemplate = observer(() => {
     >
       <TableList
         fields={fields}
-        items={mapItems}
+        items={itemsMapped}
         orderBy={orderBy}
         loading={loading}
         handleEditItem={handleOnEdit}

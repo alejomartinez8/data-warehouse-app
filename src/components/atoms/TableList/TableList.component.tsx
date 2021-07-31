@@ -43,7 +43,9 @@ export const TableList = observer(
     handleEditItem,
     handleOnSortBy,
   }: ITableProps) => {
-    const [itemList, setItemList] = useState(items?.map((item) => ({ ...item, checked: false })));
+    console.log(items);
+
+    const [itemList, setItemList] = useState([]);
     const [checkedAll, setCheckedAll] = useState(UNCHECKED);
 
     const skeletonArray = [...Array(5)].map(() => null);
@@ -77,20 +79,6 @@ export const TableList = observer(
       return faSort;
     };
 
-    useEffect(() => {
-      const itemsSelected = itemList?.filter((item) => item.checked);
-
-      if (itemsSelected?.length > 0 && itemsSelected?.length === itemList?.length) {
-        setCheckedAll(CHECKED);
-      } else if (itemsSelected?.length > 0) {
-        setCheckedAll(INDETERMINATE);
-      } else {
-        setCheckedAll(UNCHECKED);
-      }
-
-      setItemsSelected(itemsSelected);
-    }, [itemList]);
-
     const SkeletonData = () => (
       <>
         {skeletonArray.map(() => (
@@ -108,7 +96,23 @@ export const TableList = observer(
       </>
     );
 
-    console.log(itemList);
+    useEffect(() => {
+      setItemList(items?.map((item) => ({ ...item, checked: false })));
+    }, [items]);
+
+    useEffect(() => {
+      const itemsSelected = itemList?.filter((item) => item.checked);
+
+      if (itemsSelected?.length > 0 && itemsSelected?.length === itemList?.length) {
+        setCheckedAll(CHECKED);
+      } else if (itemsSelected?.length > 0) {
+        setCheckedAll(INDETERMINATE);
+      } else {
+        setCheckedAll(UNCHECKED);
+      }
+
+      setItemsSelected(itemsSelected);
+    }, [itemList]);
 
     return (
       <StyledTableContet>
