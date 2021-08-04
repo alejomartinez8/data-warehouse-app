@@ -1,6 +1,12 @@
 import { RootStore } from 'lib/stores';
 import { makeAutoObservable } from 'mobx';
-import { getContacts, createContact, updateContact, deleteContact } from 'lib/services';
+import {
+  getContacts,
+  createContact,
+  updateContact,
+  deleteContact,
+  getContactsCSV,
+} from 'lib/services';
 import { IContact } from 'lib/types';
 
 export class ContactsStore {
@@ -23,6 +29,23 @@ export class ContactsStore {
     } catch (error) {
       this.setLoading(false);
       this.setContacts([]);
+    }
+  };
+
+  downloadContacts = async (query?) => {
+    try {
+      const data = await getContactsCSV(query);
+      this.rootStore.notificationsStore.pushNotification({
+        type: 'Success',
+        message: 'Contacts are downloading',
+      });
+      return data;
+    } catch (error) {
+      this.rootStore.notificationsStore.pushNotification({
+        type: 'Error',
+        message: 'Error contacts download',
+      });
+      throw error;
     }
   };
 

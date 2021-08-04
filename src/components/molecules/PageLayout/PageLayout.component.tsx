@@ -13,10 +13,10 @@ export interface IField {
 interface IPageLayoutProps {
   pluralItem: string;
   singularItem: string;
-  exportFields?: boolean;
   importFields?: boolean;
   children?: ReactNode;
   deleteButton?: boolean;
+  handleOnExport?: () => void;
   querySearch?: (search: string) => void;
   handleOnCreate?: () => void;
   handleOnDelete?: () => void;
@@ -25,10 +25,10 @@ interface IPageLayoutProps {
 export const PageLayout = ({
   pluralItem,
   singularItem,
-  exportFields = false,
   importFields = false,
   deleteButton = false,
   children,
+  handleOnExport,
   querySearch,
   handleOnCreate,
   handleOnDelete,
@@ -48,8 +48,8 @@ export const PageLayout = ({
                 <Icon icon={faUpload} color="primary" />
               </Button>
             )}
-            {exportFields && (
-              <Button color="primary" outline dropdown>
+            {handleOnExport && (
+              <Button color="primary" outline onClick={handleOnExport}>
                 Export {pluralItem}
               </Button>
             )}

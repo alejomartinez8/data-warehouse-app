@@ -14,6 +14,7 @@ import {
 } from 'components/atoms';
 import { IContact } from 'lib/types';
 import { ChannelBadge } from 'components/molecules/ChannelBadge/ChannelBadge.componet';
+import { downloadFile } from 'utils';
 
 const EnumLabelContact = {
   name: 'firstName',
@@ -26,7 +27,9 @@ const EnumLabelContact = {
 export const ContactsTemplate = observer(() => {
   const { setModal, closeModal } = useModal();
 
-  const { contacts, loading, fetchContacts, fetchDeleteContacts } = useStore('contactsStore');
+  const { contacts, loading, fetchContacts, downloadContacts, fetchDeleteContacts } = useStore(
+    'contactsStore',
+  );
 
   const [searchQuery, setSearchQuery] = useState('');
   const [orderBy, setOrderBy] = useState<IOrderBy>({ orderBy: 'name', order: 'asc' });
@@ -105,21 +108,28 @@ export const ContactsTemplate = observer(() => {
     });
   };
 
-  const mapOrderBy = () => ({
-    orderBy: EnumLabelContact[orderBy.orderBy] || '',
-    order: orderBy.order,
-  });
+  const getParams = () => {
+    const mapOrderBy = () => ({
+      orderBy: EnumLabelContact[orderBy.orderBy] || '',
+      order: orderBy.order,
+    });
 
-  useEffect(() => {
     let params: { searchQuery?: string; orderBy?: string; order?: string } = {};
     if (searchQuery) params.searchQuery = searchQuery;
     if (orderBy) params = { ...params, ...mapOrderBy() };
 
-    if (Object.keys(params).length > 0) {
-      fetchContacts(params);
-    } else {
-      fetchContacts();
-    }
+    return params;
+  };
+
+  const handleOnExport = async () => {
+    const params = getParams();
+    const data = await downloadContacts(params);
+    downloadFile(data, 'contacts', '.csv');
+  };
+
+  useEffect(() => {
+    const params = getParams();
+    fetchContacts(params);
   }, [searchQuery, orderBy]);
 
   return (
@@ -127,6 +137,7 @@ export const ContactsTemplate = observer(() => {
       singularItem="Contact"
       pluralItem="Contacts"
       deleteButton={itemsSelected?.length > 0}
+      handleOnExport={handleOnExport}
       handleOnCreate={handleOnCreate}
       handleOnDelete={handleOnDelete}
       querySearch={setSearchQuery}

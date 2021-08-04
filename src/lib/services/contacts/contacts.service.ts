@@ -8,6 +8,11 @@ export const getContacts = async (params?): Promise<IContact[]> =>
     .then((response) => response.data)
     .catch((err: AxiosError) => unauthorizedHandle(err));
 
+export const getContactsCSV = async (params?) =>
+  ApiInstance.get('/contacts/csv', { params })
+    .then((response) => response.data)
+    .catch((err: AxiosError) => unauthorizedHandle(err));
+
 export const createContact = async (data: IContact) =>
   ApiInstance.post(`/contacts`, data)
     .then((response) => response.data)
