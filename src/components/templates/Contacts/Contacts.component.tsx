@@ -53,7 +53,7 @@ export const ContactsTemplate = observer(() => {
           secondLine={contact.email}
         />
       ),
-      companyName: contact.company.name,
+      companyName: contact.company?.name,
       cityData: (
         <TableData firstLine={contact.city?.name} secondLine={contact.city?.country?.name} />
       ),
