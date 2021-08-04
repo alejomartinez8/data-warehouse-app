@@ -29,13 +29,12 @@ export const BodyUserForm = ({ user }: IBodyUsersFormProps) => {
     email: user ? user.email : '',
     role: user ? user.role : 'BASIC',
     password: '',
-    repeatPassword: '',
   };
 
   const [formData, setFormData] = useState(initialState);
   const { fetchUsers, fetchUpddateUser, fetchCreateUser } = useStore('usersStore');
 
-  const { firstName, lastName, email, role, password, repeatPassword } = formData;
+  const { firstName, lastName, email, role, password } = formData;
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -43,8 +42,6 @@ export const BodyUserForm = ({ user }: IBodyUsersFormProps) => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-
-    delete formData.repeatPassword;
 
     if (user) {
       if (!password) delete formData.password;
@@ -60,7 +57,7 @@ export const BodyUserForm = ({ user }: IBodyUsersFormProps) => {
   return (
     <form onSubmit={handleSubmit} id="user-form">
       <FormRow>
-        <FormGroup widthCol={1 / 2}>
+        <FormGroup widthCol={1 / 3}>
           <FormLabel>First Name*</FormLabel>
           <FormInput
             type="text"
@@ -70,7 +67,7 @@ export const BodyUserForm = ({ user }: IBodyUsersFormProps) => {
             required
           />
         </FormGroup>
-        <FormGroup widthCol={1 / 2}>
+        <FormGroup widthCol={1 / 3}>
           <FormLabel>Last Name*</FormLabel>
           <FormInput
             type="text"
@@ -79,12 +76,6 @@ export const BodyUserForm = ({ user }: IBodyUsersFormProps) => {
             onChange={handleChange}
             required
           />
-        </FormGroup>
-      </FormRow>
-      <FormRow>
-        <FormGroup widthCol={2 / 3}>
-          <FormLabel>E-mail*</FormLabel>
-          <FormInput type="email" name="email" value={email} onChange={handleChange} required />
         </FormGroup>
         <FormGroup widthCol={1 / 3}>
           <FormLabel htmlFor="role">Role*</FormLabel>
@@ -96,6 +87,10 @@ export const BodyUserForm = ({ user }: IBodyUsersFormProps) => {
       </FormRow>
       <FormRow>
         <FormGroup widthCol={1 / 2}>
+          <FormLabel>E-mail*</FormLabel>
+          <FormInput type="email" name="email" value={email} onChange={handleChange} required />
+        </FormGroup>
+        <FormGroup widthCol={1 / 2}>
           <FormLabel>Password{!user ? '*' : ''}</FormLabel>
           <FormInput
             type="password"
@@ -103,16 +98,6 @@ export const BodyUserForm = ({ user }: IBodyUsersFormProps) => {
             value={password}
             onChange={handleChange}
             required={!user}
-          />
-        </FormGroup>
-        <FormGroup widthCol={1 / 2}>
-          <FormLabel>Repeat Password{password ? '*' : ''}</FormLabel>
-          <FormInput
-            type="password"
-            name="repeatPassword"
-            value={repeatPassword}
-            onChange={handleChange}
-            required={!!password}
           />
         </FormGroup>
       </FormRow>
