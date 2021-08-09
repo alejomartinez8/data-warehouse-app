@@ -56,8 +56,6 @@ export const updateContact = async (id: string, data: IContact) => {
     }
   });
 
-  console.log(basePath);
-
   return axios
     .put(`${basePath}/contacts/${id}`, formdata, {
       headers: {
