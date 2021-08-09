@@ -59,33 +59,35 @@ export class ContactsStore {
 
   fetchCreateContact = async (contact: IContact) => {
     try {
-      await createContact(contact);
+      const data = await createContact(contact);
       this.rootStore.notificationsStore.pushNotification({
         type: 'Success',
         message: 'Contact created successfully',
       });
-      await this.fetchContacts();
+      return data;
     } catch (error) {
       this.rootStore.notificationsStore.pushNotification({
         type: 'Error',
         message: 'Error contact create',
       });
+      throw error;
     }
   };
 
   fetchUpddateContact = async (contact: IContact) => {
     try {
-      await updateContact(contact.id, contact);
+      const data = await updateContact(contact.id, contact);
       this.rootStore.notificationsStore.pushNotification({
         type: 'Success',
         message: 'Contact updated successfully',
       });
-      await this.fetchContacts();
+      return data;
     } catch (error) {
       this.rootStore.notificationsStore.pushNotification({
         type: 'Error',
         message: 'Error contact update',
       });
+      throw error;
     }
   };
 

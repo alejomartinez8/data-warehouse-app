@@ -7,3 +7,4 @@ export * from './NestableList/NestableList.component';
 export * from './PageLayout/PageLayout.component';
 export * from './RegionsSelect/RegionSelect.component';
 export * from './ChannelSelect/ChannelSelect.component';
+export * from './AvatarUploader/AvatarUploader.component';

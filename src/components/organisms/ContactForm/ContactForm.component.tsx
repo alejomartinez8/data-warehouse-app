@@ -14,9 +14,10 @@ import {
   FooterConfirmation,
 } from 'components/atoms';
 import { observer } from 'mobx-react-lite';
-import { ChannelSelect, IChannelWithKey, RegionSelect } from 'components/molecules';
+import { ChannelSelect, IChannelWithKey, RegionSelect, AvatarUploader } from 'components/molecules';
 import { toJS } from 'mobx';
 import { nanoid } from 'nanoid';
+import { uploadAvatarContact } from 'lib/services';
 
 interface IBodyContactsFormProps {
   contact?: IContact;
@@ -37,6 +38,7 @@ export const BodyContactForm = observer(({ contact }: IBodyContactsFormProps) =>
   };
 
   const [formData, setFormData] = useState(initialState);
+  const [avatarFile, setAvatarFile] = useState<File>(null);
 
   const { fetchContacts, fetchCreateContact, fetchUpddateContact } = useStore('contactsStore');
   const { companies, fetchCompanies } = useStore('companiesStores');
@@ -82,6 +84,10 @@ export const BodyContactForm = observer(({ contact }: IBodyContactsFormProps) =>
     }
   };
 
+  const handleOnUploadFile = (file: File) => {
+    setAvatarFile(file);
+  };
+
   const handleOnChangeChannel = (channel: IChannelWithKey) => {
     setChannels(channels.map((item) => (item.key === channel.key ? channel : item)));
   };
@@ -99,9 +105,11 @@ export const BodyContactForm = observer(({ contact }: IBodyContactsFormProps) =>
 
     if (contact) {
       await fetchUpddateContact({ ...formData, cityId, channels });
+      if (avatarFile) await uploadAvatarContact(avatarFile);
     } else {
       await fetchCreateContact({ ...formData, cityId, channels });
     }
+
     closeModal();
     await fetchContacts();
   };
@@ -150,6 +158,9 @@ export const BodyContactForm = observer(({ contact }: IBodyContactsFormProps) =>
 
   return (
     <form onSubmit={handleSubmit} id="contact-form">
+      <FormRow>
+        <AvatarUploader onFileSelect={handleOnUploadFile} />
+      </FormRow>
       <FormRow>
         <FormGroup widthCol={1 / 2}>
           <FormLabel>First Name*</FormLabel>

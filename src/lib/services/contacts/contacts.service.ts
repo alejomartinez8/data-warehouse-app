@@ -18,12 +18,17 @@ export const createContact = async (data: IContact) =>
     .then((response) => response.data)
     .catch((err: AxiosError) => unauthorizedHandle(err));
 
-export const updateContact = async (id: string, data: IContact) =>
-  ApiInstance.put(`/contacts/${id}`, data)
-    .then((response) => response.data)
-    .catch((err: AxiosError) => unauthorizedHandle(err));
+export const updateContact = async (id: string, data) =>
+  ApiInstance.put(`/contacts/${id}`, data).then((response) => response.data);
 
 export const deleteContact = async (id: string) =>
   ApiInstance.delete(`/contacts/${id}`)
     .then((response) => response.data)
     .catch((err: AxiosError) => unauthorizedHandle(err));
+
+export const uploadAvatarContact = async (file: File) => {
+  const formdata = new FormData();
+  formdata.append('file', file, file.name);
+
+  return ApiInstance.post('/contacts/upload', formdata).then((response) => response.data);
+};

@@ -88,6 +88,7 @@ export interface IContact {
   };
   interest?: string;
   channels?: IChannelsOnContact[];
+  file?: File;
 }
 
 export interface IChannel {
