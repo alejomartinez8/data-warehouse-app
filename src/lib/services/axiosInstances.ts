@@ -1,9 +1,15 @@
 import axios from 'axios';
 
-const createApiInstance = () =>
-  axios.create({
-    baseURL: '/api',
-    withCredentials: true,
-  });
+export const ApiInstance = () => {
+  if (typeof window !== 'undefined') {
+    const token = localStorage.getItem('token');
 
-export const ApiInstance = createApiInstance();
+    return axios.create({
+      baseURL: '/api',
+      withCredentials: true,
+      headers: { Authorization: `Bearer ${token}` },
+    });
+  }
+
+  return null;
+};

@@ -9,12 +9,14 @@ const { publicRuntimeConfig } = getConfig();
 const basePath = publicRuntimeConfig.API_URL;
 
 export const getContacts = async (params?): Promise<IContact[]> =>
-  ApiInstance.get(`${basePath}/contacts`, { params })
+  ApiInstance()
+    .get(`${basePath}/contacts`, { params })
     .then((response) => response.data)
     .catch((err: AxiosError) => unauthorizedHandle(err));
 
 export const getContactsCSV = async (params?) =>
-  ApiInstance.get(`${basePath}/contacts/csv`, { params })
+  ApiInstance()
+    .get(`${basePath}/contacts/csv`, { params })
     .then((response) => response.data)
     .catch((err: AxiosError) => unauthorizedHandle(err));
 
@@ -28,9 +30,10 @@ export const createContact = async (data: IContact) => {
     }
   });
 
-  return ApiInstance.post(`${basePath}/contacts`, formdata, {
-    headers: { 'Content-Type': 'multipart/form-data', Accept: 'application/json' },
-  })
+  return ApiInstance()
+    .post(`${basePath}/contacts`, formdata, {
+      headers: { 'Content-Type': 'multipart/form-data', Accept: 'application/json' },
+    })
     .then((response) => response.data)
     .catch((err: AxiosError) => unauthorizedHandle(err));
 };
@@ -45,15 +48,17 @@ export const updateContact = async (id: string, data: IContact) => {
     }
   });
 
-  return ApiInstance.put(`${basePath}/contacts/${id}`, formdata, {
-    headers: { 'Content-Type': 'multipart/form-data', Accept: 'application/json' },
-  })
+  return ApiInstance()
+    .put(`${basePath}/contacts/${id}`, formdata, {
+      headers: { 'Content-Type': 'multipart/form-data', Accept: 'application/json' },
+    })
     .then((response) => response.data)
     .catch((err: AxiosError) => unauthorizedHandle(err));
 };
 
 export const deleteContact = async (id: string) =>
-  ApiInstance.delete(`${basePath}/contacts/${id}`)
+  ApiInstance()
+    .delete(`${basePath}/contacts/${id}`)
     .then((response) => response.data)
     .catch((err: AxiosError) => unauthorizedHandle(err));
 
@@ -61,9 +66,10 @@ export const uploadAvatarContact = async (file: File) => {
   const formdata = new FormData();
   formdata.append('file', file, file.name);
 
-  return ApiInstance.post(`${basePath}/contacts/upload`, formdata, {
-    headers: { 'Content-Type': 'multipart/form-data' },
-  })
+  return ApiInstance()
+    .post(`${basePath}/contacts/upload`, formdata, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    })
     .then((response) => response.data)
     .catch((err: AxiosError) => unauthorizedHandle(err));
 };

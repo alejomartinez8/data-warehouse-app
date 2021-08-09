@@ -42,7 +42,8 @@ export const Auth = observer(() => {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     try {
-      await login(formData);
+      const response = await login(formData);
+      localStorage.setItem('token', response.token);
       await fetchUser();
     } catch (error) {
       pushNotification({ type: 'Error', message: error?.response?.data?.message });
