@@ -17,7 +17,6 @@ import { observer } from 'mobx-react-lite';
 import { ChannelSelect, IChannelWithKey, RegionSelect, AvatarUploader } from 'components/molecules';
 import { toJS } from 'mobx';
 import { nanoid } from 'nanoid';
-import { uploadAvatarContact } from 'lib/services';
 
 interface IBodyContactsFormProps {
   contact?: IContact;
@@ -35,6 +34,7 @@ export const BodyContactForm = observer(({ contact }: IBodyContactsFormProps) =>
     email: contact?.email || '',
     companyId: contact?.companyId || '',
     interest: contact?.interest || '0',
+    avatar: contact?.avatar || '',
   };
 
   const [formData, setFormData] = useState(initialState);
@@ -55,7 +55,7 @@ export const BodyContactForm = observer(({ contact }: IBodyContactsFormProps) =>
   const [cities, setCities] = useState<ICity[]>([]);
   const [channels, setChannels] = useState<IChannelWithKey[]>([]);
 
-  const { firstName, lastName, position, email, companyId, interest } = formData;
+  const { firstName, lastName, position, email, companyId, interest, avatar } = formData;
 
   const handleOnChange = (e) => {
     switch (e.target.name) {
@@ -104,10 +104,9 @@ export const BodyContactForm = observer(({ contact }: IBodyContactsFormProps) =>
     e.preventDefault();
 
     if (contact) {
-      await fetchUpddateContact({ ...formData, cityId, channels });
-      if (avatarFile) await uploadAvatarContact(avatarFile);
+      await fetchUpddateContact({ ...formData, cityId, channels, file: avatarFile });
     } else {
-      await fetchCreateContact({ ...formData, cityId, channels });
+      await fetchCreateContact({ ...formData, cityId, channels, file: avatarFile });
     }
 
     closeModal();
@@ -157,9 +156,15 @@ export const BodyContactForm = observer(({ contact }: IBodyContactsFormProps) =>
   }, []);
 
   return (
-    <form onSubmit={handleSubmit} id="contact-form">
+    <form
+      onSubmit={handleSubmit}
+      id="contact-form"
+      acceptCharset="UTF-8"
+      encType="multipart/form-data"
+      method="POST"
+    >
       <FormRow>
-        <AvatarUploader onFileSelect={handleOnUploadFile} />
+        <AvatarUploader onFileSelect={handleOnUploadFile} avatar={avatar} />
       </FormRow>
       <FormRow>
         <FormGroup widthCol={1 / 2}>

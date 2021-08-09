@@ -8,6 +8,7 @@ import { InputSearch } from '../InputSearch/InputSearch.component';
 export interface IField {
   key: string;
   label: string;
+  sort?: boolean;
 }
 
 interface IPageLayoutProps {

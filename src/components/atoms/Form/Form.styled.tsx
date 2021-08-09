@@ -17,6 +17,7 @@ export const StyledFormGroup = styled.div<IStyledFormGroup>(
 export const StyledFormRow = styled.div`
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 `;
 
 export const StyledFormLabel = styled.label`

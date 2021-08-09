@@ -6,6 +6,7 @@ import { ModalProvider, StoresProvider } from 'lib/hooks';
 import baseTheme from 'themes/baseTheme';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import { Layout, AuthGuard, Toast } from 'components/organisms';
+import App from 'next/app';
 
 const GlobalStyles = createGlobalStyle`
    body{
@@ -58,5 +59,10 @@ function MyApp(props: AppProps) {
     </StoresProvider>
   );
 }
+
+MyApp.getInitialProps = async (appContext) => {
+  const appProps = await App.getInitialProps(appContext);
+  return { ...appProps };
+};
 
 export default MyApp;

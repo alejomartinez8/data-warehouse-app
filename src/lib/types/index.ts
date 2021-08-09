@@ -89,6 +89,8 @@ export interface IContact {
   interest?: string;
   channels?: IChannelsOnContact[];
   file?: File;
+  avatar?: string;
+  cloudinaryId?: string;
 }
 
 export interface IChannel {

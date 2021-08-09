@@ -4,6 +4,10 @@ import Cookies from 'js-cookie';
 
 export function unauthorizedHandle(error: AxiosError) {
   Cookies.remove('user');
-  Router.replace('/login');
+
+  if (error.code === '401') {
+    Router.replace('/login');
+  }
+
   throw error;
 }

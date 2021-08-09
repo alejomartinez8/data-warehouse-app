@@ -11,6 +11,7 @@ import {
   TableData,
   ProgressBar,
   IOrderBy,
+  AvatarPreview,
 } from 'components/atoms';
 import { IContact } from 'lib/types';
 import { ChannelBadge } from 'components/molecules/ChannelBadge/ChannelBadge.componet';
@@ -36,17 +37,19 @@ export const ContactsTemplate = observer(() => {
   const [itemsSelected, setItemsSelected] = useState([]);
 
   const fields: IField[] = [
-    { key: 'name', label: 'Contact' },
-    { key: 'cityData', label: 'City/Country' },
-    { key: 'companyName', label: 'Company' },
-    { key: 'position', label: 'Position' },
-    { key: 'channelLabel', label: 'Channel' },
-    { key: 'interestBar', label: 'Interest' },
+    { key: 'avatarImage', label: '', sort: false },
+    { key: 'name', label: 'Contact', sort: true },
+    { key: 'cityData', label: 'City/Country', sort: true },
+    { key: 'companyName', label: 'Company', sort: true },
+    { key: 'position', label: 'Position', sort: true },
+    { key: 'channelLabel', label: 'Channel', sort: false },
+    { key: 'interestBar', label: 'Interest', sort: true },
   ];
 
   const mapItems = () =>
     contacts?.map((contact) => ({
       ...contact,
+      avatarImage: <AvatarPreview src={contact.avatar} size={50} />,
       name: (
         <TableData
           firstLine={`${contact.firstName} ${contact.lastName}`}

@@ -120,7 +120,7 @@ export const TableList = ({
             </th>
             {fields.map((field) => (
               <StyledTH key={field.key} onClick={() => handleOnClickTH(field.key)}>
-                {field.label} <Icon icon={getSortIcon(field.key)} />
+                {field.label} {field.sort ? <Icon icon={getSortIcon(field.key)} /> : null}
               </StyledTH>
             ))}
           </tr>
