@@ -22,10 +22,10 @@ export const UsersTemplate = observer(() => {
   const [itemsSelected, setItemsSelected] = useState<IUser[]>([]);
 
   const fields: IField[] = [
-    { key: 'firstName', label: 'First Name' },
-    { key: 'lastName', label: 'Last Name' },
-    { key: 'email', label: 'Email' },
-    { key: 'role', label: 'Role' },
+    { key: 'firstName', label: 'First Name', sort: true },
+    { key: 'lastName', label: 'Last Name', sort: true },
+    { key: 'email', label: 'Email', sort: true },
+    { key: 'role', label: 'Role', sort: true },
   ];
 
   const tableItems = users?.map((user) => ({

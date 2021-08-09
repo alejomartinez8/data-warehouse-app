@@ -31,11 +31,11 @@ export const CompaniesTemplate = observer(() => {
   const [itemsMapped, setItemsMapped] = useState([]);
 
   const fields: IField[] = [
-    { key: 'name', label: 'Name' },
-    { key: 'address', label: 'Address' },
-    { key: 'email', label: 'Email' },
-    { key: 'phone', label: 'Phone' },
-    { key: 'cityName', label: 'City' },
+    { key: 'name', label: 'Name', sort: true },
+    { key: 'address', label: 'Address', sort: true },
+    { key: 'email', label: 'Email', sort: true },
+    { key: 'phone', label: 'Phone', sort: true },
+    { key: 'cityName', label: 'City', sort: true },
   ];
 
   const handleOnCreate = () => {
