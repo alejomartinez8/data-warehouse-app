@@ -17,9 +17,9 @@ API REST: [data-warehouse-api](https://github.com/alejomartinez8/data-warehouse-
 
 ## Getting Started
 
-### Installation API Database
+### Install & Run API Database
 
-Visit https://github.com/alejomartinez8/data-warehouse-api/blob/master/README.md to install API & connection with Data Base
+To install and run API visit https://github.com/alejomartinez8/data-warehouse-api/blob/master/README.md 
 
 ### Environment vars
 
