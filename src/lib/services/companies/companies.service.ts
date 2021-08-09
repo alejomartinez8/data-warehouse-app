@@ -5,24 +5,24 @@ import { ApiInstance } from '../axiosInstances';
 
 export const getCompanies = async (params?): Promise<ICompany[]> =>
   ApiInstance()
-    .get('/companies', { params })
+    .get('/api/companies', { params })
     .then((response) => response.data)
     .catch((err: AxiosError) => unauthorizedHandle(err));
 
 export const createCompany = async (data: ICompany) =>
   ApiInstance()
-    .post(`/companies`, data)
+    .post(`/api/companies`, data)
     .then((response) => response.data)
     .catch((err: AxiosError) => unauthorizedHandle(err));
 
 export const updateCompany = async (id: string, data: IUpdateCompanyDto) =>
   ApiInstance()
-    .put(`/companies/${id}`, data)
+    .put(`/api/companies/${id}`, data)
     .then((response) => response.data)
     .catch((err: AxiosError) => unauthorizedHandle(err));
 
 export const deleteCompany = async (id: string) =>
   ApiInstance()
-    .delete(`/companies/${id}`)
+    .delete(`/api/companies/${id}`)
     .then((response) => response.data)
     .catch((err: AxiosError) => unauthorizedHandle(err));

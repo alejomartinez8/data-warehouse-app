@@ -7,30 +7,30 @@ export const getRegions = async (
   route: 'regions' | 'countries' | 'cities',
 ): Promise<IRegion[] | ICountry[] | ICity[]> =>
   ApiInstance()
-    .get(`/${route}`)
+    .get(`/api/${route}`)
     .then((response) => response.data)
     .catch((err: AxiosError) => unauthorizedHandle(err));
 
 export const getRegion = async (route: string, id: string): Promise<IRegion | ICountry | ICity> =>
   ApiInstance()
-    .get(`/${route}/${id}`)
+    .get(`/api/${route}/${id}`)
     .then((response) => response.data)
     .catch((err: AxiosError) => unauthorizedHandle(err));
 
 export const createRegion = async (route: string, data: IRegion | ICountry | ICity) =>
   ApiInstance()
-    .post(`/${route}`, data)
+    .post(`/api/${route}`, data)
     .then((response) => response.data)
     .catch((err: AxiosError) => unauthorizedHandle(err));
 
 export const updateRegion = async (route: string, id: string, data: IRegion | ICountry | ICity) =>
   ApiInstance()
-    .put(`/${route}/${id}`, data)
+    .put(`/api/${route}/${id}`, data)
     .then((response) => response.data)
     .catch((err: AxiosError) => unauthorizedHandle(err));
 
 export const deleteRegion = async (route: string, id: string) =>
   ApiInstance()
-    .delete(`/${route}/${id}`)
+    .delete(`/api/${route}/${id}`)
     .then((response) => response.data)
     .catch((err: AxiosError) => unauthorizedHandle(err));

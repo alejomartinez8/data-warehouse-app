@@ -5,7 +5,6 @@ export const ApiInstance = () => {
     const token = localStorage.getItem('token');
 
     return axios.create({
-      baseURL: '/api',
       withCredentials: true,
       headers: { Authorization: `Bearer ${token}` },
     });
